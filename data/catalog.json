@@ -1,6 +1,6 @@
 {
   "schema": "z3itq3ist-gallery/v1",
-  "exportedAt": "2026-11-27T12:01:32.367Z",
+  "exportedAt": "2026-11-27T12:13:54.971Z",
   "monthlyFeaturedId": "work-02",
   "userWorks": [
     {
@@ -22,7 +22,9 @@
       "frameBg": "#ebe7de"
     }
   ],
-  "admires": {},
+  "admires": {
+    "work-03": 7
+  },
   "notes": {
     "work-02": [
       {
