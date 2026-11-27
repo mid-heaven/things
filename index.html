@@ -7251,6 +7251,8 @@
 /* ============== END OF PHASE 4 — PASTE PHASE 5 DIRECTLY BELOW ============== */
  /* =========================================================================
 
+  /* =========================================================================
+
    GALLERY V2 — PHASE 5 OF 5
 
    WORK SHEET, CURATOR DRAWER, GITHUB SYNC, PIN LOCK, GESTURES & BOOT
@@ -8143,8 +8145,6 @@
 
     state.works.unshift(newWork);
 
-    /* Normalize sequential order indices */
-
     state.works.sort((a, b) => a.order - b.order).forEach((w, i) => { w.order = i; });
 
     queueSave();
@@ -8183,8 +8183,6 @@
 
 
 
-    /* Populate identity fields */
-
     document.getElementById('cfgTitle').value = state.identity.title || '';
 
     document.getElementById('cfgSubtitle').value = state.identity.subtitle || '';
@@ -8195,8 +8193,6 @@
 
 
 
-    /* Populate GitHub fields */
-
     document.getElementById('ghUser').value = state.gh.user || '';
 
     document.getElementById('ghRepo').value = state.gh.repo || '';
@@ -8206,8 +8202,6 @@
     document.getElementById('ghToken').value = state.gh.token || '';
 
 
-
-    /* Populate Security PIN status */
 
     document.getElementById('cfgPinInput').value = '';
 
@@ -8583,11 +8577,29 @@
 
 
 
-      /* Clean cloned index.html without open modals or curator class */
+      /* Clean cloned index.html: strip toast, open modals, drawers, and live DOM state */
 
       const clone = document.documentElement.cloneNode(true);
 
-      clone.querySelectorAll('.overlay.open, .drawer-overlay.open, .zoom-room.open, .tour-room.open').forEach(el => el.classList.remove('open'));
+      clone.querySelectorAll('.overlay.open, .drawer-overlay.open, .zoom-room.open, .tour-room.open, .filter-drawer.open, .bulk-bar.open').forEach(el => el.classList.remove('open'));
+
+      const clonedToast = clone.querySelector('#toast');
+
+      if (clonedToast) {
+
+        clonedToast.classList.remove('show');
+
+        clonedToast.textContent = '';
+
+      }
+
+      const clonedStage = clone.querySelector('#galleryStage');
+
+      if (clonedStage) clonedStage.innerHTML = '';
+
+      const clonedEmpty = clone.querySelector('#emptyWall');
+
+      if (clonedEmpty) clonedEmpty.style.display = 'none';
 
       const clonedBody = clone.querySelector('body');
 
@@ -10119,8 +10131,6 @@
 
 
 
-      /* Ctrl+Shift+V (or Cmd+Shift+V) toggles Visitor / Curator Mode */
-
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'v') {
 
         e.preventDefault();
@@ -10281,6 +10291,20 @@
 
   async function boot() {
 
+    /* Always clear any stale toast message baked into an exported HTML copy */
+
+    const toastEl = document.getElementById('toast');
+
+    if (toastEl) {
+
+      toastEl.classList.remove('show');
+
+      toastEl.textContent = '';
+
+    }
+
+
+
     const params = new URLSearchParams(location.search);
 
     if (params.has('visitor')) state.isCurator = false;
@@ -10313,9 +10337,9 @@
 
 </script>
 
+</body>
 
+</html>
 
+<!-- ===================== END OF PHASE 5 — GALLERY V2 COMPLETE ===================== -->
 
-
-
-</body></html>
