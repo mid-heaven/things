@@ -1,0 +1,21 @@
+{
+  "schema": "z3-gallery-v2",
+  "savedAt": "2026-11-27T12:33:56.308Z",
+  "identity": {
+    "title": "The Gallery of Quietly Kept Things",
+    "subtitle": "Ordinary objects preserved with the quiet attention of a museum wall.",
+    "footer": "“Please do not tap the glass. Some memories are still settling.”",
+    "publicBooklet": true
+  },
+  "rooms": [
+    "Main Room",
+    "Objects",
+    "Paper & Notes",
+    "Phantom Room"
+  ],
+  "featuredId": "",
+  "curatorPin": "",
+  "wall": "dark",
+  "density": "spacious",
+  "works": []
+}
