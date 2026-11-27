@@ -1,6 +1,6 @@
 {
   "schema": "z3-gallery-v2",
-  "savedAt": "2026-11-27T12:33:56.308Z",
+  "savedAt": "2026-11-27T12:47:14.028Z",
   "identity": {
     "title": "The Gallery of Quietly Kept Things",
     "subtitle": "Ordinary objects preserved with the quiet attention of a museum wall.",
@@ -15,7 +15,7 @@
   ],
   "featuredId": "",
   "curatorPin": "",
-  "wall": "dark",
+  "wall": "plaster",
   "density": "spacious",
   "works": []
 }
