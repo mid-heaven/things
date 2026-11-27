@@ -6599,76 +6599,49 @@ ${items}
 
 </script>
 
-
-<!-- VISITOR VIEW MODE (Paste right before </body>) -->
+<!-- VISITOR VIEW (Paste AFTER </script> and BEFORE </body>) -->
 <style>
   body.visitor-mode [data-curator-only="true"],
-  body.visitor-mode input[type="color"] {
+  body.visitor-mode input[type="color"],
+  body.visitor-mode input[type="file"] {
     display: none !important;
   }
-  #visitorExitHint {
-    position: fixed;
-    bottom: 14px;
-    right: 14px;
-    z-index: 9999;
-    font: 11px/1.2 'JetBrains Mono', monospace;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 6px 10px;
-    border: 1px solid rgba(143, 179, 154, 0.35);
-    background: rgba(13, 16, 17, 0.85);
-    color: #c8d3cd;
-    cursor: pointer;
-    opacity: 0.45;
-    transition: opacity 0.2s;
-  }
-  #visitorExitHint:hover { opacity: 1; }
 </style>
 <script>
   (function () {
     const params = new URLSearchParams(location.search);
-    const isHosted = location.protocol.startsWith('http') &&
-      !['localhost', '127.0.0.1'].includes(location.hostname);
+    // Visitor View is ON by default everywhere. Add ?curator=1 to unlock editing.
+    let isVisitor = !params.has('curator');
 
-    let isVisitor = params.has('curator')
-      ? false
-      : (params.has('visitor') || isHosted);
+    const KEEP_BTN = /^(wall|chronicle|index|dark|light|plaster|all|all works|examine|zoom|flip|close|back|next|prev|previous|play|pause|audio|listen|original|scan|wire|wireframe|chrome|clay|×|✕|←|→|\+|\-|−|\d+x|1x)$/i;
+    const HIDE_TEXT = /(^\+\s*\w+|add\s|new\s|catalog|edit|delete|remove|github|publish|sync|export|import|backup|zip|upload|studio|backdrop|background|swatch|booklet|save|draft|token|manage|curator|print)/i;
+    const HIDE_META = /(add|edit|del|remove|github|sync|export|import|studio|catalog|upload|drop|swatch|bg-pick|bgpick|color-pick|colorpick|curator|booklet|note-form|pin-add|admin)/i;
 
-    const CURATOR_PATTERNS = [
-      /^\+?\s*add\b/i,
-      /\bedit\b/i,
-      /\bdelete\b/i,
-      /\bremove\b/i,
-      /\bgithub\b/i,
-      /\bsync\b/i,
-      /\bexport\b/i,
-      /\bimport\b/i,
-      /\bbackdrop\b/i,
-      /\bpicture background\b/i
-    ];
+    function markHidden(el) {
+      if (el && !el.hasAttribute('data-curator-only')) {
+        el.setAttribute('data-curator-only', 'true');
+      }
+    }
 
     function tagCuratorControls() {
       document.querySelectorAll('button, a, label, [role="button"]').forEach(el => {
-        if (el.id === 'visitorExitHint' || el.hasAttribute('data-curator-only')) return;
         const text = (el.textContent || '').trim();
-        const aria = (el.getAttribute('aria-label') || '').trim();
-        if (CURATOR_PATTERNS.some(rx => rx.test(text) || rx.test(aria))) {
-          el.setAttribute('data-curator-only', 'true');
-        }
+        const meta = [
+          el.id || '',
+          typeof el.className === 'string' ? el.className : '',
+          el.getAttribute('aria-label') || '',
+          el.getAttribute('title') || ''
+        ].join(' ');
+
+        if (KEEP_BTN.test(text) && !HIDE_META.test(meta)) return;
+        if (HIDE_TEXT.test(text) || HIDE_META.test(meta)) markHidden(el);
       });
 
-      document.querySelectorAll('input[type="color"]').forEach(inp => {
-        let box = inp.parentElement;
-        while (
-          box &&
-          box.parentElement &&
-          !box.parentElement.querySelector('h1, h2, h3, p') &&
-          box.parentElement.textContent.trim().length < 100
-        ) {
-          box = box.parentElement;
-        }
-        if (box && !box.hasAttribute('data-curator-only')) {
-          box.setAttribute('data-curator-only', 'true');
+      document.querySelectorAll('input[type="color"], input[type="file"], [data-bg], [data-color]').forEach(el => {
+        markHidden(el);
+        const box = el.closest('div, section, fieldset');
+        if (box && !box.querySelector('h1, h2, canvas, img') && box.textContent.trim().length < 140) {
+          markHidden(box);
         }
       });
     }
@@ -6676,36 +6649,33 @@ ${items}
     function applyMode() {
       tagCuratorControls();
       document.body.classList.toggle('visitor-mode', isVisitor);
-
-      let hint = document.getElementById('visitorExitHint');
-      if (isVisitor && !isHosted) {
-        if (!hint) {
-          hint = document.createElement('button');
-          hint.id = 'visitorExitHint';
-          hint.textContent = 'Visitor View · Exit';
-          hint.onclick = () => { isVisitor = false; applyMode(); };
-          document.body.appendChild(hint);
-        }
-        hint.style.display = 'block';
-      } else if (hint) {
-        hint.style.display = 'none';
-      }
     }
 
-    // Block drag-and-drop uploads while in Visitor View
     window.addEventListener('drop', e => {
-      if (isVisitor) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-      }
+      if (isVisitor) { e.preventDefault(); e.stopImmediatePropagation(); }
     }, true);
 
-    // Toggle anytime: Ctrl+Shift+V (Windows/Linux) or Cmd+Shift+V (Mac)
+    // Desktop shortcut: Ctrl+Shift+V (Windows) or Cmd+Shift+V (Mac)
     window.addEventListener('keydown', e => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'v') {
         e.preventDefault();
         isVisitor = !isVisitor;
         applyMode();
+      }
+    });
+
+    // Phone & desktop shortcut: Triple-tap the main gallery title
+    let taps = 0, timer = null;
+    document.addEventListener('click', e => {
+      if (!e.target.closest('h1, header')) return;
+      taps++;
+      clearTimeout(timer);
+      if (taps >= 3) {
+        taps = 0;
+        isVisitor = !isVisitor;
+        applyMode();
+      } else {
+        timer = setTimeout(() => { taps = 0; }, 600);
       }
     });
 
@@ -6717,7 +6687,5 @@ ${items}
     applyMode();
   })();
 </script>
-
-
 
 </body></html>
