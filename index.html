@@ -6462,5 +6462,218 @@ ${items}
     applyMode();
   })();
 </script>
+<!-- GALLERY SORTING (Paste right before </body>) -->
+<style>
+  #gallerySortWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.82;
+  }
+  #gallerySortSelect {
+    font: inherit;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: inherit;
+    background: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 2px;
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: none;
+  }
+  #gallerySortSelect option {
+    background: #141718;
+    color: #e8e6df;
+  }
+</style>
+<script>
+  (function () {
+    const STORAGE_KEY = 'gallery_sort_order_v1';
+    const MONTHS = {
+      jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6,
+      jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12
+    };
 
+    let currentSort = localStorage.getItem(STORAGE_KEY) || 'default';
+    let isSorting = false;
+
+    function extractDateScore(el) {
+      const text = el.textContent || '';
+      const m1 = text.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+((?:19|20)\d{2})\b/i);
+      if (m1) return parseInt(m1[2], 10) * 100 + (MONTHS[m1[1].toLowerCase().slice(0, 3)] || 0);
+
+      const m2 = text.match(/\b((?:19|20)\d{2})[-./](\d{1,2})\b/);
+      if (m2) return parseInt(m2[1], 10) * 100 + Math.min(12, parseInt(m2[2], 10));
+
+      const m3 = text.match(/\b((?:19|20)\d{2})\b/);
+      if (m3) return parseInt(m3[1], 10) * 100;
+
+      return 0;
+    }
+
+    function extractTitle(el) {
+      let node = el.querySelector('h2, h3, h4, .title, [class*="title"], figcaption');
+      if (!node && el.tagName === 'TR') {
+        const cells = Array.from(el.querySelectorAll('td'));
+        node = cells.find(td => !/^[A-Z]{2,}-\d+/i.test(td.textContent.trim())) || cells[1] || cells[0];
+      }
+      const raw = (node ? node.textContent : el.textContent || '').trim();
+      return raw.replace(/^["'“”‘’\s]+|["'“”‘’\s]+$/g, '').toLowerCase();
+    }
+
+    function isExcluded(el) {
+      return Boolean(el.closest('header, nav, footer, [role="dialog"], .modal, .overlay, .lightbox, .sheet, [class*="modal"], [class*="lightbox"], [class*="sheet"]'));
+    }
+
+    function looksLikeArtworkItem(el) {
+      if (!el || el.nodeType !== 1) return false;
+      const text = (el.textContent || '').trim();
+      if (!text) return false;
+      if (el.tagName === 'TR') return el.querySelectorAll('td').length >= 2;
+      return Boolean(
+        el.querySelector('img, svg, canvas, h2, h3, h4, [class*="title"], [class*="frame"]') ||
+        /\b(?:19|20)\d{2}\b/.test(text)
+      );
+    }
+
+    function findArtworkContainers() {
+      const found = new Set();
+      const root = document.querySelector('main, #stage, #gallery, [class*="stage"]') || document.body;
+
+      root.querySelectorAll('tbody, [class*="grid"], [class*="wall"], [class*="list"], section, div').forEach(el => {
+        if (isExcluded(el)) return;
+        const style = getComputedStyle(el);
+        if (style.display === 'none' || style.visibility === 'hidden') return;
+
+        const children = Array.from(el.children).filter(c => c.id !== 'gallerySortWrap');
+        if (children.length < 2) return;
+
+        const isTableBody = el.tagName === 'TBODY';
+        const isGridOrWall = style.display === 'grid' || /wall|grid|works|items|gallery/i.test(el.id + ' ' + el.className);
+        if (!isTableBody && !isGridOrWall) return;
+
+        const matching = children.filter(looksLikeArtworkItem);
+        if (matching.length >= 2 && matching.length === children.length) {
+          found.add(el);
+        }
+      });
+
+      return Array.from(found);
+    }
+
+    function applySort() {
+      if (isSorting) return;
+      isSorting = true;
+
+      try {
+        const containers = findArtworkContainers();
+        containers.forEach(container => {
+          const items = Array.from(container.children);
+          items.forEach((item, idx) => {
+            if (item.dataset.sortOrigIdx === undefined) {
+              item.dataset.sortOrigIdx = String(idx);
+            }
+          });
+
+          const sorted = items.slice().sort((a, b) => {
+            if (currentSort === 'newest') {
+              return (extractDateScore(b) - extractDateScore(a)) ||
+                     (Number(a.dataset.sortOrigIdx) - Number(b.dataset.sortOrigIdx));
+            }
+            if (currentSort === 'oldest') {
+              return (extractDateScore(a) - extractDateScore(b)) ||
+                     (Number(a.dataset.sortOrigIdx) - Number(b.dataset.sortOrigIdx));
+            }
+            if (currentSort === 'az') {
+              return extractTitle(a).localeCompare(extractTitle(b));
+            }
+            if (currentSort === 'za') {
+              return extractTitle(b).localeCompare(extractTitle(a));
+            }
+            return Number(a.dataset.sortOrigIdx) - Number(b.dataset.sortOrigIdx);
+          });
+
+          const changed = sorted.some((el, idx) => el !== items[idx]);
+          if (changed) {
+            sorted.forEach(el => container.appendChild(el));
+          }
+        });
+      } finally {
+        isSorting = false;
+      }
+    }
+
+    function mountSortControl() {
+      if (document.getElementById('gallerySortWrap')) return;
+
+      const wrap = document.createElement('div');
+      wrap.id = 'gallerySortWrap';
+
+      const label = document.createElement('span');
+      label.textContent = 'Sort';
+
+      const select = document.createElement('select');
+      select.id = 'gallerySortSelect';
+      select.setAttribute('aria-label', 'Sort artworks');
+      select.innerHTML = [
+        '<option value="default">Default</option>',
+        '<option value="newest">Newest First</option>',
+        '<option value="oldest">Oldest First</option>',
+        '<option value="az">Title A–Z</option>',
+        '<option value="za">Title Z–A</option>'
+      ].join('');
+      select.value = currentSort;
+
+      select.addEventListener('change', () => {
+        currentSort = select.value;
+        localStorage.setItem(STORAGE_KEY, currentSort);
+        applySort();
+      });
+
+      wrap.appendChild(label);
+      wrap.appendChild(select);
+
+      // Try placing beside the Wall / Chronicle / Index view bar
+      const viewBtn = Array.from(document.querySelectorAll('button')).find(
+        b => /^(wall|chronicle|index)$/i.test((b.textContent || '').trim())
+      );
+      if (viewBtn && viewBtn.parentElement && viewBtn.parentElement.parentElement) {
+        const bar = viewBtn.parentElement.parentElement;
+        if (getComputedStyle(bar).display.includes('flex')) {
+          bar.appendChild(wrap);
+          return;
+        }
+        viewBtn.parentElement.appendChild(wrap);
+        return;
+      }
+
+      const main = document.querySelector('main') || document.body;
+      wrap.style.display = 'flex';
+      wrap.style.justifyContent = 'flex-end';
+      wrap.style.margin = '0 auto 16px';
+      wrap.style.maxWidth = '1120px';
+      main.prepend(wrap);
+    }
+
+    let timer = null;
+    const observer = new MutationObserver(() => {
+      if (isSorting) return;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        mountSortControl();
+        applySort();
+      }, 60);
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+    mountSortControl();
+    applySort();
+  })();
+</script>
 </body></html>
