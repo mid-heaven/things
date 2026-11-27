@@ -1,0 +1,45 @@
+{
+  "schema": "z3itq3ist-gallery/v1",
+  "exportedAt": "2026-11-27T11:40:26.323Z",
+  "monthlyFeaturedId": "work-02",
+  "userWorks": [
+    {
+      "id": "work-1795779488601",
+      "baseAdmires": 1,
+      "isPermanent": false,
+      "title": "Flower and Message from Riel's Partner, Kyle",
+      "accession": "PL-2026-291",
+      "room": "Ephemera",
+      "month": "2026-11",
+      "year": 2026,
+      "vector": "relic-charm",
+      "isPhantom": false,
+      "medium": "Organic Material",
+      "commentary": "a",
+      "imageFront": "./assets/images/pl-2026-291-front.webp",
+      "thumbFront": "./assets/images/pl-2026-291-thumb.webp",
+      "imageBack": "./assets/images/pl-2026-291-back.webp",
+      "frameBg": "#ebe7de"
+    }
+  ],
+  "admires": {},
+  "notes": {
+    "work-02": [
+      {
+        "id": "n-1",
+        "date": "Nov 2024",
+        "text": "Re-read the reverse diagram today. Still grateful for those fries."
+      }
+    ],
+    "work-03": [
+      {
+        "id": "n-2",
+        "date": "Feb 2025",
+        "text": "Survived apartment move #3 wrapped inside two wool sweaters."
+      }
+    ]
+  },
+  "frameColors": {
+    "work-1795779488601": "#ebe7de"
+  }
+}
