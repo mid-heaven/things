@@ -1,9 +1,9 @@
 {
   "schema": "z3-gallery-v2",
-  "savedAt": "2026-11-27T13:34:33.691Z",
+  "savedAt": "2026-11-27T15:09:22.895Z",
   "identity": {
     "title": "Sentimental Value",
-    "subtitle": "Tayo rin naman ay pinagtagpi-tagping mga mumunting alaala.",
+    "subtitle": "Tayo rin naman ay mga pinagtagpi-tagping mumunting alaala.",
     "footer": "“Takot na makalimot.”",
     "publicBooklet": true
   },
@@ -15,7 +15,7 @@
   ],
   "featuredId": "",
   "curatorPin": "442326",
-  "wall": "plaster",
+  "wall": "linen",
   "density": "compact",
   "works": [
     {
