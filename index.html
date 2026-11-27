@@ -1,17 +1,3 @@
-<!-- =========================================================================
-
-  z3itq3ist // THE GALLERY OF QUIETLY KEPT THINGS (CALM EDITION)
-
-  PHASE 1 OF 5: DOCUMENT SHELL, CALM DESIGN SYSTEM & SHRINE HEADER
-
-  HOW TO ASSEMBLE:
-
-    Create a file named `index.html` and paste Phase 1 through Phase 5
-
-    in order, one right after another. Push to GitHub Pages to go live.
-
-========================================================================== -->
-
 <!DOCTYPE html>
 
 <html lang="en" data-theme="calm-dark" data-density="spacious" data-motion="gentle">
@@ -28,7 +14,7 @@
 
 
 
-  <!-- Fonts: Crisp Terminal Monospace, Editorial Serif, Readable UI Sans -->
+  <!-- Fonts -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -38,25 +24,17 @@
 
 
 
-  <!-- Three.js (3D .glb/.gltf Specimen Viewer + Calm Shader Modes) -->
+  <!-- Deferred Libraries (Non-blocking so the museum opens immediately even offline) -->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-
-  <!-- JSZip (One-Click GitHub Repository Bundle Export) -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-
-
-  <!-- Tone.js (Calm Signal Deck Room Tone & Soft Museum Chimes) -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
 
 
@@ -64,7 +42,7 @@
 
     /* =====================================================================
 
-       1. CALM z3itq3ist DESIGN TOKENS (LOW-GLARE MIDNIGHT BOTANICAL / SLATE)
+       1. CALM z3itq3ist DESIGN TOKENS (LOW-GLARE SMOKED SLATE & MUTED SAGE)
 
     ===================================================================== */
 
@@ -76,6 +54,8 @@
 
       --bg-panel: #101517;
 
+      --bg-panel-glass: rgba(16, 21, 23, 0.92);
+
       --bg-elevated: #161d20;
 
       --bg-inset: #0c1012;
@@ -86,7 +66,7 @@
 
       --border-strong: #3c4f53;
 
-      --border-soft: rgba(143, 179, 154, 0.22);
+      --border-soft: rgba(143, 179, 154, 0.24);
 
 
 
@@ -98,15 +78,13 @@
 
 
 
-      /* Calmed translations of the z3itq3ist palette */
-
       --sage: #8fb39a;
 
-      --sage-soft: rgba(143, 179, 154, 0.11);
+      --sage-soft: rgba(143, 179, 154, 0.12);
 
       --teal: #7ea8b0;
 
-      --teal-soft: rgba(126, 168, 176, 0.11);
+      --teal-soft: rgba(126, 168, 176, 0.12);
 
       --amber: #c9b28a;
 
@@ -117,6 +95,8 @@
       --rose-soft: rgba(184, 138, 144, 0.12);
 
 
+
+      --hero-top: #121a19;
 
       --shadow-panel: 0 10px 28px rgba(0, 0, 0, 0.34);
 
@@ -134,6 +114,8 @@
 
       --bg-panel: #f7f5ef;
 
+      --bg-panel-glass: rgba(247, 245, 239, 0.94);
+
       --bg-elevated: #eae6dc;
 
       --bg-inset: #e5e1d7;
@@ -144,7 +126,7 @@
 
       --border-strong: #8e968e;
 
-      --border-soft: rgba(70, 107, 84, 0.26);
+      --border-soft: rgba(69, 107, 84, 0.26);
 
 
 
@@ -174,6 +156,8 @@
 
 
 
+      --hero-top: #ecebe2;
+
       --shadow-panel: 0 8px 24px rgba(31, 39, 38, 0.07);
 
       --crt-line: rgba(31, 39, 38, 0.022);
@@ -195,8 +179,6 @@
       --radius-sm: 4px;
 
       --radius-md: 8px;
-
-      --radius-lg: 12px;
 
       --read-scale: 1;
 
@@ -262,17 +244,9 @@
 
 
 
-    ::selection {
-
-      background: var(--sage);
-
-      color: var(--bg-void);
-
-    }
+    ::selection { background: var(--sage); color: var(--bg-void); }
 
 
-
-    /* Subtle Ambient Drift Canvas */
 
     #ambientCanvas {
 
@@ -297,8 +271,6 @@
     [data-motion="still"] #ambientCanvas { opacity: 0; }
 
 
-
-    /* Optional Gentle CRT Scanline Overlay */
 
     body.crt-on::after {
 
@@ -330,8 +302,6 @@
 
 
 
-    /* Optional Gentle Archival Film Grain */
-
     body.grain-on::before {
 
       content: "";
@@ -344,15 +314,15 @@
 
       z-index: 89;
 
-      opacity: 0.04;
+      opacity: 0.035;
 
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-image: radial-gradient(var(--ink) 0.5px, transparent 0.5px);
+
+      background-size: 4px 4px;
 
     }
 
 
-
-    /* Optional Calm After-Hours CCTV HUD */
 
     .cctv-hud {
 
@@ -406,8 +376,6 @@
 
 
 
-    /* Optional Soft Cursor Spotlight */
-
     #cursorSpotlight {
 
       position: fixed;
@@ -440,8 +408,6 @@
 
 
 
-    /* Custom Scrollbars */
-
     ::-webkit-scrollbar { width: 7px; height: 7px; }
 
     ::-webkit-scrollbar-track { background: var(--bg-void); }
@@ -464,7 +430,9 @@
 
       z-index: 40;
 
-      background: color-mix(in srgb, var(--bg-panel) 92%, transparent);
+      background: var(--bg-panel-glass);
+
+      -webkit-backdrop-filter: blur(12px);
 
       backdrop-filter: blur(12px);
 
@@ -600,8 +568,6 @@
 
 
 
-    /* Calm Horizontal Ticker */
-
     .ticker-wrap {
 
       position: relative;
@@ -644,11 +610,7 @@
 
     .ticker-wrap:hover .ticker-track,
 
-    [data-motion="still"] .ticker-track {
-
-      animation-play-state: paused;
-
-    }
+    [data-motion="still"] .ticker-track { animation-play-state: paused; }
 
     [data-motion="still"] .ticker-track { padding-left: 16px; }
 
@@ -658,7 +620,7 @@
 
     /* =====================================================================
 
-       4. SHRINE HERO BANNER (CALM z3itq3ist HEADER)
+       4. SHRINE HERO BANNER
 
     ===================================================================== */
 
@@ -686,9 +648,7 @@
 
       border-radius: var(--radius-md);
 
-      background:
-
-        linear-gradient(180deg, color-mix(in srgb, var(--sage) 5%, var(--bg-panel)), var(--bg-panel));
+      background: linear-gradient(180deg, var(--hero-top), var(--bg-panel));
 
       padding: 20px 22px;
 
@@ -710,45 +670,11 @@
 
 
 
-    .hero-side {
+    .hero-side { display: flex; align-items: center; gap: 14px; }
 
-      display: flex;
+    .hero-emblem { width: 58px; height: 58px; flex-shrink: 0; opacity: 0.72; color: var(--sage); }
 
-      align-items: center;
-
-      gap: 14px;
-
-    }
-
-
-
-    .hero-emblem {
-
-      width: 58px;
-
-      height: 58px;
-
-      flex-shrink: 0;
-
-      opacity: 0.72;
-
-      color: var(--sage);
-
-    }
-
-
-
-    .hero-pills {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 6px;
-
-      min-width: 172px;
-
-    }
+    .hero-pills { display: flex; flex-direction: column; gap: 6px; min-width: 172px; }
 
 
 
@@ -782,13 +708,13 @@
 
     }
 
-    .meta-pill.sage { border-color: rgba(143, 179, 154, 0.32); color: var(--sage); }
+    .meta-pill.sage { border-color: rgba(143, 179, 154, 0.35); color: var(--sage); }
 
-    .meta-pill.teal { border-color: rgba(126, 168, 176, 0.32); color: var(--teal); }
+    .meta-pill.teal { border-color: rgba(126, 168, 176, 0.35); color: var(--teal); }
 
-    .meta-pill.amber { border-color: rgba(201, 178, 138, 0.32); color: var(--amber); }
+    .meta-pill.amber { border-color: rgba(201, 178, 138, 0.35); color: var(--amber); }
 
-    .meta-pill.rose { border-color: rgba(184, 138, 144, 0.32); color: var(--rose); }
+    .meta-pill.rose { border-color: rgba(184, 138, 144, 0.35); color: var(--rose); }
 
 
 
@@ -900,17 +826,7 @@
 
 
 
-    .col-stack {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 14px;
-
-      min-width: 0;
-
-    }
+    .col-stack { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 
 
 
@@ -966,15 +882,7 @@
 
     .panel-head.rose { color: var(--rose); }
 
-    .panel-head small {
-
-      font-weight: 400;
-
-      color: var(--ink-dim);
-
-      font-size: 9.5px;
-
-    }
+    .panel-head small { font-weight: 400; color: var(--ink-dim); font-size: 9.5px; }
 
 
 
@@ -982,15 +890,17 @@
 
 
 
-    /* Center Terminal Window Chrome */
-
     .win-chrome {
 
       display: flex;
 
+      flex-wrap: wrap;
+
       align-items: center;
 
       justify-content: space-between;
+
+      gap: 8px;
 
       padding: 8px 12px;
 
@@ -1038,19 +948,11 @@
 
     /* =====================================================================
 
-       6. SIDEBAR DIRECTORY, SIGNAL DECK, FLOORPLAN & GUESTBOOK
+       6. SIDEBAR DIRECTORY, SIGNAL DECK, BUTTONS & FIELDS
 
     ===================================================================== */
 
-    .dir-list {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 6px;
-
-    }
+    .dir-list { display: flex; flex-direction: column; gap: 6px; }
 
 
 
@@ -1074,19 +976,13 @@
 
       gap: 2px;
 
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      transition: border-color 0.2s, background 0.2s;
 
     }
 
     .dir-btn:hover { border-color: var(--border-strong); background: var(--bg-elevated); }
 
-    .dir-btn.active {
-
-      border-color: var(--sage);
-
-      background: var(--sage-soft);
-
-    }
+    .dir-btn.active { border-color: var(--sage); background: var(--sage-soft); }
 
     .dir-btn-top {
 
@@ -1108,17 +1004,9 @@
 
     .dir-btn.active .dir-btn-top { color: var(--sage); }
 
-    .dir-btn-sub {
-
-      font-size: 11px;
-
-      color: var(--ink-muted);
-
-    }
+    .dir-btn-sub { font-size: 11px; color: var(--ink-muted); }
 
 
-
-    /* Signal Audio Deck */
 
     .eq-bars {
 
@@ -1154,8 +1042,6 @@
 
       opacity: 0.45;
 
-      transition: height 0.25s ease, opacity 0.25s ease;
-
     }
 
     .eq-bars.playing .eq-bar {
@@ -1172,21 +1058,9 @@
 
 
 
-    .deck-modes {
-
-      display: grid;
-
-      grid-template-columns: repeat(3, 1fr);
-
-      gap: 5px;
-
-      margin-top: 8px;
-
-    }
+    .deck-modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 8px; }
 
 
-
-    /* Buttons & Inputs */
 
     .btn {
 
@@ -1222,27 +1096,9 @@
 
     .btn:active { transform: scale(0.98); }
 
-    .btn.sage {
+    .btn.sage { border-color: var(--sage); background: var(--sage-soft); color: var(--sage); }
 
-      border-color: var(--sage);
-
-      background: var(--sage-soft);
-
-      color: var(--sage);
-
-    }
-
-    .btn.sage-solid {
-
-      border-color: var(--sage);
-
-      background: var(--sage);
-
-      color: var(--bg-void);
-
-      font-weight: 600;
-
-    }
+    .btn.sage-solid { border-color: var(--sage); background: var(--sage); color: var(--bg-void); font-weight: 600; }
 
     .btn.teal { border-color: var(--teal); background: var(--teal-soft); color: var(--teal); }
 
@@ -1384,31 +1240,11 @@
 
     }
 
-    .quick-drop.dragover {
-
-      border-color: var(--sage);
-
-      background: var(--sage-soft);
-
-      color: var(--ink);
-
-    }
+    .quick-drop.dragover { border-color: var(--sage); background: var(--sage-soft); color: var(--ink); }
 
 
 
-    .controls-bar {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      align-items: center;
-
-      gap: 8px;
-
-      margin-bottom: 12px;
-
-    }
+    .controls-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
 
     .search-box { position: relative; flex: 1 1 200px; }
 
@@ -1484,19 +1320,7 @@
 
 
 
-    .tag-row {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      align-items: center;
-
-      gap: 5px;
-
-      margin-bottom: 14px;
-
-    }
+    .tag-row { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-bottom: 14px; }
 
     .tag-pill {
 
@@ -1519,8 +1343,6 @@
     .tag-pill.active { border-color: var(--sage); color: var(--sage); background: var(--sage-soft); }
 
 
-
-    /* Vitrine Cards */
 
     .vitrine-grid {
 
@@ -1560,8 +1382,6 @@
 
       transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 
-      transform-style: preserve-3d;
-
     }
 
     .relic-card:hover {
@@ -1572,15 +1392,7 @@
 
     }
 
-    .relic-card.phantom {
-
-      border-style: dashed;
-
-      border-color: var(--ink-dim);
-
-      opacity: 0.88;
-
-    }
+    .relic-card.phantom { border-style: dashed; border-color: var(--ink-dim); opacity: 0.9; }
 
 
 
@@ -1590,11 +1402,7 @@
 
       height: 174px;
 
-      background:
-
-        radial-gradient(circle at 50% 25%, rgba(143, 179, 154, 0.08), transparent 68%),
-
-        var(--bg-void);
+      background: radial-gradient(circle at 50% 25%, rgba(143, 179, 154, 0.08), transparent 68%), var(--bg-void);
 
       border-bottom: 1px solid var(--border);
 
@@ -1614,25 +1422,11 @@
 
 
 
-    .vitrine-stage img {
-
-      width: 100%;
-
-      height: 100%;
-
-      object-fit: cover;
-
-      transition: transform 0.4s ease;
-
-    }
+    .vitrine-stage img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
 
     .relic-card:hover .vitrine-stage img,
 
-    .relic-card:hover .vitrine-stage svg {
-
-      transform: scale(1.04);
-
-    }
+    .relic-card:hover .vitrine-stage svg { transform: scale(1.04); }
 
 
 
@@ -1666,7 +1460,7 @@
 
       border-radius: 3px;
 
-      background: color-mix(in srgb, var(--bg-panel) 90%, transparent);
+      background: var(--bg-panel-glass);
 
       border: 1px solid var(--border);
 
@@ -1692,7 +1486,7 @@
 
       letter-spacing: 0.06em;
 
-      background: color-mix(in srgb, var(--bg-panel) 92%, transparent);
+      background: var(--bg-panel-glass);
 
       border: 1px solid var(--border);
 
@@ -1718,7 +1512,7 @@
 
       border-radius: 3px;
 
-      background: color-mix(in srgb, var(--bg-panel) 88%, transparent);
+      background: var(--bg-panel-glass);
 
       border: 1px solid var(--border);
 
@@ -1738,21 +1532,7 @@
 
 
 
-    .card-body {
-
-      padding: 12px;
-
-      display: flex;
-
-      flex-direction: column;
-
-      flex: 1;
-
-      gap: 6px;
-
-      cursor: pointer;
-
-    }
+    .card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; gap: 6px; cursor: pointer; }
 
     .card-meta {
 
@@ -1854,21 +1634,9 @@
 
 
 
-    /* Flat-File Specimen Drawers View */
-
     .drawer-cabinet { display: flex; flex-direction: column; gap: 8px; }
 
-    .specimen-drawer {
-
-      border: 1px solid var(--border);
-
-      border-radius: var(--radius-sm);
-
-      background: var(--bg-inset);
-
-      overflow: hidden;
-
-    }
+    .specimen-drawer { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-inset); overflow: hidden; }
 
     .drawer-handle {
 
@@ -1900,25 +1668,9 @@
 
     }
 
-    .specimen-drawer.open .drawer-handle {
+    .specimen-drawer.open .drawer-handle { border-bottom-color: var(--border); color: var(--sage); }
 
-      border-bottom-color: var(--border);
-
-      color: var(--sage);
-
-    }
-
-    .drawer-tray {
-
-      display: none;
-
-      padding: 12px;
-
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-
-      gap: 10px;
-
-    }
+    .drawer-tray { display: none; padding: 12px; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
 
     .specimen-drawer.open .drawer-tray { display: grid; }
 
@@ -1939,6 +1691,8 @@
       z-index: 60;
 
       background: var(--bg-overlay);
+
+      -webkit-backdrop-filter: blur(8px);
 
       backdrop-filter: blur(8px);
 
@@ -2014,21 +1768,9 @@
 
     .modal-body { padding: 18px; }
 
+    .detail-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 18px; }
 
 
-    .detail-grid {
-
-      display: grid;
-
-      grid-template-columns: 320px minmax(0, 1fr);
-
-      gap: 18px;
-
-    }
-
-
-
-    /* Fullscreen Zoomable Examination Stage */
 
     .exam-overlay {
 
@@ -2074,7 +1816,7 @@
 
       gap: 8px;
 
-      background: rgba(11, 14, 15, 0.86);
+      background: rgba(11, 14, 15, 0.88);
 
       border-bottom: 1px solid #232f32;
 
@@ -2090,19 +1832,11 @@
 
     .exam-overlay.clean-view .exam-hud-top,
 
-    .exam-overlay.clean-view .exam-hud-bottom {
-
-      opacity: 0.08;
-
-    }
+    .exam-overlay.clean-view .exam-hud-bottom { opacity: 0.08; }
 
     .exam-overlay.clean-view .exam-hud-top:hover,
 
-    .exam-overlay.clean-view .exam-hud-bottom:hover {
-
-      opacity: 1;
-
-    }
+    .exam-overlay.clean-view .exam-hud-bottom:hover { opacity: 1; }
 
 
 
@@ -2184,7 +1918,7 @@
 
       border: 1px solid var(--sage);
 
-      background: rgba(11, 14, 15, 0.88);
+      background: rgba(11, 14, 15, 0.9);
 
       color: var(--sage);
 
@@ -2238,25 +1972,11 @@
 
 
 
-    /* 3D Canvas Container */
-
-    .three-mount {
-
-      width: 100%;
-
-      height: 100%;
-
-      min-height: 260px;
-
-      position: relative;
-
-    }
+    .three-mount { width: 100%; height: 100%; min-height: 260px; position: relative; }
 
     .three-mount canvas { display: block; width: 100% !important; height: 100% !important; }
 
 
-
-    /* Toast with Undo Action */
 
     .toast {
 
@@ -2304,8 +2024,6 @@
 
 
 
-    /* Mobile Thumb Ergonomics Dock */
-
     .mobile-dock {
 
       display: none;
@@ -2320,7 +2038,9 @@
 
       z-index: 50;
 
-      background: color-mix(in srgb, var(--bg-panel) 96%, transparent);
+      background: var(--bg-panel-glass);
+
+      -webkit-backdrop-filter: blur(12px);
 
       backdrop-filter: blur(12px);
 
@@ -2370,29 +2090,11 @@
 
     ===================================================================== */
 
-    @keyframes calmMarquee {
+    @keyframes calmMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-      0% { transform: translateX(0); }
+    @keyframes calmPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
 
-      100% { transform: translateX(-100%); }
-
-    }
-
-    @keyframes calmPulse {
-
-      0%, 100% { opacity: 0.35; }
-
-      50% { opacity: 1; }
-
-    }
-
-    @keyframes eqDance {
-
-      0% { height: 22%; }
-
-      100% { height: 88%; }
-
-    }
+    @keyframes eqDance { 0% { height: 22%; } 100% { height: 88%; } }
 
 
 
@@ -2428,31 +2130,17 @@
 
 
 
-    /* Dedicated Monochrome Print Layout for Yearly Archival Zine */
-
     @media print {
 
       body { background: #fff !important; color: #111 !important; }
 
-      .topbar, .ticker-wrap, .hero-shrine, .shrine-grid, .mobile-dock, .toast, #ambientCanvas, .cctv-hud, .no-print {
+      .topbar, .ticker-wrap, .hero-shrine, .shrine-grid, .mobile-dock, .toast, #ambientCanvas, .cctv-hud, .modal-backdrop, .exam-overlay {
 
         display: none !important;
 
       }
 
-      #zinePrintArea {
-
-        display: block !important;
-
-        position: static !important;
-
-        background: #fff !important;
-
-        color: #111 !important;
-
-        padding: 0 !important;
-
-      }
+      #zinePrintArea { display: block !important; background: #fff !important; color: #111 !important; }
 
     }
 
@@ -2464,15 +2152,11 @@
 
 <body>
 
-  <!-- Subtle Ambient Dust Canvas & Cursor Spotlight -->
-
   <canvas id="ambientCanvas" aria-hidden="true"></canvas>
 
   <div id="cursorSpotlight" aria-hidden="true"></div>
 
 
-
-  <!-- Optional Calm After-Hours CCTV HUD -->
 
   <div class="cctv-hud" aria-hidden="true">
 
@@ -2496,12 +2180,6 @@
 
 
 
-  <!-- =====================================================================
-
-       TOP TERMINAL STATUS BAR
-
-  ===================================================================== -->
-
   <nav class="topbar" aria-label="Archive Controls">
 
     <div class="topbar-left">
@@ -2514,7 +2192,7 @@
 
       <span class="sep">|</span>
 
-      <button id="curatorModeBtn" type="button" class="t-chip active" title="Switch between Curator Mode and Public Read-Only Mode">MODE: CURATOR</button>
+      <button id="curatorModeBtn" type="button" class="t-chip active">MODE: CURATOR</button>
 
     </div>
 
@@ -2522,15 +2200,15 @@
 
     <div class="topbar-right">
 
-      <button id="crtToggleBtn" type="button" class="t-chip" title="Toggle subtle CRT scanlines">CRT: OFF</button>
+      <button id="crtToggleBtn" type="button" class="t-chip">CRT: OFF</button>
 
-      <button id="sfxToggleBtn" type="button" class="t-chip active" title="Toggle subtle UI chimes">SFX: ON</button>
+      <button id="sfxToggleBtn" type="button" class="t-chip active">SFX: ON</button>
 
-      <button id="motionToggleBtn" type="button" class="t-chip" title="Calm Still Mode (pauses motion)">STILL: OFF</button>
+      <button id="motionToggleBtn" type="button" class="t-chip">STILL: OFF</button>
 
-      <button id="themeToggleBtn" type="button" class="t-chip" title="Switch Dusk Slate and Warm Paper theme">DUSK</button>
+      <button id="themeToggleBtn" type="button" class="t-chip">DUSK</button>
 
-      <button id="cmdPaletteBtn" type="button" class="t-chip" title="Open Command Palette (Ctrl/Cmd + K)">CMD [K]</button>
+      <button id="cmdPaletteBtn" type="button" class="t-chip">CMD [K]</button>
 
       <button id="topCatalogBtn" type="button" class="t-chip primary">+ CATALOG</button>
 
@@ -2539,8 +2217,6 @@
   </nav>
 
 
-
-  <!-- CALM ARCHIVAL TICKER -->
 
   <div class="ticker-wrap" aria-hidden="true">
 
@@ -2564,21 +2240,9 @@
 
 
 
-  <!-- MAIN PAGE SHELL -->
-
   <div class="page-shell">
 
-
-
-    <!-- ===================================================================
-
-         SHRINE HERO BANNER (CALM z3itq3ist LAYOUT)
-
-    =================================================================== -->
-
     <header class="hero-shrine">
-
-      <!-- Left Emblem + Telemetry Pills -->
 
       <div class="hero-side">
 
@@ -2598,7 +2262,7 @@
 
           <div class="meta-pill sage"><span>SIGNAL</span><span id="heroSignalText">QUIET // LIVE</span></div>
 
-          <div class="meta-pill"><span>ARCHIVE_OS</span><span>V4.0 CALM</span></div>
+          <div class="meta-pill"><span>ARCHIVE_OS</span><span>V4.1 CALM</span></div>
 
           <div class="meta-pill amber"><span>CYCLE</span><span id="heroMonthPill">NOV 2026</span></div>
 
@@ -2607,8 +2271,6 @@
       </div>
 
 
-
-      <!-- Centered Brand & Exhibition Title -->
 
       <div class="hero-center">
 
@@ -2634,15 +2296,13 @@
 
 
 
-      <!-- Right Telemetry Pills + Archival Lens Emblem -->
-
       <div class="hero-side">
 
         <div class="hero-pills">
 
           <div class="meta-pill teal"><span>HOSTING</span><span>GITHUB_PAGES</span></div>
 
-          <div class="meta-pill"><span>COLLECTION</span><span id="heroCountPill">05 RELICS</span></div>
+          <div class="meta-pill"><span>COLLECTION</span><span id="heroCountPill">06 RELICS</span></div>
 
           <div class="meta-pill rose"><span>MONTHLY</span><span id="heroRitualPill">0 / 1 LOGGED</span></div>
 
@@ -2668,36 +2328,12 @@
 
 
 
-    <!-- 3-COLUMN SHRINE BENTO GRID OPENS HERE -->
-
     <div class="shrine-grid">
 
-
-
-<!-- ============== END OF PHASE 1 — PASTE PHASE 2 DIRECTLY BELOW ============== -->
-<!-- =========================================================================
-
-  z3itq3ist // THE GALLERY OF QUIETLY KEPT THINGS (CALM EDITION)
-
-  PHASE 2 OF 5: 3-COLUMN SHRINE LAYOUT, BENTO PANELS & ALL MODALS
-
-  PASTE DIRECTLY BELOW PHASE 1.
-
-========================================================================== -->
-
-
-
-      <!-- =================================================================
-
-           LEFT COLUMN: WING DIRECTORY, SIGNAL DECK & OPERATOR TAG
-
-      ================================================================== -->
+<!-- END PHASE 1 — PASTE PHASE 2 DIRECTLY BELOW -->
+            <!-- LEFT COLUMN -->
 
       <aside class="col-stack col-left" aria-label="Archive Directory and Atmosphere">
-
-
-
-        <!-- 01. WING DIRECTORY -->
 
         <section class="panel">
 
@@ -2726,8 +2362,6 @@
         </section>
 
 
-
-        <!-- 02. CALM SIGNAL AUDIO DECK -->
 
         <section class="panel">
 
@@ -2767,7 +2401,7 @@
 
             <p id="deckNowPlaying" style="margin:8px 0 0;font-family:var(--font-mono);font-size:10px;color:var(--ink-dim);text-align:center;">
 
-              channel: nocturnal_mist // -24dB
+              channel: nocturnal_mist // calm
 
             </p>
 
@@ -2776,8 +2410,6 @@
         </section>
 
 
-
-        <!-- 03. OPERATOR TAG & READING / ATMOSPHERE COMFORT -->
 
         <section class="panel">
 
@@ -2805,7 +2437,7 @@
 
                 <div style="color:var(--ink-dim);font-size:9px;">ADMIRED</div>
 
-                <div id="statAdmired" style="font-size:16px;color:var(--amber);font-weight:600;">45</div>
+                <div id="statAdmired" style="font-size:16px;color:var(--amber);font-weight:600;">52</div>
 
               </div>
 
@@ -2855,8 +2487,6 @@
 
 
 
-        <!-- 04. INDIE-WEB BADGE & SECRET STORAGE TRIGGER -->
-
         <section class="panel">
 
           <div class="panel-head">
@@ -2868,8 +2498,6 @@
           </div>
 
           <div class="panel-body" style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;">
-
-            <!-- Crisp 88x31 Indie-Web Monochrome-Sage Button -->
 
             <button id="copyBadgeBtn" type="button" title="Copy 88x31 HTML badge for your site"
 
@@ -2895,23 +2523,17 @@
 
 
 
-      <!-- =================================================================
-
-           CENTER COLUMN: MAIN EXHIBITION TERMINAL & GALLERY STAGE
-
-      ================================================================== -->
+      <!-- CENTER COLUMN -->
 
       <main class="col-stack col-center">
 
         <section class="panel">
 
-          <!-- Terminal Window Bar -->
-
           <div class="win-chrome">
 
             <span class="win-path" id="terminalPath">C:\Z3ITQ3IST\EXHIBITION.LOG</span>
 
-            <div style="display:flex;align-items:center;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
 
               <button id="randomRelicBtn" type="button" class="btn sm" title="Open a random relic (R)">✦ RANDOM</button>
 
@@ -2937,8 +2559,6 @@
 
           <div class="panel-body">
 
-            <!-- First-Visit Orientation Cue (Dismissible) -->
-
             <div id="orientationCue" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:8px 11px;margin-bottom:12px;border-radius:4px;border:1px solid var(--border-soft);background:var(--sage-soft);font-family:var(--font-mono);font-size:10.5px;color:var(--ink);">
 
               <span>✦ Tip: Click any specimen window to open the <b>1×–8× Zoomable Examination Stage</b> · Drag 3D relics to orbit · Press <b>/</b> to search.</span>
@@ -2948,8 +2568,6 @@
             </div>
 
 
-
-            <!-- Monthly Spotlight & One-Year-Ago Echo Strip -->
 
             <div class="spotlight-strip">
 
@@ -2991,8 +2609,6 @@
 
 
 
-            <!-- 10-Second Quick-Drop Capture Zone (Hidden in Public Read-Only Mode) -->
-
             <div id="quickDropZone" class="quick-drop" tabindex="0" role="region" aria-label="Quick Drop Image or 3D Model">
 
               <div>
@@ -3017,13 +2633,11 @@
 
 
 
-            <!-- Search, Sort & 5 View Modes -->
-
             <div class="controls-bar">
 
               <div class="search-box">
 
-                <input id="searchInput" type="search" class="field field-mono" placeholder="search relics, #tags, accession, or secret code..." />
+                <input id="searchInput" type="search" class="field field-mono" placeholder="search relics, #tags, accession, or PL-0000..." />
 
                 <span class="search-kbd">/</span>
 
@@ -3065,25 +2679,17 @@
 
 
 
-            <!-- Tag Filter Ribbon -->
-
             <div id="tagFilterBar" class="tag-row" aria-label="Filter by Tag"></div>
 
 
-
-            <!-- Active Wing Context Banner -->
 
             <div id="wingContextBar" style="display:none;margin-bottom:12px;padding:7px 10px;border-left:2px solid var(--sage);background:var(--bg-inset);font-family:var(--font-mono);font-size:11px;color:var(--ink-muted);"></div>
 
 
 
-            <!-- MAIN EXHIBITION STAGE -->
-
             <div id="exhibitContainer" aria-live="polite"></div>
 
 
-
-            <!-- EMPTY STATE -->
 
             <div id="emptyState" style="display:none;text-align:center;padding:44px 16px;border:1px dashed var(--border-strong);border-radius:6px;background:var(--bg-inset);">
 
@@ -3101,8 +2707,6 @@
 
 
 
-        <!-- QUIET FOOTER SHELF -->
-
         <footer class="panel">
 
           <div class="panel-body" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-muted);">
@@ -3115,7 +2719,7 @@
 
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
 
-              <span id="persistenceStatus" style="color:var(--sage);">● INDEXEDDB SAVED</span>
+              <span id="persistenceStatus" style="color:var(--sage);">● ARCHIVE READY</span>
 
               <span class="sep">|</span>
 
@@ -3133,17 +2737,9 @@
 
 
 
-      <!-- =================================================================
-
-           RIGHT COLUMN: FLOORPLAN, RITUALS, GUESTBOOK & GITHUB PANEL
-
-      ================================================================== -->
+      <!-- RIGHT COLUMN -->
 
       <aside class="col-stack col-right" aria-label="Floorplan, Rituals, Guestbook and GitHub">
-
-
-
-        <!-- 01. ARCHITECTURAL FLOORPLAN MINI-MAP -->
 
         <section class="panel">
 
@@ -3159,11 +2755,7 @@
 
             <svg id="floorplanSvg" viewBox="0 0 240 164" style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:var(--bg-inset);" role="img" aria-label="Interactive Museum Floorplan">
 
-              <!-- Outer walls -->
-
               <rect x="8" y="8" width="224" height="148" fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
-
-              <!-- Wing I: Pocket Archaeology -->
 
               <g data-map-wing="Pocket Archaeology" style="cursor:pointer;">
 
@@ -3175,8 +2767,6 @@
 
               </g>
 
-              <!-- Wing II: Domestic Relics -->
-
               <g data-map-wing="Domestic Relics" style="cursor:pointer;">
 
                 <rect x="124" y="14" width="102" height="62" rx="2" fill="rgba(126,168,176,0.08)" stroke="#7ea8b0" stroke-opacity="0.55" stroke-width="1"/>
@@ -3186,8 +2776,6 @@
                 <text x="175" y="54" text-anchor="middle" fill="#879895" font-family="JetBrains Mono,monospace" font-size="6.8">DOMESTIC</text>
 
               </g>
-
-              <!-- Wing III: Ephemera -->
 
               <g data-map-wing="Ephemera of the Unsaid" style="cursor:pointer;">
 
@@ -3199,8 +2787,6 @@
 
               </g>
 
-              <!-- Wing IV: Phantom / Unrecovered -->
-
               <g data-map-wing="Lost & Unrecovered" style="cursor:pointer;">
 
                 <rect x="124" y="84" width="102" height="66" rx="2" fill="rgba(184,138,144,0.07)" stroke="#b88a90" stroke-dasharray="3 2" stroke-opacity="0.6" stroke-width="1"/>
@@ -3210,8 +2796,6 @@
                 <text x="175" y="126" text-anchor="middle" fill="#879895" font-family="JetBrains Mono,monospace" font-size="6.8">UNRECOVERED</text>
 
               </g>
-
-              <!-- Central Atrium / All Wings -->
 
               <g data-map-wing="All" style="cursor:pointer;">
 
@@ -3234,8 +2818,6 @@
         </section>
 
 
-
-        <!-- 02. MONTHLY & YEARLY CURATORIAL RITUALS -->
 
         <section class="panel">
 
@@ -3287,8 +2869,6 @@
 
 
 
-        <!-- 03. EXHIBITION GUESTBOOK & ADMISSION TICKET -->
-
         <section class="panel">
 
           <div class="panel-head teal">
@@ -3323,8 +2903,6 @@
 
 
 
-        <!-- 04. GITHUB PUBLISHING & VAULT QUICK PANEL -->
-
         <section class="panel">
 
           <div class="panel-head rose">
@@ -3339,7 +2917,7 @@
 
             <p style="margin:0;font-size:11.5px;color:var(--ink-muted);">
 
-              Export a ready-to-push GitHub repo bundle (with compressed WebP assets, <code>catalog.json</code>, &amp; <code>rss.xml</code>) or sync directly via API.
+              Export a ready-to-push GitHub repo bundle (compressed WebP assets, <code>catalog.json</code>, &amp; <code>rss.xml</code>) or sync directly via API.
 
             </p>
 
@@ -3357,21 +2935,15 @@
 
         </section>
 
-
-
       </aside>
 
-    </div><!-- /.shrine-grid -->
+    </div>
 
-  </div><!-- /.page-shell -->
+  </div>
 
 
 
-  <!-- =======================================================================
-
-       MOBILE THUMB ERGONOMICS DOCK
-
-  ======================================================================== -->
+  <!-- MOBILE THUMB DOCK -->
 
   <nav class="mobile-dock" aria-label="Mobile Navigation">
 
@@ -3389,11 +2961,7 @@
 
 
 
-  <!-- =======================================================================
-
-       MODAL 1: ARTIFACT DETAIL PLACARD & INTERACTIVE VITRINE
-
-  ======================================================================== -->
+  <!-- MODAL 1: ARTIFACT DETAIL PLACARD -->
 
   <div id="detailModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 
@@ -3431,11 +2999,9 @@
 
         <div class="detail-grid">
 
-          <!-- Left: Vitrine & Tap-to-Enlarge Stage -->
-
           <div style="display:flex;flex-direction:column;gap:10px;">
 
-            <div id="modalVitrineFrame" style="position:relative;min-height:290px;border:1px solid var(--border);border-radius:6px;background:var(--bg-void);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:zoom-in;" title="Click or tap specimen to open Zoomable Examination Stage">
+            <div id="modalVitrineFrame" style="position:relative;min-height:290px;border:1px solid var(--border);border-radius:6px;background:var(--bg-void);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:zoom-in;">
 
               <div id="modalArtwork" style="width:100%;height:100%;min-height:280px;display:flex;align-items:center;justify-content:center;padding:12px;"></div>
 
@@ -3445,13 +3011,9 @@
 
 
 
-            <!-- Interactive Specimen Controls (Flip / 3D Shader / Turntable / Action) -->
-
             <div id="modalSpecialAction" style="display:none;flex-wrap:wrap;gap:6px;justify-content:center;"></div>
 
 
-
-            <!-- 3D Material Shader Row (Shown only for 3D specimens) -->
 
             <div id="modal3dShaderBar" style="display:none;padding:8px;border:1px solid var(--border);border-radius:4px;background:var(--bg-inset);">
 
@@ -3473,8 +3035,6 @@
 
 
 
-            <!-- Utility Exports for Single Relic -->
-
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
 
               <button id="receiptPngBtn" type="button" class="btn sm">🧾 RECEIPT PNG</button>
@@ -3486,8 +3046,6 @@
           </div>
 
 
-
-          <!-- Right: Curatorial Placard, Patina, Threads, Audio & Field Notes -->
 
           <div style="display:flex;flex-direction:column;gap:12px;">
 
@@ -3502,8 +3060,6 @@
             </div>
 
 
-
-            <!-- Sealed Time Capsule Notice (If Locked) -->
 
             <div id="modalCapsuleLock" style="display:none;padding:12px;border:1px dashed var(--amber);border-radius:4px;background:var(--amber-soft);font-family:var(--font-mono);font-size:11px;">
 
@@ -3530,8 +3086,6 @@
             </div>
 
 
-
-            <!-- Audio Guide or Real Voice Memo -->
 
             <div id="audioGuideBox" style="display:none;padding:10px 12px;border:1px solid var(--border);border-radius:4px;background:var(--bg-inset);">
 
@@ -3563,8 +3117,6 @@
 
 
 
-            <!-- Condition / Patina Timeline & Linked Relic Threads -->
-
             <div id="modalExtraLore" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;">
 
               <div id="patinaBox" style="display:none;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg-inset);">
@@ -3586,8 +3138,6 @@
             </div>
 
 
-
-            <!-- Curator Field Notes -->
 
             <div style="padding:10px 12px;border:1px solid var(--border);border-radius:4px;background:var(--bg-inset);">
 
@@ -3613,8 +3163,6 @@
 
 
 
-            <!-- Action Footer -->
-
             <div style="padding-top:10px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;">
 
               <div style="display:flex;flex-wrap:wrap;gap:6px;">
@@ -3623,7 +3171,7 @@
 
                 <button id="pinBtn" type="button" class="btn sm">★ PIN</button>
 
-                <button id="setMonthlyBtn" type="button" class="btn sm teal" title="Feature as Artifact of the Month">MONTH FEATURE</button>
+                <button id="setMonthlyBtn" type="button" class="btn sm teal">MONTH FEATURE</button>
 
                 <button id="copyPlacardBtn" type="button" class="btn sm">COPY MD</button>
 
@@ -3659,11 +3207,7 @@
 
 
 
-  <!-- =======================================================================
-
-       MODAL 2: FULLSCREEN ZOOMABLE EXAMINATION STAGE (1x–8x + 3D + HOTSPOTS)
-
-  ======================================================================== -->
+  <!-- MODAL 2: FULLSCREEN ZOOMABLE EXAMINATION STAGE -->
 
   <div id="examOverlay" class="exam-overlay" role="dialog" aria-modal="true" aria-label="Zoomable Specimen Examination Stage">
 
@@ -3759,11 +3303,7 @@
 
 
 
-  <!-- =======================================================================
-
-       MODAL 3: PLACARD STUDIO (COMPRESSION + 3D + FLIP + VOICE + CAPSULES)
-
-  ======================================================================== -->
+  <!-- MODAL 3: PLACARD STUDIO -->
 
   <div id="studioModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="studioHeading">
 
@@ -3801,9 +3341,7 @@
 
 
 
-          <!-- Core Identity -->
-
-          <div style="display:grid;grid-template-columns:2fr 1.2fr 0.7fr 0.8fr;gap:8px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
 
             <div>
 
@@ -3847,9 +3385,7 @@
 
 
 
-          <!-- Wing, Specimen, Stamp & Phantom/Capsule Options -->
-
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;">
 
             <div>
 
@@ -3932,8 +3468,6 @@
           </div>
 
 
-
-          <!-- CLIENT-SIDE IMAGE COMPRESSION & 3D MODEL UPLOAD PIPELINE -->
 
           <div style="padding:12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-inset);display:flex;flex-direction:column;gap:10px;">
 
@@ -4047,9 +3581,7 @@
 
 
 
-          <!-- Metadata & Lore -->
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;">
 
             <div>
 
@@ -4071,7 +3603,7 @@
 
 
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;">
 
             <div>
 
@@ -4103,7 +3635,7 @@
 
 
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;">
 
             <div>
 
@@ -4143,11 +3675,7 @@
 
 
 
-  <!-- =======================================================================
-
-       MODAL 4: GITHUB PUBLISHING, SYNC & CURATOR VAULT
-
-  ======================================================================== -->
+  <!-- MODAL 4: GITHUB PUBLISHING & VAULT -->
 
   <div id="vaultModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="vaultHeading">
 
@@ -4166,8 +3694,6 @@
         <h3 id="vaultHeading" style="margin:0;font-family:var(--font-serif);font-size:25px;">GitHub Hosting &amp; Portability</h3>
 
 
-
-        <!-- 1. One-Click Static Repo Bundle -->
 
         <div style="padding:12px;border:1px solid var(--border);border-radius:5px;background:var(--bg-inset);display:flex;flex-direction:column;gap:8px;">
 
@@ -4193,8 +3719,6 @@
 
 
 
-        <!-- 2. Direct GitHub API Sync -->
-
         <div style="padding:12px;border:1px solid var(--border);border-radius:5px;background:var(--bg-inset);display:flex;flex-direction:column;gap:8px;">
 
           <span class="field-label" style="margin:0;color:var(--teal);">2. DIRECT GITHUB API SYNC (ZERO-BACKEND CMS)</span>
@@ -4209,11 +3733,11 @@
 
             <input id="ghOwner" type="text" class="field field-mono" placeholder="github-username" />
 
-            <input id="ghRepo" type="text" class="field field-mono" placeholder="repo-name (e.g. museum)" />
+            <input id="ghRepo" type="text" class="field field-mono" placeholder="repo-name" />
 
             <input id="ghBranch" type="text" class="field field-mono" value="main" placeholder="branch (main)" />
 
-            <input id="ghToken" type="password" class="field field-mono" placeholder="Fine-Grained PAT (ghp_...)" />
+            <input id="ghToken" type="password" class="field field-mono" placeholder="Fine-Grained PAT" />
 
           </div>
 
@@ -4221,7 +3745,7 @@
 
             <button id="ghSaveCfgBtn" type="button" class="btn sm">SAVE CONFIG</button>
 
-            <button id="ghPushBtn" type="button" class="btn sm teal">↑ COMMIT CATALOG TO GITHUB</button>
+            <button id="ghPushBtn" type="button" class="btn sm teal">↑ COMMIT TO GITHUB</button>
 
             <button id="ghPullBtn" type="button" class="btn sm">↓ PULL FROM GITHUB</button>
 
@@ -4232,8 +3756,6 @@
         </div>
 
 
-
-        <!-- 3. Local JSON Backup / Restore & Museum Identity -->
 
         <div style="padding:12px;border:1px solid var(--border);border-radius:5px;background:var(--bg-inset);display:flex;flex-direction:column;gap:8px;">
 
@@ -4253,8 +3775,6 @@
 
 
 
-        <!-- 4. Provenance Changelog -->
-
         <div style="padding:10px 12px;border:1px solid var(--border);border-radius:5px;background:var(--bg-inset);">
 
           <span class="field-label">PROVENANCE CHANGELOG</span>
@@ -4271,11 +3791,7 @@
 
 
 
-  <!-- =======================================================================
-
-       MODAL 5: ANNUAL EXHIBITION REPORT & PRINTABLE YEARLY ZINE
-
-  ======================================================================== -->
+  <!-- MODAL 5: ANNUAL REPORT & PRINTABLE ZINE -->
 
   <div id="yearlyModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="yearlyHeading">
 
@@ -4303,17 +3819,11 @@
 
   </div>
 
-  <!-- Dedicated Print Container -->
-
   <div id="zinePrintArea" style="display:none;"></div>
 
 
 
-  <!-- =======================================================================
-
-       MODAL 6: SIDE-BY-SIDE COMPARISON DESK
-
-  ======================================================================== -->
+  <!-- MODAL 6: SIDE-BY-SIDE COMPARISON DESK -->
 
   <div id="compareModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="compareHeading">
 
@@ -4347,11 +3857,7 @@
 
 
 
-  <!-- =======================================================================
-
-       MODAL 7: COMMAND PALETTE (CTRL/CMD + K)
-
-  ======================================================================== -->
+  <!-- MODAL 7: COMMAND PALETTE -->
 
   <div id="cmdModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Command Palette">
 
@@ -4367,7 +3873,7 @@
 
       <div class="modal-body" style="padding:12px;">
 
-        <input id="cmdInput" type="text" class="field field-mono" placeholder="Type a command or relic name (e.g. zoom, 3d, github, zine, cctv)..." autocomplete="off" />
+        <input id="cmdInput" type="text" class="field field-mono" placeholder="Type a command or relic name..." autocomplete="off" />
 
         <div id="cmdResults" style="margin-top:10px;max-height:310px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;"></div>
 
@@ -4379,11 +3885,7 @@
 
 
 
-  <!-- =======================================================================
-
-       NON-DESTRUCTIVE TOAST WITH UNDO ACTION
-
-  ======================================================================== -->
+  <!-- TOAST WITH UNDO -->
 
   <div id="toast" class="toast" role="status" aria-live="polite">
 
@@ -4394,17 +3896,19 @@
     <button id="toastUndoBtn" type="button" class="btn sm amber" style="display:none;">UNDO</button>
 
   </div>
-<!-- =========================================================================
+
+<!-- END PHASE 2 — PASTE PHASE 3 DIRECTLY BELOW -->
+  <script>
+
+/* =========================================================================
 
   z3itq3ist // THE GALLERY OF QUIETLY KEPT THINGS (CALM EDITION)
 
-  PHASE 3 OF 5: CORE STATE, INDEXEDDB, IMAGE COMPRESSION, 3D ENGINE & AUDIO
+  PHASE 3 OF 5: CORE STATE, INDEXEDDB, COMPRESSION, 3D VIEWER & AUDIO DECK
 
-  PASTE DIRECTLY BELOW PHASE 2. (Script tag stays open through Phase 5.)
+  PASTE DIRECTLY BELOW PHASE 2, AND ABOVE PHASE 4.
 
-========================================================================== -->
-
-<script>
+========================================================================== */
 
 (function () {
 
@@ -4412,15 +3916,27 @@
 
 
 
-  /* Shared namespace across Phases 3, 4, and 5 */
-
   const Z3 = (window.Z3 = window.Z3 || {});
+
+
+
+  function safeStorageGet(key) {
+
+    try { return window.localStorage ? window.localStorage.getItem(key) : null; } catch (_) { return null; }
+
+  }
+
+  function safeStorageSet(key, val) {
+
+    try { if (window.localStorage) window.localStorage.setItem(key, val); } catch (_) {}
+
+  }
 
 
 
   /* =========================================================================
 
-     1. CURATORIAL CONSTANTS & PERMANENT EXHIBITION DATA
+     1. STATIC CATALOG DATA, WINGS & PROMPTS
 
   ========================================================================= */
 
@@ -4880,23 +4396,11 @@
 
   const DEFAULT_NOTES = {
 
-    'exhibit-02': [
+    'exhibit-02': [{ id: 'n-seed-1', date: 'Nov 2024', text: 'Re-read the 5-year diagram today. Still grateful for those waffle fries.' }],
 
-      { id: 'n-seed-1', date: 'Nov 2024', text: 'Re-read the 5-year diagram today. Still grateful for those waffle fries.' }
+    'exhibit-03': [{ id: 'n-seed-2', date: 'Feb 2025', text: 'Survived apartment move #3 wrapped in two wool sweaters.' }],
 
-    ],
-
-    'exhibit-03': [
-
-      { id: 'n-seed-2', date: 'Feb 2025', text: 'Survived apartment move #3 wrapped in two wool sweaters.' }
-
-    ],
-
-    'exhibit-04': [
-
-      { id: 'n-seed-3', date: 'Oct 2026', text: 'Still sits beside the keyboard during long evenings.' }
-
-    ]
+    'exhibit-04': [{ id: 'n-seed-3', date: 'Oct 2026', text: 'Still sits beside the keyboard during long evenings.' }]
 
   };
 
@@ -4921,12 +4425,6 @@
   ];
 
 
-
-  /* =========================================================================
-
-     2. CENTRAL STATE & AUTOMATIC INDEXEDDB PERSISTENCE
-
-  ========================================================================= */
 
   const state = {
 
@@ -4978,8 +4476,6 @@
 
 
 
-    /* Ephemeral UI state */
-
     activeWing: 'All',
 
     activeTag: 'All',
@@ -5012,8 +4508,6 @@
 
 
 
-    /* Studio pending compressed media */
-
     pendingMedia: {
 
       frontDataUrl: null,
@@ -5034,8 +4528,6 @@
 
 
 
-    /* Audio & Toast state */
-
     audioPlaying: false,
 
     audioInterval: null,
@@ -5054,7 +4546,11 @@
 
 
 
-  /* IndexedDB Persistence Wrapper (with timeout & localStorage fallback) */
+  /* =========================================================================
+
+     2. AUTOMATIC INDEXEDDB PERSISTENCE (WITH LOCALSTORAGE FALLBACK)
+
+  ========================================================================= */
 
   const DB_NAME = 'z3itq3ist_micro_museum_v4';
 
@@ -5068,7 +4564,13 @@
 
     return new Promise((resolve, reject) => {
 
-      if (!('indexedDB' in window)) return reject(new Error('No IndexedDB'));
+      let idb = null;
+
+      try { idb = window.indexedDB; } catch (_) { idb = null; }
+
+      if (!idb) return reject(new Error('No IndexedDB'));
+
+
 
       let settled = false;
 
@@ -5076,11 +4578,13 @@
 
         if (!settled) { settled = true; reject(new Error('IndexedDB timeout')); }
 
-      }, 1500);
+      }, 1200);
+
+
 
       try {
 
-        const req = indexedDB.open(DB_NAME, 1);
+        const req = idb.open(DB_NAME, 1);
 
         req.onupgradeneeded = () => {
 
@@ -5174,9 +4678,9 @@
 
     if (snap.unlockedCapsules && typeof snap.unlockedCapsules === 'object') state.unlockedCapsules = snap.unlockedCapsules;
 
-    if (snap.prefs && typeof snap.prefs === 'object') state.prefs = { ...state.prefs, ...snap.prefs };
+    if (snap.prefs && typeof snap.prefs === 'object') state.prefs = Object.assign({}, state.prefs, snap.prefs);
 
-    if (snap.ghConfig && typeof snap.ghConfig === 'object') state.ghConfig = { ...state.ghConfig, ...snap.ghConfig };
+    if (snap.ghConfig && typeof snap.ghConfig === 'object') state.ghConfig = Object.assign({}, state.ghConfig, snap.ghConfig);
 
   }
 
@@ -5208,25 +4712,19 @@
 
     } catch (_) {
 
-      try {
+      const raw = safeStorageGet(DB_NAME);
 
-        const raw = localStorage.getItem(DB_NAME);
+      if (raw) {
 
-        if (raw) applyPersistSnapshot(JSON.parse(raw));
-
-        if (statusEl) statusEl.textContent = '● LOCAL STORAGE';
-
-      } catch (__) {
-
-        if (statusEl) statusEl.textContent = '● SESSION MEMORY';
+        try { applyPersistSnapshot(JSON.parse(raw)); } catch (__) {}
 
       }
+
+      if (statusEl) statusEl.textContent = raw ? '● LOCAL STORAGE' : '● SESSION READY';
 
     }
 
 
-
-    /* Optional static GitHub Pages catalog.json auto-hydration (only on HTTP/HTTPS) */
 
     if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
 
@@ -5244,7 +4742,7 @@
 
           }
 
-          if (remote.publicReadOnly === true && !localStorage.getItem('z3_curator_unlock')) {
+          if (remote.publicReadOnly === true && !safeStorageGet('z3_curator_unlock')) {
 
             state.prefs.curatorMode = false;
 
@@ -5252,7 +4750,7 @@
 
         }
 
-      } catch (_) { /* No remote catalog.json present yet */ }
+      } catch (_) {}
 
     }
 
@@ -5292,17 +4790,9 @@
 
       } catch (_) {
 
-        try {
+        safeStorageSet(DB_NAME, JSON.stringify(snap));
 
-          localStorage.setItem(DB_NAME, JSON.stringify(snap));
-
-          if (statusEl) statusEl.textContent = '● LOCAL SAVED';
-
-        } catch (__) {
-
-          if (statusEl) statusEl.textContent = '● SESSION ONLY';
-
-        }
+        if (statusEl) statusEl.textContent = '● LOCAL SAVED';
 
       }
 
@@ -5314,15 +4804,7 @@
 
   function logProvenance(action, detail) {
 
-    state.changelog.unshift({
-
-      date: new Date().toISOString().slice(0, 10),
-
-      action,
-
-      detail
-
-    });
+    state.changelog.unshift({ date: new Date().toISOString().slice(0, 10), action, detail });
 
     if (state.changelog.length > 40) state.changelog.length = 40;
 
@@ -5334,13 +4816,13 @@
 
   /* =========================================================================
 
-     3. SHARED UTILITIES, QUERYING & FORMATTING
+     3. SHARED HELPERS, FILTERS, TOAST & CLIPBOARD
 
   ========================================================================= */
 
   function escapeHtml(str) {
 
-    return String(str ?? '')
+    return String(str == null ? '' : str)
 
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
@@ -5352,25 +4834,23 @@
 
   function formatBytes(bytes) {
 
-    if (!bytes || bytes < 1024) return `${bytes || 0} B`;
+    if (!bytes || bytes < 1024) return (bytes || 0) + ' B';
 
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
 
-    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
 
   }
 
 
 
-  function getAllExhibits(includeSecret = state.prefs.secretUnlocked) {
+  function getAllExhibits(includeSecret) {
 
-    const base = includeSecret
+    const inc = typeof includeSecret === 'boolean' ? includeSecret : state.prefs.secretUnlocked;
 
-      ? PERMANENT_COLLECTION
+    const base = inc ? PERMANENT_COLLECTION : PERMANENT_COLLECTION.filter(e => !e.isSecret);
 
-      : PERMANENT_COLLECTION.filter(e => !e.isSecret);
-
-    return [...base, ...state.userArtifacts];
+    return base.concat(state.userArtifacts);
 
   }
 
@@ -5406,9 +4886,7 @@
 
     if (state.unlockedCapsules[ex.id]) return false;
 
-    const today = new Date().toISOString().slice(0, 10);
-
-    return ex.unlockDate > today;
+    return ex.unlockDate > new Date().toISOString().slice(0, 10);
 
   }
 
@@ -5418,7 +4896,7 @@
 
     const q = state.searchQuery.trim().toLowerCase();
 
-    let list = getAllExhibits().filter(item => {
+    const list = getAllExhibits().filter(item => {
 
       if (state.activeWing !== 'All' && item.wing !== state.activeWing) return false;
 
@@ -5472,7 +4950,7 @@
 
   let toastTimer = null;
 
-  function showToast(msg, undoFn = null) {
+  function showToast(msg, undoFn) {
 
     const toast = document.getElementById('toast');
 
@@ -5499,22 +4977,6 @@
       state.lastUndoFn = null;
 
     }, state.lastUndoFn ? 6000 : 2800);
-
-  }
-
-
-
-  function copyText(text, successMsg = 'Copied to clipboard.') {
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-
-      navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
-
-    } else {
-
-      fallbackCopy(text, successMsg);
-
-    }
 
   }
 
@@ -5552,17 +5014,35 @@
 
 
 
+  function copyText(text, successMsg) {
+
+    const msg = successMsg || 'Copied to clipboard.';
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+
+      navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(() => fallbackCopy(text, msg));
+
+    } else {
+
+      fallbackCopy(text, msg);
+
+    }
+
+  }
+
+
+
   function formatExhibitMarkdown(ex) {
 
-    const metaLines = Object.entries(ex.metadata || {}).map(([k, v]) => `- **${k}:** ${v}`).join('\n');
+    const metaLines = Object.entries(ex.metadata || {}).map(([k, v]) => '- **' + k + ':** ' + v).join('\n');
 
-    const notes = (state.notes[ex.id] || []).map(n => `  - _[${n.date}]_ ${n.text}`).join('\n');
+    const notes = (state.notes[ex.id] || []).map(n => '  - _[' + n.date + ']_ ' + n.text).join('\n');
 
-    const notesBlock = notes ? `\n\n**Curator Field Notes:**\n${notes}` : '';
+    const notesBlock = notes ? '\n\n**Curator Field Notes:**\n' + notes : '';
 
-    const audioBlock = ex.audioGuide ? `\n\n> **Audio Guide (${ex.audioGuide.stop}):** ${ex.audioGuide.transcript}` : '';
+    const audioBlock = ex.audioGuide ? '\n\n> **Audio Guide (' + ex.audioGuide.stop + '):** ' + ex.audioGuide.transcript : '';
 
-    return `### ${ex.exhibitNum}: ${ex.title}\n- **Accession:** \`${ex.accession}\` (${ex.month || ex.year || 'Present'})\n- **Wing:** ${ex.wing}\n${metaLines}\n\n**Curatorial Commentary:**\n${ex.commentary}${audioBlock}${notesBlock}`;
+    return '### ' + ex.exhibitNum + ': ' + ex.title + '\n- **Accession:** `' + ex.accession + '` (' + (ex.month || ex.year || 'Present') + ')\n- **Wing:** ' + ex.wing + '\n' + metaLines + '\n\n**Curatorial Commentary:**\n' + ex.commentary + audioBlock + notesBlock;
 
   }
 
@@ -5570,17 +5050,17 @@
 
   /* =========================================================================
 
-     4. CLIENT-SIDE IMAGE COMPRESSION + 1-BIT ATKINSON DITHERING ENGINE
-
-        (Auto-strips EXIF GPS metadata, outputs lightweight WebP + Thumbnail)
+     4. CLIENT-SIDE IMAGE COMPRESSION + 1-BIT ATKINSON DITHERING
 
   ========================================================================= */
 
-  async function compressImageFile(file, opts = {}) {
+  async function compressImageFile(file, opts) {
+
+    opts = opts || {};
 
     const maxDim = parseInt(opts.maxDim || 1200, 10);
 
-    const quality = Math.min(0.95, Math.max(0.4, (parseInt(opts.quality || 80, 10)) / 100));
+    const quality = Math.min(0.95, Math.max(0.4, parseInt(opts.quality || 80, 10) / 100));
 
     const treatment = opts.treatment || 'calm';
 
@@ -5634,11 +5114,7 @@
 
         const c = Math.min(255, Math.max(0, (luma - 128) * 1.15 + 128));
 
-        d[i] = c * 0.94;
-
-        d[i + 1] = c * 0.99;
-
-        d[i + 2] = c * 0.96;
+        d[i] = c * 0.94; d[i + 1] = c * 0.99; d[i + 2] = c * 0.96;
 
       }
 
@@ -5696,7 +5172,7 @@
 
         const hi = gray[i] > 128;
 
-        d[i * 4]     = hi ? 205 : 14;
+        d[i * 4] = hi ? 205 : 14;
 
         d[i * 4 + 1] = hi ? 220 : 19;
 
@@ -5756,11 +5232,13 @@
 
   /* =========================================================================
 
-     5. BESPOKE CALM SPECIMEN SVG & MEDIA RENDERER
+     5. SPECIMEN ARTWORK & PHOTO RENDERER
 
   ========================================================================= */
 
-  function renderSpecimenArtwork(exhibitOrType, options = {}) {
+  function renderSpecimenArtwork(exhibitOrType, options) {
+
+    options = options || {};
 
     const isLarge = Boolean(options.large);
 
@@ -5774,43 +5252,19 @@
 
       if (isCapsuleLocked(exhibitOrType)) {
 
-        return `
-
-          <svg style="${size}" viewBox="0 0 180 180" fill="none" aria-label="Sealed Time Capsule">
-
-            <rect x="28" y="36" width="124" height="108" rx="4" stroke="#c9b28a" stroke-width="1.6" stroke-dasharray="5 3" fill="rgba(201,178,138,0.06)"/>
-
-            <line x1="28" y1="74" x2="152" y2="74" stroke="#c9b28a" stroke-opacity="0.5"/>
-
-            <circle cx="90" cy="74" r="12" fill="#101517" stroke="#c9b28a" stroke-width="1.6"/>
-
-            <text x="90" y="77" text-anchor="middle" fill="#c9b28a" font-family="JetBrains Mono,monospace" font-size="9">⚷</text>
-
-            <text x="90" y="108" text-anchor="middle" fill="#c9b28a" font-family="JetBrains Mono,monospace" font-size="8.5">SEALED UNTIL</text>
-
-            <text x="90" y="123" text-anchor="middle" fill="#dde5e2" font-family="JetBrains Mono,monospace" font-size="9.5">${escapeHtml(exhibitOrType.unlockDate)}</text>
-
-          </svg>
-
-        `;
+        return `<svg style="${size}" viewBox="0 0 180 180" fill="none" aria-label="Sealed Time Capsule"><rect x="28" y="36" width="124" height="108" rx="4" stroke="#c9b28a" stroke-width="1.6" stroke-dasharray="5 3" fill="rgba(201,178,138,0.06)"/><line x1="28" y1="74" x2="152" y2="74" stroke="#c9b28a" stroke-opacity="0.5"/><circle cx="90" cy="74" r="12" fill="#101517" stroke="#c9b28a" stroke-width="1.6"/><text x="90" y="77" text-anchor="middle" fill="#c9b28a" font-family="JetBrains Mono,monospace" font-size="9">⚷</text><text x="90" y="108" text-anchor="middle" fill="#c9b28a" font-family="JetBrains Mono,monospace" font-size="8.5">SEALED UNTIL</text><text x="90" y="123" text-anchor="middle" fill="#dde5e2" font-family="JetBrains Mono,monospace" font-size="9.5">${escapeHtml(exhibitOrType.unlockDate)}</text></svg>`;
 
       }
 
-
-
-      const imgSrc = options.flipped && exhibitOrType.imageBack
+      const src = (options.flipped && exhibitOrType.imageBack)
 
         ? exhibitOrType.imageBack
 
-        : (!isLarge && exhibitOrType.thumbFront ? exhibitOrType.thumbFront : exhibitOrType.imageFront);
+        : (isLarge ? (exhibitOrType.imageFront || exhibitOrType.thumbFront) : (exhibitOrType.thumbFront || exhibitOrType.imageFront));
 
+      if (src) {
 
-
-      if (imgSrc) {
-
-        const monoFilter = options.forceMono ? 'filter:grayscale(1) contrast(1.12);' : '';
-
-        return `<img src="${imgSrc}" alt="${escapeHtml(exhibitOrType.title)}" style="${isLarge ? 'max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;' : 'width:100%;height:100%;object-fit:cover;'}${monoFilter}" />`;
+        return `<img src="${src}" alt="${escapeHtml(exhibitOrType.title)}" style="${isLarge ? 'max-width:100%;max-height:260px;object-fit:contain;border-radius:4px;' : 'width:100%;height:100%;object-fit:cover;'}" />`;
 
       }
 
@@ -5818,303 +5272,109 @@
 
 
 
-    const type = typeof exhibitOrType === 'string' ? exhibitOrType : exhibitOrType.specimen;
+    const type = typeof exhibitOrType === 'string' ? exhibitOrType : (exhibitOrType && exhibitOrType.specimen) || 'relic-charm';
 
+    const rot = options.swing ? 'transform:rotate(8deg);transition:transform 0.3s;' : 'transition:transform 0.3s;';
 
 
-    switch (type) {
 
-      case 'key':
+    if (type === 'key') {
 
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Tarnished Brass Key">
-
-            <ellipse cx="102" cy="166" rx="48" ry="6" fill="currentColor" opacity="0.1"/>
-
-            <g transform="rotate(${options.swing ? '-12' : '-24'} 100 100)">
-
-              <circle cx="58" cy="100" r="24" fill="#b8a586" stroke="#645844" stroke-width="2.2"/>
-
-              <circle cx="58" cy="100" r="12" fill="#0b0e0f" stroke="#645844" stroke-width="1.8"/>
-
-              <rect x="81" y="94" width="76" height="11" rx="3" fill="#ad9a7b" stroke="#645844" stroke-width="2.2"/>
-
-              <line x1="88" y1="98" x2="150" y2="98" stroke="#ebe2d0" stroke-width="1.2" opacity="0.55"/>
-
-              <path d="M132 105 V124 H140 V115 H146 V126 H154 V105" fill="#948368" stroke="#645844" stroke-width="2.2" stroke-linejoin="round"/>
-
-            </g>
-
-          </svg>`;
-
-
-
-      case 'receipt':
-
-        if (options.flipped) {
-
-          return `
-
-            <svg style="${size}" viewBox="0 0 200 220" fill="none" aria-label="Reverse side of diner receipt">
-
-              <path d="M46 18 L54 24 L62 18 L70 24 L78 18 L86 24 L94 18 L102 24 L110 18 L118 24 L126 18 L134 24 L142 18 L154 22 V198 L146 192 L138 198 L130 192 L122 198 L114 192 L106 198 L98 192 L90 198 L82 192 L74 198 L66 192 L58 198 L46 194 Z"
-
-                fill="#e7e4dc" stroke="#8f9893" stroke-width="1.6"/>
-
-              <text x="56" y="46" fill="#2c4452" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600">5-YR PLAN (02:17)</text>
-
-              <rect x="58" y="58" width="40" height="20" rx="3" stroke="#2c4452" stroke-width="1.3" stroke-dasharray="3 2"/>
-
-              <text x="66" y="71" fill="#2c4452" font-family="JetBrains Mono,monospace" font-size="7">LEAVE</text>
-
-              <path d="M98 68 C112 68, 112 92, 118 96" stroke="#2c4452" stroke-width="1.3" stroke-linecap="round"/>
-
-              <circle cx="122" cy="112" r="18" stroke="#2c4452" stroke-width="1.3"/>
-
-              <text x="109" y="110" fill="#2c4452" font-family="JetBrains Mono,monospace" font-size="6.5">NEW</text>
-
-              <text x="108" y="119" fill="#2c4452" font-family="JetBrains Mono,monospace" font-size="6.5">CITY?</text>
-
-              <path d="M62 128 Q85 114, 98 144 T136 168" stroke="#2c4452" stroke-width="1.3" fill="none"/>
-
-              <text x="58" y="160" fill="#2c4452" font-family="JetBrains Mono,monospace" font-size="7">✦ stay gentle</text>
-
-            </svg>`;
-
-        }
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 220" fill="none" aria-label="2:17 AM Diner Receipt">
-
-            <path d="M46 18 L54 24 L62 18 L70 24 L78 18 L86 24 L94 18 L102 24 L110 18 L118 24 L126 18 L134 24 L142 18 L154 22 V198 L146 192 L138 198 L130 192 L122 198 L114 192 L106 198 L98 192 L90 198 L82 192 L74 198 L66 192 L58 198 L46 194 Z"
-
-              fill="#ece9e1" stroke="#969e99" stroke-width="1.6"/>
-
-            <line x1="47" y1="112" x2="153" y2="108" stroke="#cfcac0" stroke-width="1.2"/>
-
-            <text x="100" y="45" text-anchor="middle" fill="#28302e" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" opacity="0.82">STARLIGHT DINER</text>
-
-            <text x="100" y="57" text-anchor="middle" fill="#586461" font-family="JetBrains Mono,monospace" font-size="7">TBL 14 · 02:17 AM</text>
-
-            <line x1="58" y1="67" x2="142" y2="67" stroke="#879895" stroke-dasharray="2 2"/>
-
-            <text x="58" y="84" fill="#3a4542" font-family="JetBrains Mono,monospace" font-size="7.5" opacity="0.62">2 COFFEE       5.00</text>
-
-            <text x="58" y="99" fill="#3a4542" font-family="JetBrains Mono,monospace" font-size="7.5" opacity="0.45">1 WAFFLE FRY   6.50</text>
-
-            <line x1="58" y1="126" x2="142" y2="126" stroke="#879895" stroke-dasharray="2 2"/>
-
-            <text x="58" y="142" fill="#28302e" font-family="JetBrains Mono,monospace" font-size="8" font-weight="600" opacity="0.72">TOTAL         14.50</text>
-
-            <text x="100" y="176" text-anchor="middle" fill="#6d7976" font-family="JetBrains Mono,monospace" font-size="6.5">THANK YOU · KEEP GOING</text>
-
-          </svg>`;
-
-
-
-      case 'mug':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="The Good Mug">
-
-            <ellipse cx="96" cy="166" rx="50" ry="8" fill="currentColor" opacity="0.1"/>
-
-            <path d="M84 46 C80 36, 90 30, 86 20" stroke="#8fb39a" stroke-width="1.4" stroke-linecap="round" opacity="0.45"/>
-
-            <path d="M104 42 C100 32, 110 26, 106 16" stroke="#dde5e2" stroke-width="1.4" stroke-linecap="round" opacity="0.4"/>
-
-            <path d="${options.rotated ? 'M54 84 C26 84, 26 134, 54 134' : 'M138 84 C168 84, 168 134, 138 134'}"
-
-              stroke="#4a6572" stroke-width="11" stroke-linecap="round" fill="none"/>
-
-            <path d="M54 68 H138 V142 C138 156, 124 162, 96 162 C68 162, 54 156, 54 142 Z" fill="#3a525e" stroke="#213038" stroke-width="2.4"/>
-
-            <path d="M55 138 C76 144, 116 144, 137 138 V146 C137 156, 122 161, 96 161 C70 161, 55 156, 55 146 Z" fill="#cfc9bc" opacity="0.82"/>
-
-            <ellipse cx="96" cy="68" rx="42" ry="11" fill="#d8d4ca" stroke="#213038" stroke-width="2"/>
-
-            <ellipse cx="96" cy="70" rx="34" ry="7" fill="#3b2f2a"/>
-
-            <path d="${options.rotated ? 'M64 73 L70 78 L75 74' : 'M122 73 L127 79 L133 74'}" fill="#efede6" stroke="#213038" stroke-width="1.6"/>
-
-          </svg>`;
-
-
-
-      case 'stone':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Basalt River Stone">
-
-            ${options.grounding ? '<circle cx="100" cy="100" r="76" stroke="#8fb39a" stroke-opacity="0.45" stroke-dasharray="4 4"/>' : ''}
-
-            <ellipse cx="102" cy="152" rx="60" ry="10" fill="currentColor" opacity="0.12"/>
-
-            <path d="M40 120 C34 86, 62 56, 104 54 C144 52, 168 78, 164 114 C160 144, 130 152, 96 150 C62 148, 44 142, 40 120 Z"
-
-              fill="#626c6a" stroke="#363e3d" stroke-width="2.4"/>
-
-            <ellipse cx="102" cy="100" rx="26" ry="17" transform="rotate(-12 102 100)" fill="#4d5654" opacity="0.82"/>
-
-            <path d="M84 106 C92 114, 114 112, 122 100" stroke="#9eb0ac" stroke-width="1.6" stroke-linecap="round" opacity="0.6"/>
-
-          </svg>`;
-
-
-
-      case 'note':
-
-        if (options.folded) {
-
-          return `
-
-            <svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Folded Sticky Note">
-
-              <g transform="rotate(-5 100 100)">
-
-                <rect x="40" y="70" width="120" height="62" rx="3" fill="#cfc18b" stroke="#877c50" stroke-width="2"/>
-
-                <text x="100" y="105" text-anchor="middle" fill="#2e2b20" font-family="JetBrains Mono,monospace" font-size="8.5">[ FOLDED · P.114 ]</text>
-
-              </g>
-
-            </svg>`;
-
-        }
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Sticky Note">
-
-            <g transform="rotate(-4 100 100)">
-
-              <path d="M40 38 H160 V132 L130 162 H40 Z" fill="#d8cb96" stroke="#8a7f52" stroke-width="2" stroke-linejoin="round"/>
-
-              <path d="M130 162 V132 H160 Z" fill="#bfb17c" stroke="#8a7f52" stroke-width="1.8" stroke-linejoin="round"/>
-
-              <line x1="42" y1="100" x2="158" y2="100" stroke="#a19462" stroke-dasharray="4 3"/>
-
-              <text x="53" y="84" fill="#2c2a21" font-family="Cormorant Garamond,serif" font-size="14" font-style="italic">Remember to</text>
-
-              <text x="53" y="106" fill="#2c2a21" font-family="Cormorant Garamond,serif" font-size="14" font-style="italic">ask about the</text>
-
-              <text x="53" y="128" fill="#2c2a21" font-family="Cormorant Garamond,serif" font-size="15" font-weight="600" font-style="italic">greenhouse.</text>
-
-            </g>
-
-          </svg>`;
-
-
-
-      case 'phantom-book':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Unrecovered Paperback Silhouette">
-
-            <rect x="52" y="34" width="96" height="132" rx="4" stroke="#b88a90" stroke-width="1.8" stroke-dasharray="5 3" fill="rgba(184,138,144,0.06)"/>
-
-            <line x1="68" y1="34" x2="68" y2="166" stroke="#b88a90" stroke-opacity="0.55" stroke-dasharray="3 3"/>
-
-            <text x="108" y="96" text-anchor="middle" fill="#b88a90" font-family="JetBrains Mono,monospace" font-size="8.5">UNRECOVERED</text>
-
-            <text x="108" y="112" text-anchor="middle" fill="#879895" font-family="JetBrains Mono,monospace" font-size="7">MARCH 2021</text>
-
-          </svg>`;
-
-
-
-      case 'relic-ticket':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none">
-
-            <g transform="rotate(-8 100 100)">
-
-              <path d="M32 68 H168 V88 A12 12 0 0 0 168 112 V132 H32 V112 A12 12 0 0 0 32 88 Z" fill="#161d20" stroke="#8fb39a" stroke-width="1.8"/>
-
-              <line x1="126" y1="68" x2="126" y2="132" stroke="#8fb39a" stroke-dasharray="4 3"/>
-
-              <text x="80" y="98" text-anchor="middle" fill="#dde5e2" font-family="JetBrains Mono,monospace" font-size="9">ADMIT ONE</text>
-
-              <text x="80" y="112" text-anchor="middle" fill="#879895" font-family="JetBrains Mono,monospace" font-size="7">QUIET ARCHIVE</text>
-
-            </g>
-
-          </svg>`;
-
-
-
-      case 'relic-cassette':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none">
-
-            <rect x="30" y="54" width="140" height="92" rx="8" fill="#161d20" stroke="#7ea8b0" stroke-width="1.8"/>
-
-            <rect x="42" y="64" width="116" height="48" rx="3" fill="#cfc9bc"/>
-
-            <circle cx="74" cy="94" r="9" fill="#101517" stroke="#586966" stroke-width="2"/>
-
-            <circle cx="126" cy="94" r="9" fill="#101517" stroke="#586966" stroke-width="2"/>
-
-            <rect x="88" y="88" width="24" height="12" rx="2" fill="#101517"/>
-
-          </svg>`;
-
-
-
-      case 'relic-shell':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none">
-
-            <path d="M54 156 C54 92, 92 46, 152 44 C150 106, 114 148, 54 156 Z" fill="#465c50" stroke="#8fb39a" stroke-width="2"/>
-
-            <path d="M44 166 C76 134, 112 96, 146 50" stroke="#dde5e2" stroke-width="1.6" stroke-linecap="round"/>
-
-          </svg>`;
-
-
-
-      case 'relic-ring':
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none">
-
-            <ellipse cx="100" cy="106" rx="44" ry="36" stroke="#b9c4c0" stroke-width="10"/>
-
-            <ellipse cx="100" cy="106" rx="44" ry="36" stroke="#dde5e2" stroke-width="2" opacity="0.75"/>
-
-          </svg>`;
-
-
-
-      default:
-
-        return `
-
-          <svg style="${size}" viewBox="0 0 200 200" fill="none">
-
-            <circle cx="100" cy="48" r="9" stroke="#8fb39a" stroke-width="2"/>
-
-            <circle cx="100" cy="112" r="44" fill="#161d20" stroke="#8fb39a" stroke-width="2"/>
-
-            <circle cx="100" cy="112" r="32" stroke="#586966" stroke-dasharray="3 3"/>
-
-            <circle cx="100" cy="112" r="10" fill="#8fb39a" opacity="0.75"/>
-
-          </svg>`;
+      return `<svg style="${size}${rot}" viewBox="0 0 200 200" fill="none" aria-label="Tarnished Brass Key"><g transform="rotate(-22 100 100)"><circle cx="58" cy="100" r="24" fill="#b8a582" stroke="#6f6249" stroke-width="2.4"/><circle cx="58" cy="100" r="12" fill="#0b0e0f" stroke="#6f6249" stroke-width="2"/><rect x="81" y="94" width="76" height="11" rx="3" fill="#ad9a77" stroke="#6f6249" stroke-width="2.2"/><path d="M130 105 V125 H139 V115 H146 V127 H155 V105" fill="#9a8866" stroke="#6f6249" stroke-width="2.2" stroke-linejoin="round"/></g></svg>`;
 
     }
+
+
+
+    if (type === 'receipt') {
+
+      if (options.flipped) {
+
+        return `<svg style="${size}" viewBox="0 0 200 220" fill="none" aria-label="Reverse side 5-year plan"><path d="M46 18 L56 24 L66 18 L76 24 L86 18 L96 24 L106 18 L116 24 L126 18 L136 24 L146 18 L154 22 V198 L144 192 L134 198 L124 192 L114 198 L104 192 L94 198 L84 192 L74 198 L64 192 L54 198 L46 194 Z" fill="#e6e4dc" stroke="#8e968e" stroke-width="1.6"/><text x="58" y="48" fill="#324b5e" font-family="JetBrains Mono,monospace" font-size="8.5" font-weight="600">5-YR PLAN (02:17)</text><rect x="58" y="60" width="40" height="20" rx="3" stroke="#324b5e" stroke-width="1.3" stroke-dasharray="3 2"/><text x="64" y="73" fill="#324b5e" font-family="JetBrains Mono,monospace" font-size="7">LEAVE</text><path d="M98 70 C112 70,112 94,120 98" stroke="#324b5e" stroke-width="1.3"/><circle cx="122" cy="116" r="18" stroke="#324b5e" stroke-width="1.3"/><text x="110" y="114" fill="#324b5e" font-family="JetBrains Mono,monospace" font-size="6.5">NEW</text><text x="108" y="123" fill="#324b5e" font-family="JetBrains Mono,monospace" font-size="6.5">START</text><path d="M62 132 Q88 118,100 148 T136 170" stroke="#324b5e" stroke-width="1.3" fill="none"/></svg>`;
+
+      }
+
+      return `<svg style="${size}" viewBox="0 0 200 220" fill="none" aria-label="2:17 AM Diner Receipt"><path d="M46 18 L56 24 L66 18 L76 24 L86 18 L96 24 L106 18 L116 24 L126 18 L136 24 L146 18 L154 22 V198 L144 192 L134 198 L124 192 L114 198 L104 192 L94 198 L84 192 L74 198 L64 192 L54 198 L46 194 Z" fill="#eceae2" stroke="#8e968e" stroke-width="1.6"/><text x="100" y="46" text-anchor="middle" fill="#2c3534" font-family="JetBrains Mono,monospace" font-size="8.5" font-weight="600">STARLIGHT DINER</text><text x="100" y="59" text-anchor="middle" fill="#5d6b69" font-family="JetBrains Mono,monospace" font-size="6.8">TBL 14 · 02:17 AM</text><line x1="58" y1="69" x2="142" y2="69" stroke="#8e968e" stroke-dasharray="2 2"/><text x="58" y="88" fill="#465351" font-family="JetBrains Mono,monospace" font-size="7.2" opacity="0.7">2 COFFEE      5.00</text><text x="58" y="103" fill="#465351" font-family="JetBrains Mono,monospace" font-size="7.2" opacity="0.52">1 FRIES       6.50</text><line x1="58" y1="126" x2="142" y2="126" stroke="#8e968e" stroke-dasharray="2 2"/><text x="58" y="144" fill="#2c3534" font-family="JetBrains Mono,monospace" font-size="7.8" font-weight="600">TOTAL        14.50</text></svg>`;
+
+    }
+
+
+
+    if (type === 'mug') {
+
+      const hPath = options.rotated ? 'M54 84 C26 84,26 134,54 134' : 'M138 84 C168 84,168 134,138 134';
+
+      const chip = options.rotated ? 'M64 73 L70 78 L75 74' : 'M122 73 L127 79 L133 74';
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="The Good Mug"><path d="M84 44 C80 34,90 28,86 18 M106 42 C102 32,112 26,108 16" stroke="#8fb39a" stroke-width="1.4" stroke-linecap="round" opacity="0.45"/><path d="${hPath}" stroke="#4e6975" stroke-width="11" stroke-linecap="round"/><path d="M54 68 H138 V142 C138 155,124 161,96 161 C68 161,54 155,54 142 Z" fill="#3c535e" stroke="#243238" stroke-width="2.4"/><ellipse cx="96" cy="68" rx="42" ry="10" fill="#cfd6d2" stroke="#243238" stroke-width="2"/><ellipse cx="96" cy="70" rx="33" ry="6.5" fill="#453932"/><path d="${chip}" fill="#efede6" stroke="#243238" stroke-width="1.6"/></svg>`;
+
+    }
+
+
+
+    if (type === 'stone') {
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Basalt River Stone">${options.grounding ? '<circle cx="100" cy="102" r="76" stroke="#8fb39a" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.65"/>' : ''}<path d="M40 118 C34 86,62 56,104 54 C144 52,168 78,164 114 C160 144,130 152,96 150 C62 148,44 140,40 118 Z" fill="#636e6c" stroke="#3c4645" stroke-width="2.4"/><ellipse cx="102" cy="100" rx="26" ry="16" transform="rotate(-12 102 100)" fill="#4d5756" opacity="0.85"/><path d="M84 106 C92 114,114 112,122 100" stroke="#9eb0ac" stroke-width="1.6" stroke-linecap="round" opacity="0.6"/></svg>`;
+
+    }
+
+
+
+    if (type === 'note') {
+
+      if (options.folded) {
+
+        return `<svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Folded Sticky Note"><g transform="rotate(-5 100 100)"><rect x="42" y="72" width="116" height="58" rx="3" fill="#d9c98c" stroke="#8e8253" stroke-width="2"/><text x="100" y="104" text-anchor="middle" fill="#3a372a" font-family="JetBrains Mono,monospace" font-size="8.5">[ FOLDED · P.114 ]</text></g></svg>`;
+
+      }
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Sticky Note"><g transform="rotate(-4 100 100)"><path d="M42 40 H158 V130 L128 160 H42 Z" fill="#dfd096" stroke="#918556" stroke-width="2"/><path d="M128 160 V130 H158 Z" fill="#c7b77a" stroke="#918556" stroke-width="1.8"/><text x="54" y="84" fill="#333128" font-family="Cormorant Garamond,serif" font-size="14" font-style="italic">Remember to</text><text x="54" y="106" fill="#333128" font-family="Cormorant Garamond,serif" font-size="14" font-style="italic">ask about the</text><text x="54" y="128" fill="#333128" font-family="Cormorant Garamond,serif" font-size="15" font-weight="600" font-style="italic">greenhouse.</text></g></svg>`;
+
+    }
+
+
+
+    if (type === 'phantom-book') {
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none" aria-label="Unrecovered Paperback"><rect x="52" y="34" width="96" height="132" rx="4" stroke="#b88a90" stroke-width="1.6" stroke-dasharray="5 3" fill="rgba(184,138,144,0.06)"/><line x1="68" y1="34" x2="68" y2="166" stroke="#b88a90" stroke-dasharray="3 3" opacity="0.7"/><text x="108" y="96" text-anchor="middle" fill="#b88a90" font-family="JetBrains Mono,monospace" font-size="8">PHANTOM</text><text x="108" y="110" text-anchor="middle" fill="#879895" font-family="JetBrains Mono,monospace" font-size="7">UNRECOVERED</text></svg>`;
+
+    }
+
+
+
+    if (type === 'relic-ticket') {
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none"><g transform="rotate(-8 100 100)"><path d="M32 68 H168 V88 A12 12 0 0 0 168 112 V132 H32 V112 A12 12 0 0 0 32 88 Z" fill="#161d20" stroke="#8fb39a" stroke-width="2"/><line x1="126" y1="68" x2="126" y2="132" stroke="#8fb39a" stroke-dasharray="4 3"/><text x="82" y="104" text-anchor="middle" fill="#dde5e2" font-family="JetBrains Mono,monospace" font-size="9">ADMIT ONE</text></g></svg>`;
+
+    }
+
+
+
+    if (type === 'relic-cassette') {
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none"><rect x="30" y="54" width="140" height="92" rx="8" fill="#161d20" stroke="#7ea8b0" stroke-width="2"/><rect x="42" y="64" width="116" height="48" rx="3" fill="#dde5e2"/><circle cx="74" cy="94" r="9" fill="#101517" stroke="#586966" stroke-width="2"/><circle cx="126" cy="94" r="9" fill="#101517" stroke="#586966" stroke-width="2"/></svg>`;
+
+    }
+
+
+
+    if (type === 'relic-shell') {
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none"><path d="M54 156 C54 92,92 46,152 44 C150 106,114 148,54 156 Z" fill="#4f695b" stroke="#8fb39a" stroke-width="2"/><path d="M44 166 C76 134,112 96,146 50" stroke="#dde5e2" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
+    }
+
+
+
+    if (type === 'relic-ring') {
+
+      return `<svg style="${size}" viewBox="0 0 200 200" fill="none"><ellipse cx="100" cy="106" rx="44" ry="36" stroke="#c9b28a" stroke-width="10"/><ellipse cx="100" cy="106" rx="44" ry="36" stroke="#dde5e2" stroke-width="1.8" opacity="0.7"/></svg>`;
+
+    }
+
+
+
+    return `<svg style="${size}" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="48" r="9" stroke="#8fb39a" stroke-width="2"/><circle cx="100" cy="112" r="44" fill="#161d20" stroke="#8fb39a" stroke-width="2"/><circle cx="100" cy="112" r="32" stroke="#586966" stroke-dasharray="3 3"/><circle cx="100" cy="112" r="10" fill="#c9b28a" opacity="0.85"/></svg>`;
 
   }
 
@@ -6122,45 +5382,75 @@
 
   /* =========================================================================
 
-     6. THREE.JS 3D SPECIMEN ENGINE (.GLB/.GLTF + PROCEDURAL + CALM SHADERS)
+     6. THREE.JS 3D SPECIMEN VIEWER (.GLB / .GLTF + PROCEDURAL STONE)
 
   ========================================================================= */
 
-  const active3DViewers = {};
+  const threeViewers = { modal: null, exam: null };
 
 
 
-  function dispose3DViewer(key) {
+  function dispose3DViewer(slot) {
 
-    const v = active3DViewers[key];
+    const v = threeViewers[slot];
 
     if (!v) return;
 
-    cancelAnimationFrame(v.rafId);
+    try {
 
-    if (v.resizeObs) v.resizeObs.disconnect();
+      if (v.rafId) cancelAnimationFrame(v.rafId);
 
-    if (v.controls) v.controls.dispose();
+      if (v.resizeObs) v.resizeObs.disconnect();
 
-    if (v.renderer) {
+      if (v.controls) v.controls.dispose();
 
-      v.renderer.dispose();
+      if (v.renderer) v.renderer.dispose();
 
-      if (v.renderer.domElement && v.renderer.domElement.parentNode) {
+    } catch (_) {}
 
-        v.renderer.domElement.parentNode.removeChild(v.renderer.domElement);
-
-      }
-
-    }
-
-    delete active3DViewers[key];
+    threeViewers[slot] = null;
 
   }
 
 
 
-  function createProceduralStoneMesh() {
+  function apply3DShader(slot, mode) {
+
+    const v = threeViewers[slot];
+
+    if (!v || !v.rootGroup || typeof THREE === 'undefined') return;
+
+    v.rootGroup.traverse((obj) => {
+
+      if (!obj.isMesh) return;
+
+      if (!obj.userData.origMat) obj.userData.origMat = obj.material;
+
+      if (mode === 'wireframe') {
+
+        obj.material = new THREE.MeshBasicMaterial({ color: 0x8fb39a, wireframe: true, transparent: true, opacity: 0.78 });
+
+      } else if (mode === 'chrome') {
+
+        obj.material = new THREE.MeshStandardMaterial({ color: 0xd0dcd7, metalness: 0.9, roughness: 0.16 });
+
+      } else if (mode === 'clay') {
+
+        obj.material = new THREE.MeshStandardMaterial({ color: 0xcfc9bc, metalness: 0.02, roughness: 0.92 });
+
+      } else {
+
+        obj.material = obj.userData.origMat;
+
+      }
+
+    });
+
+  }
+
+
+
+  function buildProceduralBasaltStone() {
 
     const geo = new THREE.IcosahedronGeometry(1.15, 4);
 
@@ -6170,35 +5460,29 @@
 
       let x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
 
-      y *= 0.56;
+      const n = 1 + 0.06 * Math.sin(x * 3.1 + y * 2.2) + 0.04 * Math.cos(z * 4.0);
 
-      z *= 0.84;
+      x *= 1.18 * n;
 
-      const thumbDist = Math.hypot(x - 0.12, z + 0.05);
+      y *= 0.62 * n;
 
-      if (y > 0 && thumbDist < 0.65) {
+      z *= 0.94 * n;
 
-        y -= (0.65 - thumbDist) * 0.22;
+      const distTop = Math.hypot(x - 0.12, z - 0.05);
+
+      if (y > 0 && distTop < 0.58) {
+
+        y -= (0.58 - distTop) * 0.24;
 
       }
 
-      const ripple = Math.sin(x * 3.1 + z * 2.4) * 0.025;
-
-      pos.setXYZ(i, x + ripple, y, z);
+      pos.setXYZ(i, x, y, z);
 
     }
 
     geo.computeVertexNormals();
 
-    const mat = new THREE.MeshStandardMaterial({
-
-      color: 0x677270,
-
-      roughness: 0.62,
-
-      metalness: 0.08
-
-    });
+    const mat = new THREE.MeshStandardMaterial({ color: 0x626d6b, roughness: 0.68, metalness: 0.08 });
 
     return new THREE.Mesh(geo, mat);
 
@@ -6206,51 +5490,17 @@
 
 
 
-  function apply3DShader(key, shaderMode) {
+  function mount3DViewer(slot, container, modelSrc, shaderMode) {
 
-    const v = active3DViewers[key];
+    dispose3DViewer(slot);
 
-    if (!v || !v.rootObj) return;
-
-    v.shaderMode = shaderMode;
-
-    v.rootObj.traverse(child => {
-
-      if (!child.isMesh) return;
-
-      if (!child.userData.origMaterial) child.userData.origMaterial = child.material;
-
-      if (shaderMode === 'original') {
-
-        child.material = child.userData.origMaterial;
-
-      } else if (shaderMode === 'wireframe') {
-
-        child.material = new THREE.MeshBasicMaterial({ color: 0x8fb39a, wireframe: true });
-
-      } else if (shaderMode === 'chrome') {
-
-        child.material = new THREE.MeshStandardMaterial({ color: 0xdde5e2, metalness: 0.92, roughness: 0.15 });
-
-      } else if (shaderMode === 'clay') {
-
-        child.material = new THREE.MeshStandardMaterial({ color: 0xcfc9bc, metalness: 0.02, roughness: 0.88 });
-
-      }
-
-    });
-
-  }
+    if (!container) return;
 
 
 
-  function mount3DViewer(key, container, modelSource, shaderMode = 'original') {
+    if (typeof THREE === 'undefined') {
 
-    dispose3DViewer(key);
-
-    if (typeof THREE === 'undefined' || !container) {
-
-      container.innerHTML = `<div style="font-family:var(--font-mono);font-size:11px;color:var(--ink-muted);padding:20px;text-align:center;">3D engine offline (Three.js CDN required).</div>`;
+      container.innerHTML = `<div style="text-align:center;padding:16px;font-family:var(--font-mono);font-size:11px;color:var(--ink-muted);">${renderSpecimenArtwork('stone', { large: true })}<div style="margin-top:8px;">3D Engine offline — displaying archival vector fallback.</div></div>`;
 
       return;
 
@@ -6264,7 +5514,7 @@
 
     mount.className = 'three-mount';
 
-    mount.style.height = container.clientHeight > 220 ? `${container.clientHeight}px` : '270px';
+    mount.style.height = slot === 'exam' ? '100%' : '270px';
 
     container.appendChild(mount);
 
@@ -6280,7 +5530,7 @@
 
     const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
 
-    camera.position.set(0, 1.0, 3.3);
+    camera.position.set(0, 1.1, 3.6);
 
 
 
@@ -6296,69 +5546,55 @@
 
     scene.add(new THREE.AmbientLight(0xdde5e2, 0.72));
 
-    const keyLight = new THREE.DirectionalLight(0xeef5f0, 0.95);
+    const keyLight = new THREE.DirectionalLight(0xeef5f0, 1.05);
 
     keyLight.position.set(3, 5, 4);
 
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x8fb39a, 0.5);
+    const rimLight = new THREE.DirectionalLight(0x8fb39a, 0.55);
 
-    rimLight.position.set(-4, 2, -3);
+    rimLight.position.set(-4, -2, -3);
 
     scene.add(rimLight);
 
 
 
-    const controls = THREE.OrbitControls ? new THREE.OrbitControls(camera, renderer.domElement) : null;
+    const rootGroup = new THREE.Group();
 
-    if (controls) {
+    scene.add(rootGroup);
+
+
+
+    let controls = null;
+
+    if (THREE.OrbitControls) {
+
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
 
       controls.enableDamping = true;
 
-      controls.dampingFactor = 0.06;
+      controls.dampingFactor = 0.07;
 
-      controls.autoRotate = !state.prefs.still;
+      controls.minDistance = 1.4;
 
-      controls.autoRotateSpeed = 0.9;
-
-    }
-
-
-
-    const viewer = { scene, camera, renderer, controls, rootObj: null, rafId: 0, shaderMode };
-
-    active3DViewers[key] = viewer;
-
-
-
-    function attachModel(obj) {
-
-      const box = new THREE.Box3().setFromObject(obj);
-
-      const size = box.getSize(new THREE.Vector3());
-
-      const center = box.getCenter(new THREE.Vector3());
-
-      const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-
-      obj.scale.multiplyScalar(2.1 / maxAxis);
-
-      obj.position.sub(center.multiplyScalar(2.1 / maxAxis));
-
-      scene.add(obj);
-
-      viewer.rootObj = obj;
-
-      apply3DShader(key, shaderMode);
+      controls.maxDistance = 8.5;
 
     }
 
 
 
-    if (modelSource === 'procedural:stone') {
+    const viewer = { renderer, scene, camera, controls, rootGroup, rafId: null, resizeObs: null };
 
-      attachModel(createProceduralStoneMesh());
+    threeViewers[slot] = viewer;
+
+
+
+    if (modelSrc === 'procedural:stone') {
+
+      rootGroup.add(buildProceduralBasaltStone());
+
+      apply3DShader(slot, shaderMode || 'original');
 
     } else if (THREE.GLTFLoader) {
 
@@ -6366,17 +5602,37 @@
 
       loader.load(
 
-        modelSource,
+        modelSrc,
 
-        (gltf) => attachModel(gltf.scene),
+        (gltf) => {
+
+          const model = gltf.scene;
+
+          const box = new THREE.Box3().setFromObject(model);
+
+          const center = box.getCenter(new THREE.Vector3());
+
+          const size = box.getSize(new THREE.Vector3());
+
+          const maxAxis = Math.max(size.x, size.y, size.z) || 1;
+
+          model.position.sub(center);
+
+          model.scale.setScalar(2.1 / maxAxis);
+
+          rootGroup.add(model);
+
+          apply3DShader(slot, shaderMode || 'original');
+
+        },
 
         undefined,
 
         () => {
 
-          attachModel(createProceduralStoneMesh());
+          rootGroup.add(buildProceduralBasaltStone());
 
-          showToast('3D URL could not load — showing calm basalt stand-in.');
+          showToast('Could not load .glb URL — showing fallback specimen.');
 
         }
 
@@ -6384,7 +5640,7 @@
 
     } else {
 
-      attachModel(createProceduralStoneMesh());
+      rootGroup.add(buildProceduralBasaltStone());
 
     }
 
@@ -6392,7 +5648,7 @@
 
     if (typeof ResizeObserver !== 'undefined') {
 
-      const resizeObs = new ResizeObserver(() => {
+      viewer.resizeObs = new ResizeObserver(() => {
 
         const nw = mount.clientWidth || 300;
 
@@ -6406,31 +5662,25 @@
 
       });
 
-      resizeObs.observe(mount);
-
-      viewer.resizeObs = resizeObs;
+      viewer.resizeObs.observe(mount);
 
     }
 
 
 
-    function tick() {
+    function animate() {
 
-      viewer.rafId = requestAnimationFrame(tick);
+      viewer.rafId = requestAnimationFrame(animate);
 
-      if (controls) {
+      if (!state.prefs.still) rootGroup.rotation.y += 0.004;
 
-        controls.autoRotate = !state.prefs.still;
-
-        controls.update();
-
-      }
+      if (controls) controls.update();
 
       renderer.render(scene, camera);
 
     }
 
-    tick();
+    animate();
 
   }
 
@@ -6438,11 +5688,11 @@
 
   /* =========================================================================
 
-     7. CALM SIGNAL AUDIO DECK, SUBTLE SFX & AMBIENT CANVAS
+     7. CALM SIGNAL AUDIO DECK, SUBTLE SFX & AMBIENT PARTICLE CANVAS
 
   ========================================================================= */
 
-  async function playSfx(kind = 'click') {
+  async function playSfx(kind) {
 
     if (!state.prefs.sfx || typeof Tone === 'undefined') return;
 
@@ -6454,7 +5704,7 @@
 
         oscillator: { type: kind === 'ground' ? 'sine' : 'triangle' },
 
-        envelope: { attack: 0.015, decay: 0.28, sustain: 0, release: 0.45 }
+        envelope: { attack: 0.015, decay: 0.25, sustain: 0, release: 0.45 }
 
       }).toDestination();
 
@@ -6466,13 +5716,13 @@
 
         synth.triggerAttackRelease('D5', '8n');
 
-        setTimeout(() => synth.triggerAttackRelease('A5', '4n'), 140);
+        setTimeout(() => { try { synth.triggerAttackRelease('A5', '4n'); } catch (_) {} }, 140);
 
       } else if (kind === 'key') {
 
         synth.triggerAttackRelease('F#6', '32n');
 
-        setTimeout(() => synth.triggerAttackRelease('D6', '32n'), 95);
+        setTimeout(() => { try { synth.triggerAttackRelease('C#6', '32n'); } catch (_) {} }, 90);
 
       } else if (kind === 'ceramic') {
 
@@ -6492,7 +5742,7 @@
 
       }
 
-      setTimeout(() => synth.dispose(), 1200);
+      setTimeout(() => { try { synth.dispose(); } catch (_) {} }, 1200);
 
     } catch (_) {}
 
@@ -6526,13 +5776,13 @@
 
     const eq = document.getElementById('deckEqBars');
 
-    const lbl = document.getElementById('deckStatusLabel');
+    const st = document.getElementById('deckStatusLabel');
 
     const btn = document.getElementById('deckPlayBtn');
 
     if (eq) eq.classList.remove('playing');
 
-    if (lbl) lbl.textContent = 'STANDBY';
+    if (st) st.textContent = 'STANDBY';
 
     if (btn) btn.textContent = '▶ TRANSMIT CALM TONE';
 
@@ -6540,7 +5790,11 @@
 
 
 
-  async function startSignalDeck(preset = state.deckPreset) {
+  async function startSignalDeck(preset) {
+
+    preset = preset || state.deckPreset || 'mist';
+
+    stopSignalDeck();
 
     if (typeof Tone === 'undefined') {
 
@@ -6550,29 +5804,33 @@
 
     }
 
-    stopSignalDeck();
-
-    state.deckPreset = preset;
-
-
-
     try {
 
       await Tone.start();
 
-      const reverb = new Tone.Reverb({ decay: 5.5, wet: 0.65 }).toDestination();
-
-      const nodes = { reverb };
+      const reverb = new Tone.Reverb({ decay: 5.5, wet: 0.6 }).toDestination();
 
 
 
-      if (preset === 'mist') {
+      if (preset === 'rain' || preset === 'tape') {
+
+        const filter = new Tone.Filter(preset === 'rain' ? 750 : 1200, 'lowpass').connect(reverb);
+
+        const noise = new Tone.Noise(preset === 'rain' ? 'pink' : 'brown').connect(filter);
+
+        noise.volume.value = preset === 'rain' ? -28 : -30;
+
+        noise.start();
+
+        state.deckNodes = { noise, filter, reverb };
+
+      } else {
 
         const synth = new Tone.PolySynth(Tone.Synth, {
 
           oscillator: { type: 'sine' },
 
-          envelope: { attack: 2.0, decay: 1.5, sustain: 0.35, release: 3.5 }
+          envelope: { attack: 2.0, decay: 1.4, sustain: 0.35, release: 3.6 }
 
         }).connect(reverb);
 
@@ -6582,69 +5840,29 @@
 
         let step = 0;
 
-        const loop = new Tone.Loop(t => { synth.triggerAttackRelease(chords[step++ % chords.length], '2n', t); }, '4m').start(0);
+        const loop = new Tone.Loop((time) => {
+
+          synth.triggerAttackRelease(chords[step % chords.length], '2n', time);
+
+          step++;
+
+        }, '4m').start(0);
 
         if (Tone.Transport.state !== 'started') Tone.Transport.start();
 
-        nodes.synth = synth;
-
-        nodes.loop = loop;
-
-      } else if (preset === 'rain') {
-
-        const filter = new Tone.Filter(520, 'lowpass').connect(reverb);
-
-        const noise = new Tone.Noise('pink').connect(filter);
-
-        noise.volume.value = -28;
-
-        noise.start();
-
-        nodes.filter = filter;
-
-        nodes.noise = noise;
-
-      } else {
-
-        const filter = new Tone.Filter(340, 'lowpass').connect(reverb);
-
-        const noise = new Tone.Noise('brown').connect(filter);
-
-        noise.volume.value = -29;
-
-        noise.start();
-
-        const synth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.6, release: 2.8 } }).connect(reverb);
-
-        synth.volume.value = -28;
-
-        const notes = ['E4', 'A4', 'B4', 'D4'];
-
-        let i = 0;
-
-        const loop = new Tone.Loop(t => { synth.triggerAttackRelease(notes[i++ % notes.length], '4n', t); }, '2m').start(0);
-
-        if (Tone.Transport.state !== 'started') Tone.Transport.start();
-
-        nodes.filter = filter;
-
-        nodes.noise = noise;
-
-        nodes.synth = synth;
-
-        nodes.loop = loop;
+        state.deckNodes = { synth, loop, reverb };
 
       }
 
 
 
-      state.deckNodes = nodes;
-
       state.deckPlaying = true;
+
+      state.deckPreset = preset;
 
       const eq = document.getElementById('deckEqBars');
 
-      const lbl = document.getElementById('deckStatusLabel');
+      const st = document.getElementById('deckStatusLabel');
 
       const btn = document.getElementById('deckPlayBtn');
 
@@ -6652,15 +5870,15 @@
 
       if (eq) eq.classList.add('playing');
 
-      if (lbl) lbl.textContent = 'LIVE';
+      if (st) st.textContent = 'LIVE';
 
-      if (btn) btn.textContent = '■ PAUSE SIGNAL';
+      if (btn) btn.textContent = '■ STOP SIGNAL';
 
-      if (np) np.textContent = `channel: ${preset}_room_tone // calm`;
+      if (np) np.textContent = `channel: ${preset}_room_tone // active`;
 
     } catch (_) {
 
-      showToast('Unable to start Signal Deck.');
+      showToast('Could not start Signal Deck.');
 
     }
 
@@ -6670,135 +5888,113 @@
 
   function initAmbientCanvas() {
 
-    const canvas = document.getElementById('ambientCanvas');
+    try {
 
-    if (!canvas) return;
+      const canvas = document.getElementById('ambientCanvas');
 
-    const ctx = canvas.getContext('2d');
+      if (!canvas) return;
 
-    let w = 0, h = 0, pts = [];
+      const ctx = canvas.getContext('2d');
 
-
-
-    function resize() {
-
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      w = window.innerWidth;
-
-      h = window.innerHeight;
-
-      canvas.width = Math.floor(w * dpr);
-
-      canvas.height = Math.floor(h * dpr);
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const count = Math.min(24, Math.max(10, Math.floor((w * h) / 60000)));
-
-      pts = Array.from({ length: count }, () => ({
-
-        x: Math.random() * w,
-
-        y: Math.random() * h,
-
-        vx: (Math.random() - 0.5) * 0.14,
-
-        vy: (Math.random() - 0.5) * 0.14,
-
-        r: Math.random() * 1.4 + 0.6
-
-      }));
-
-    }
+      let w = 0, h = 0, dots = [];
 
 
 
-    function loop() {
+      function resize() {
 
-      requestAnimationFrame(loop);
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-      if (state.prefs.still) return;
+        w = window.innerWidth;
 
-      ctx.clearRect(0, 0, w, h);
+        h = window.innerHeight;
 
-      const isPaper = state.prefs.theme === 'calm-paper';
+        canvas.width = Math.floor(w * dpr);
 
-      ctx.fillStyle = isPaper ? 'rgba(69, 107, 84, 0.25)' : 'rgba(143, 179, 154, 0.28)';
+        canvas.height = Math.floor(h * dpr);
 
-      ctx.strokeStyle = isPaper ? 'rgba(69, 107, 84, 0.06)' : 'rgba(143, 179, 154, 0.06)';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      ctx.lineWidth = 0.7;
+        const count = Math.min(26, Math.max(10, Math.floor((w * h) / 56000)));
+
+        dots = Array.from({ length: count }, () => ({
+
+          x: Math.random() * w,
+
+          y: Math.random() * h,
+
+          vx: (Math.random() - 0.5) * 0.14,
+
+          vy: (Math.random() - 0.5) * 0.14,
+
+          r: Math.random() * 1.4 + 0.6
+
+        }));
+
+      }
 
 
 
-      for (let i = 0; i < pts.length; i++) {
+      function tick() {
 
-        const a = pts[i];
+        if (!state.prefs.still) {
 
-        a.x += a.vx; a.y += a.vy;
+          ctx.clearRect(0, 0, w, h);
 
-        if (a.x < 0 || a.x > w) a.vx *= -1;
+          const isPaper = state.prefs.theme === 'calm-paper';
 
-        if (a.y < 0 || a.y > h) a.vy *= -1;
+          ctx.fillStyle = isPaper ? 'rgba(69, 107, 84, 0.24)' : 'rgba(143, 179, 154, 0.28)';
 
-        for (let j = i + 1; j < pts.length; j++) {
+          for (let i = 0; i < dots.length; i++) {
 
-          const b = pts[j];
+            const p = dots[i];
 
-          if (Math.hypot(a.x - b.x, a.y - b.y) < 130) {
+            p.x += p.vx; p.y += p.vy;
+
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+
+            if (p.y < 0 || p.y > h) p.vy *= -1;
 
             ctx.beginPath();
 
-            ctx.moveTo(a.x, a.y);
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
 
-            ctx.lineTo(b.x, b.y);
-
-            ctx.stroke();
+            ctx.fill();
 
           }
 
         }
 
-        ctx.beginPath();
-
-        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-
-        ctx.fill();
+        requestAnimationFrame(tick);
 
       }
 
-    }
 
 
+      resize();
 
-    resize();
+      window.addEventListener('resize', resize);
 
-    window.addEventListener('resize', resize);
+      tick();
 
-    loop();
+    } catch (_) {}
 
   }
 
 
 
-  /* Expose Phase 3 Core API to Phases 4 & 5 */
-
   Object.assign(Z3, {
 
-    WING_INFO, POCKET_PROMPTS, KEY_THEORIES, PERMANENT_COLLECTION,
+    state, WING_INFO, POCKET_PROMPTS, KEY_THEORIES, PERMANENT_COLLECTION,
 
-    state, loadPersistedArchive, scheduleSave, logProvenance,
+    loadPersistedArchive, scheduleSave, logProvenance,
 
-    escapeHtml, formatBytes, getAllExhibits, getExhibitById,
+    escapeHtml, formatBytes, getAllExhibits, getExhibitById, getExhibitAdmireCount,
 
-    getExhibitAdmireCount, isPinned, isCapsuleLocked, getFilteredExhibits,
-
-    showToast, copyText, formatExhibitMarkdown,
+    isPinned, isCapsuleLocked, getFilteredExhibits, showToast, copyText, formatExhibitMarkdown,
 
     compressImageFile, renderSpecimenArtwork,
 
-    mount3DViewer, apply3DShader, dispose3DViewer,
+    mount3DViewer, dispose3DViewer, apply3DShader,
 
     playSfx, startSignalDeck, stopSignalDeck, initAmbientCanvas
 
@@ -6807,7 +6003,7 @@
 
 
 /* ============== END OF PHASE 3 — PASTE PHASE 4 DIRECTLY BELOW ============== */
-  /* =========================================================================
+ /* =========================================================================
 
   z3itq3ist // THE GALLERY OF QUIETLY KEPT THINGS (CALM EDITION)
 
@@ -9042,7 +8238,2770 @@
 
 
 /* ============== END OF PHASE 4 — PASTE PHASE 5 DIRECTLY BELOW ============== */
-  
+ /* =========================================================================
+
+  z3itq3ist // THE GALLERY OF QUIETLY KEPT THINGS (CALM EDITION)
+
+  PHASE 5 OF 5: PLACARD STUDIO, GITHUB SYNC, COMMAND PALETTE & BOOT
+
+  PASTE DIRECTLY BELOW PHASE 4 TO COMPLETE `index.html`.
+
+========================================================================== */
 
 
-<!-- ============== END OF PHASE 2 — PASTE PHASE 3 DIRECTLY BELOW ============== -->
+
+  /* =========================================================================
+
+     15. PLACARD STUDIO: COMPRESSION UI, QUICK-DROP, VOICE MEMO & DRAFT SAVE
+
+  ========================================================================= */
+
+  const DRAFT_KEY = 'z3_studio_draft_v4';
+
+  let voiceRecorder = null;
+
+  let voiceChunks = [];
+
+  let voiceStream = null;
+
+
+
+  function generateAccession(yearVal) {
+
+    const y = yearVal || new Date().getFullYear();
+
+    const num = String(Math.floor(100 + Math.random() * 899));
+
+    return `PL-${y}-${num}`;
+
+  }
+
+
+
+  function resetPendingMedia() {
+
+    state.pendingMedia = {
+
+      frontDataUrl: null,
+
+      frontThumbUrl: null,
+
+      backDataUrl: null,
+
+      model3dDataUrl: null,
+
+      model3dName: null,
+
+      voiceDataUrl: null,
+
+      statsText: ''
+
+    };
+
+    const badge = document.getElementById('compressStatsBadge');
+
+    if (badge) badge.textContent = 'EXIF GPS auto-stripped · WebP ready';
+
+    renderStudioMediaPreview();
+
+  }
+
+
+
+  function renderStudioMediaPreview() {
+
+    const box = document.getElementById('studioMediaPreview');
+
+    if (!box) return;
+
+    const m = state.pendingMedia;
+
+    const hasAny = Boolean(m.frontDataUrl || m.backDataUrl || m.model3dDataUrl || m.voiceDataUrl);
+
+    if (!hasAny) {
+
+      box.style.display = 'none';
+
+      box.innerHTML = '';
+
+      return;
+
+    }
+
+    box.style.display = 'flex';
+
+    box.style.flexWrap = 'wrap';
+
+    const parts = [];
+
+    if (m.frontDataUrl) {
+
+      parts.push(`<div style="display:flex;align-items:center;gap:6px;"><img src="${m.frontThumbUrl || m.frontDataUrl}" alt="Front" style="width:42px;height:42px;object-fit:cover;border-radius:3px;border:1px solid var(--border);"/><span>FRONT READY</span></div>`);
+
+    }
+
+    if (m.backDataUrl) {
+
+      parts.push(`<div style="display:flex;align-items:center;gap:6px;"><img src="${m.backDataUrl}" alt="Back" style="width:42px;height:42px;object-fit:cover;border-radius:3px;border:1px solid var(--border);"/><span>BACK READY</span></div>`);
+
+    }
+
+    if (m.model3dDataUrl) {
+
+      parts.push(`<span class="mini-flag">3D: ${escapeHtml(m.model3dName || 'MODEL.GLB')}</span>`);
+
+    }
+
+    if (m.voiceDataUrl) {
+
+      parts.push(`<span class="mini-flag rose">VOICE MEMO ATTACHED</span>`);
+
+    }
+
+    if (m.statsText) {
+
+      parts.push(`<span style="color:var(--sage);">${escapeHtml(m.statsText)}</span>`);
+
+    }
+
+    box.innerHTML = parts.join('');
+
+  }
+
+
+
+  function saveStudioDraft() {
+
+    if (document.getElementById('editExhibitId')?.value) return;
+
+    try {
+
+      const draft = {
+
+        title: document.getElementById('inTitle')?.value || '',
+
+        wing: document.getElementById('inWing')?.value || 'Visitor Acquisitions',
+
+        medium: document.getElementById('inMedium')?.value || '',
+
+        provenance: document.getElementById('inProvenance')?.value || '',
+
+        tags: document.getElementById('inTags')?.value || '',
+
+        track: document.getElementById('inTrack')?.value || '',
+
+        lore: document.getElementById('inLore')?.value || '',
+
+        patina: document.getElementById('inPatina')?.value || '',
+
+        audioQuote: document.getElementById('inAudioQuote')?.value || ''
+
+      };
+
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+
+      const notice = document.getElementById('studioDraftNotice');
+
+      if (notice && (draft.title || draft.lore)) notice.textContent = '● draft autosaved';
+
+    } catch (_) {}
+
+  }
+
+
+
+  function clearStudioDraft() {
+
+    try { localStorage.removeItem(DRAFT_KEY); } catch (_) {}
+
+    const notice = document.getElementById('studioDraftNotice');
+
+    if (notice) notice.textContent = '';
+
+  }
+
+
+
+  function openStudioModal(editExhibit = null, quickPrefill = null) {
+
+    if (!state.prefs.curatorMode) {
+
+      showToast('Public Read-Only Mode active. Switch to Curator Mode in top bar to edit.');
+
+      return;
+
+    }
+
+    const form = document.getElementById('studioForm');
+
+    if (form) form.reset();
+
+    resetPendingMedia();
+
+
+
+    const now = new Date();
+
+    const ymNow = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v ?? ''; };
+
+
+
+    if (editExhibit) {
+
+      document.getElementById('studioHeading').textContent = 'Edit Cataloged Relic';
+
+      document.getElementById('submitStudioBtn').textContent = 'SAVE CHANGES';
+
+      setVal('editExhibitId', editExhibit.id);
+
+      setVal('inTitle', editExhibit.title);
+
+      setVal('inAccession', editExhibit.accession);
+
+      setVal('inYear', editExhibit.year || now.getFullYear());
+
+      setVal('inMonth', editExhibit.month || ymNow);
+
+      setVal('inWing', editExhibit.wing || 'Visitor Acquisitions');
+
+      setVal('inSpecimen', editExhibit.specimen || 'relic-charm');
+
+      setVal('inStamp', editExhibit.stamp || '');
+
+      setVal('inUnlockDate', editExhibit.unlockDate || '');
+
+      setVal('inMedium', editExhibit.metadata?.['Medium & Condition'] || editExhibit.metadata?.['Medium'] || '');
+
+      setVal('inProvenance', editExhibit.metadata?.['Provenance'] || '');
+
+      setVal('inTags', (editExhibit.tags || []).join(', '));
+
+      setVal('inTrack', editExhibit.track || '');
+
+      setVal('inLore', editExhibit.commentary || '');
+
+      setVal('inPatina', (editExhibit.patina || []).map(p => `${p.year} | ${p.note}`).join('\n'));
+
+      setVal('inAudioQuote', editExhibit.audioGuide ? editExhibit.audioGuide.transcript.replace(/[“”"]/g, '') : '');
+
+      if (editExhibit.model3d && !editExhibit.model3d.startsWith('data:')) {
+
+        setVal('inModel3dUrl', editExhibit.model3d);
+
+      }
+
+      state.pendingMedia.frontDataUrl = editExhibit.imageFront || null;
+
+      state.pendingMedia.frontThumbUrl = editExhibit.thumbFront || null;
+
+      state.pendingMedia.backDataUrl = editExhibit.imageBack || null;
+
+      if (editExhibit.model3d && editExhibit.model3d.startsWith('data:')) {
+
+        state.pendingMedia.model3dDataUrl = editExhibit.model3d;
+
+        state.pendingMedia.model3dName = 'embedded.glb';
+
+      }
+
+      state.pendingMedia.voiceDataUrl = editExhibit.voiceMemo || null;
+
+      renderStudioMediaPreview();
+
+    } else {
+
+      document.getElementById('studioHeading').textContent = 'Catalog a Personal Relic';
+
+      document.getElementById('submitStudioBtn').textContent = 'ARCHIVE RELIC';
+
+      setVal('editExhibitId', '');
+
+      setVal('inYear', now.getFullYear());
+
+      setVal('inMonth', ymNow);
+
+      setVal('inAccession', generateAccession(now.getFullYear()));
+
+
+
+      if (!quickPrefill) {
+
+        try {
+
+          const raw = localStorage.getItem(DRAFT_KEY);
+
+          if (raw) {
+
+            const d = JSON.parse(raw);
+
+            if (d.title || d.lore) {
+
+              setVal('inTitle', d.title);
+
+              setVal('inWing', d.wing || 'Visitor Acquisitions');
+
+              setVal('inMedium', d.medium);
+
+              setVal('inProvenance', d.provenance);
+
+              setVal('inTags', d.tags);
+
+              setVal('inTrack', d.track);
+
+              setVal('inLore', d.lore);
+
+              setVal('inPatina', d.patina);
+
+              setVal('inAudioQuote', d.audioQuote);
+
+              const notice = document.getElementById('studioDraftNotice');
+
+              if (notice) notice.textContent = '● restored unsaved draft';
+
+            }
+
+          }
+
+        } catch (_) {}
+
+      } else {
+
+        setVal('inTitle', quickPrefill.title || '');
+
+        setVal('inMedium', quickPrefill.medium || 'Captured specimen, calm archival condition');
+
+      }
+
+    }
+
+
+
+    document.getElementById('studioModal').classList.add('open');
+
+    document.body.style.overflow = 'hidden';
+
+  }
+
+
+
+  function closeStudioModal() {
+
+    if (voiceRecorder && voiceRecorder.state === 'recording') {
+
+      try { voiceRecorder.stop(); } catch (_) {}
+
+    }
+
+    document.getElementById('studioModal').classList.remove('open');
+
+    document.body.style.overflow = '';
+
+  }
+
+
+
+  async function processUploadedImage(file, side = 'front') {
+
+    const maxDim = document.getElementById('inMaxDim')?.value || 1200;
+
+    const quality = document.getElementById('inQuality')?.value || 80;
+
+    const treatment = document.getElementById('inImageTreatment')?.value || 'calm';
+
+    const badge = document.getElementById('compressStatsBadge');
+
+
+
+    if (badge) badge.textContent = 'Compressing & stripping EXIF…';
+
+    try {
+
+      const res = await compressImageFile(file, { maxDim, quality, treatment });
+
+      if (side === 'front') {
+
+        state.pendingMedia.frontDataUrl = res.dataUrl;
+
+        state.pendingMedia.frontThumbUrl = res.thumbDataUrl;
+
+      } else {
+
+        state.pendingMedia.backDataUrl = res.dataUrl;
+
+      }
+
+      const statLine = `${formatBytes(res.origBytes)} → ${formatBytes(res.compBytes)} (-${res.savingsPct}%, ${res.width}×${res.height})`;
+
+      state.pendingMedia.statsText = statLine;
+
+      if (badge) badge.textContent = `Compressed: ${statLine}`;
+
+
+
+      if (file.lastModified && !document.getElementById('editExhibitId')?.value) {
+
+        const dt = new Date(file.lastModified);
+
+        if (!isNaN(dt.getTime())) {
+
+          const yEl = document.getElementById('inYear');
+
+          const mEl = document.getElementById('inMonth');
+
+          if (yEl) yEl.value = dt.getFullYear();
+
+          if (mEl) mEl.value = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}`;
+
+        }
+
+      }
+
+      renderStudioMediaPreview();
+
+      playSfx('click');
+
+      showToast(`Image compressed (${statLine}).`);
+
+    } catch (_) {
+
+      if (badge) badge.textContent = 'Could not compress file.';
+
+      showToast('Unable to read image file.');
+
+    }
+
+  }
+
+
+
+  function processUploaded3DModel(file) {
+
+    if (!file) return;
+
+    if (file.size > 12 * 1024 * 1024) {
+
+      showToast('Large 3D file (>12 MB): for GitHub Pages, host in assets/models/ and paste URL.');
+
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+
+      state.pendingMedia.model3dDataUrl = String(reader.result);
+
+      state.pendingMedia.model3dName = file.name;
+
+      renderStudioMediaPreview();
+
+      playSfx('chime');
+
+      showToast(`3D specimen attached: ${file.name} (${formatBytes(file.size)})`);
+
+    };
+
+    reader.readAsDataURL(file);
+
+  }
+
+
+
+  async function handleQuickDropFile(file) {
+
+    if (!file) return;
+
+    const cleanName = file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').trim();
+
+    const prettyTitle = cleanName ? cleanName.replace(/\b\w/g, c => c.toUpperCase()) : 'Quick-Captured Relic';
+
+    const is3d = /\.(glb|gltf)$/i.test(file.name);
+
+
+
+    openStudioModal(null, {
+
+      title: prettyTitle,
+
+      medium: is3d ? '3D scanned physical specimen (.glb)' : 'Compressed archival photograph'
+
+    });
+
+
+
+    if (is3d) {
+
+      processUploaded3DModel(file);
+
+    } else if (file.type.startsWith('image/')) {
+
+      await processUploadedImage(file, 'front');
+
+    } else {
+
+      showToast('Drop an image (.jpg/.png/.webp) or 3D scan (.glb/.gltf).');
+
+    }
+
+  }
+
+
+
+  async function toggleVoiceRecording() {
+
+    const btn = document.getElementById('recordVoiceBtn');
+
+    if (voiceRecorder && voiceRecorder.state === 'recording') {
+
+      voiceRecorder.stop();
+
+      return;
+
+    }
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+
+      showToast('Voice recording is not supported in this browser.');
+
+      return;
+
+    }
+
+    try {
+
+      voiceStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      voiceChunks = [];
+
+      voiceRecorder = new MediaRecorder(voiceStream);
+
+      voiceRecorder.ondataavailable = (e) => { if (e.data.size > 0) voiceChunks.push(e.data); };
+
+      voiceRecorder.onstop = () => {
+
+        const blob = new Blob(voiceChunks, { type: voiceRecorder.mimeType || 'audio/webm' });
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+
+          state.pendingMedia.voiceDataUrl = String(reader.result);
+
+          renderStudioMediaPreview();
+
+          showToast(`Voice memo recorded (${formatBytes(blob.size)}).`);
+
+        };
+
+        reader.readAsDataURL(blob);
+
+        if (voiceStream) { voiceStream.getTracks().forEach(t => t.stop()); voiceStream = null; }
+
+        if (btn) btn.textContent = '● RECORD VOICE';
+
+      };
+
+      voiceRecorder.start();
+
+      if (btn) btn.textContent = '■ STOP RECORDING…';
+
+      showToast('Recording voice memo… tap again to finish.');
+
+      setTimeout(() => {
+
+        if (voiceRecorder && voiceRecorder.state === 'recording') voiceRecorder.stop();
+
+      }, 30000);
+
+    } catch (_) {
+
+      showToast('Microphone access was declined.');
+
+    }
+
+  }
+
+
+
+  function handleStudioSubmit(e) {
+
+    e.preventDefault();
+
+    const val = (id) => (document.getElementById(id)?.value || '').trim();
+
+    const editId = val('editExhibitId');
+
+    const title = val('inTitle');
+
+    const year = parseInt(val('inYear'), 10) || new Date().getFullYear();
+
+    const month = val('inMonth') || `${year}-${String(new Date().getMonth() + 1).padStart(2, '0')}`;
+
+    const accession = val('inAccession') || generateAccession(year);
+
+    const wing = val('inWing') || 'Visitor Acquisitions';
+
+    const specimen = val('inSpecimen') || 'relic-charm';
+
+    const stamp = val('inStamp');
+
+    const unlockDate = val('inUnlockDate');
+
+    const medium = val('inMedium');
+
+    const provenance = val('inProvenance');
+
+    const track = val('inTrack');
+
+    const lore = val('inLore');
+
+    const audioQuote = val('inAudioQuote');
+
+    const modelUrlInput = val('inModel3dUrl');
+
+
+
+    if (!title || !medium || !lore) {
+
+      showToast('Please complete Exhibit Title, Medium, and Curatorial Commentary.');
+
+      return;
+
+    }
+
+
+
+    const tags = val('inTags')
+
+      .split(',')
+
+      .map(t => t.trim().toLowerCase().replace(/^#/, ''))
+
+      .filter(Boolean)
+
+      .slice(0, 8);
+
+
+
+    const patina = val('inPatina')
+
+      .split('\n')
+
+      .map(line => line.trim())
+
+      .filter(Boolean)
+
+      .map(line => {
+
+        const parts = line.split('|');
+
+        return parts.length >= 2
+
+          ? { year: parts[0].trim(), note: parts.slice(1).join('|').trim() }
+
+          : { year: String(year), note: line };
+
+      });
+
+
+
+    const model3d = state.pendingMedia.model3dDataUrl || modelUrlInput || undefined;
+
+    if (model3d && !tags.includes('3d-scan')) tags.push('3d-scan');
+
+
+
+    const basePayload = {
+
+      title,
+
+      wing,
+
+      accession,
+
+      year,
+
+      month,
+
+      specimen,
+
+      isPhantom: wing === 'Lost & Unrecovered',
+
+      stamp: stamp || (wing === 'Lost & Unrecovered' ? 'UNRECOVERED' : undefined),
+
+      unlockDate: unlockDate || undefined,
+
+      tags: tags.length ? tags : ['personal-lore'],
+
+      track: track || undefined,
+
+      imageFront: state.pendingMedia.frontDataUrl || undefined,
+
+      thumbFront: state.pendingMedia.frontThumbUrl || undefined,
+
+      imageBack: state.pendingMedia.backDataUrl || undefined,
+
+      model3d,
+
+      voiceMemo: state.pendingMedia.voiceDataUrl || undefined,
+
+      patina: patina.length ? patina : undefined,
+
+      metadata: {
+
+        'Medium & Condition': medium,
+
+        'Provenance': provenance || 'Cataloged via the Placard Studio.',
+
+        'Archived': new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+
+      },
+
+      commentary: lore
+
+    };
+
+
+
+    if (audioQuote) {
+
+      basePayload.audioGuide = {
+
+        stop: `Stop #${getAllExhibits().length + 1}`,
+
+        durationLabel: '0:18',
+
+        durationSec: 18,
+
+        transcript: `“${audioQuote.replace(/^[“"]|[”"]$/g, '')}”`
+
+      };
+
+    }
+
+
+
+    if (editId) {
+
+      const idx = state.userArtifacts.findIndex(x => x.id === editId);
+
+      if (idx !== -1) {
+
+        state.userArtifacts[idx] = { ...state.userArtifacts[idx], ...basePayload };
+
+        logProvenance('EDIT', `Updated ${accession} — “${title}”`);
+
+        scheduleSave();
+
+        closeStudioModal();
+
+        renderAll();
+
+        playSfx('chime');
+
+        showToast(`Updated “${title}”.`);
+
+      }
+
+      return;
+
+    }
+
+
+
+    const nextNum = String(getAllExhibits().length + 1).padStart(2, '0');
+
+    const newRelic = {
+
+      id: 'relic-' + Date.now(),
+
+      exhibitNum: wing === 'Lost & Unrecovered' ? `Phantom ${nextNum}` : `Exhibit ${nextNum}`,
+
+      ...basePayload,
+
+      baseAdmires: 1,
+
+      isPermanent: false
+
+    };
+
+
+
+    state.userArtifacts.unshift(newRelic);
+
+    clearStudioDraft();
+
+    logProvenance('ADD', `Cataloged ${accession} — “${title}” (${wing})`);
+
+    scheduleSave();
+
+    closeStudioModal();
+
+    state.activeWing = 'All';
+
+    state.activeTag = 'All';
+
+    state.pinnedOnly = false;
+
+    state.only3d = false;
+
+    renderAll();
+
+    playSfx('chime');
+
+    showToast(`Archived “${title}” (${accession}).`);
+
+  }
+
+
+
+  /* =========================================================================
+
+     16. GITHUB REPOSITORY .ZIP BUNDLE, RSS/JSON FEEDS & DIRECT API SYNC
+
+  ========================================================================= */
+
+  function buildRssXml() {
+
+    const siteUrl = window.location.origin.startsWith('http') ? window.location.origin + window.location.pathname : 'https://z3itq3ist.github.io/micro-museum/';
+
+    const itemsXml = getAllExhibits().slice(0, 30).map(ex => {
+
+      const link = `${siteUrl}#${encodeURIComponent(ex.accession)}`;
+
+      const pubDate = ex.month ? new Date(`${ex.month}-01T12:00:00Z`).toUTCString() : new Date().toUTCString();
+
+      return `    <item>
+
+      <title>${escapeHtml(`${ex.accession} — ${ex.title}`)}</title>
+
+      <link>${escapeHtml(link)}</link>
+
+      <guid>${escapeHtml(link)}</guid>
+
+      <pubDate>${pubDate}</pubDate>
+
+      <description>${escapeHtml(`[${ex.wing}] ${ex.commentary}`)}</description>
+
+    </item>`;
+
+    }).join('\n');
+
+
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+
+<rss version="2.0">
+
+  <channel>
+
+    <title>z3itq3ist // The Gallery of Quietly Kept Things</title>
+
+    <link>${escapeHtml(siteUrl)}</link>
+
+    <description>Personal lore micro-museum and quiet digital archival shrine.</description>
+
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+
+${itemsXml}
+
+  </channel>
+
+</rss>`;
+
+  }
+
+
+
+  function buildJsonFeed() {
+
+    const siteUrl = window.location.origin.startsWith('http') ? window.location.origin + window.location.pathname : 'https://z3itq3ist.github.io/micro-museum/';
+
+    return JSON.stringify({
+
+      version: 'https://jsonfeed.org/version/1.1',
+
+      title: 'z3itq3ist // The Gallery of Quietly Kept Things',
+
+      home_page_url: siteUrl,
+
+      items: getAllExhibits().map(ex => ({
+
+        id: ex.accession,
+
+        url: `${siteUrl}#${encodeURIComponent(ex.accession)}`,
+
+        title: ex.title,
+
+        content_text: ex.commentary,
+
+        tags: ex.tags || [],
+
+        date_published: ex.month ? `${ex.month}-01T00:00:00Z` : undefined
+
+      }))
+
+    }, null, 2);
+
+  }
+
+
+
+  function downloadTextFile(filename, content, mime = 'text/plain') {
+
+    const blob = new Blob([content], { type: mime });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+
+    a.href = url;
+
+    a.download = filename;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+
+  }
+
+
+
+  function dataUrlToBase64(dataUrl) {
+
+    const idx = dataUrl.indexOf(',');
+
+    return idx !== -1 ? dataUrl.slice(idx + 1) : '';
+
+  }
+
+
+
+  function mimeExt(dataUrl, fallback = 'webp') {
+
+    if (dataUrl.startsWith('data:image/webp')) return 'webp';
+
+    if (dataUrl.startsWith('data:image/jpeg')) return 'jpg';
+
+    if (dataUrl.startsWith('data:image/png')) return 'png';
+
+    if (dataUrl.startsWith('data:audio/')) return 'webm';
+
+    return fallback;
+
+  }
+
+
+
+  async function exportGitHubRepoZip() {
+
+    if (typeof JSZip === 'undefined') {
+
+      showToast('JSZip library offline — downloading catalog JSON instead.');
+
+      downloadTextFile('catalog.json', JSON.stringify(buildCatalogPayload(), null, 2), 'application/json');
+
+      return;
+
+    }
+
+
+
+    showToast('Packaging GitHub repository bundle…');
+
+    try {
+
+      const zip = new JSZip();
+
+      const catalog = buildCatalogPayload(true);
+
+
+
+      catalog.userArtifacts = catalog.userArtifacts.map(art => {
+
+        const copy = { ...art };
+
+        const safeSlug = String(copy.accession || copy.id).toLowerCase().replace(/[^a-z0-9-]+/g, '-');
+
+
+
+        if (copy.imageFront && copy.imageFront.startsWith('data:')) {
+
+          const ext = mimeExt(copy.imageFront, 'webp');
+
+          const relPath = `assets/images/${safeSlug}-front.${ext}`;
+
+          zip.file(relPath, dataUrlToBase64(copy.imageFront), { base64: true });
+
+          copy.imageFront = `./${relPath}`;
+
+          if (copy.thumbFront && copy.thumbFront.startsWith('data:')) {
+
+            const tPath = `assets/images/${safeSlug}-thumb.${ext}`;
+
+            zip.file(tPath, dataUrlToBase64(copy.thumbFront), { base64: true });
+
+            copy.thumbFront = `./${tPath}`;
+
+          }
+
+        }
+
+        if (copy.imageBack && copy.imageBack.startsWith('data:')) {
+
+          const ext = mimeExt(copy.imageBack, 'webp');
+
+          const relPath = `assets/images/${safeSlug}-back.${ext}`;
+
+          zip.file(relPath, dataUrlToBase64(copy.imageBack), { base64: true });
+
+          copy.imageBack = `./${relPath}`;
+
+        }
+
+        if (copy.model3d && copy.model3d.startsWith('data:')) {
+
+          const relPath = `assets/models/${safeSlug}.glb`;
+
+          zip.file(relPath, dataUrlToBase64(copy.model3d), { base64: true });
+
+          copy.model3d = `./${relPath}`;
+
+        }
+
+        if (copy.voiceMemo && copy.voiceMemo.startsWith('data:')) {
+
+          const relPath = `assets/audio/${safeSlug}.webm`;
+
+          zip.file(relPath, dataUrlToBase64(copy.voiceMemo), { base64: true });
+
+          copy.voiceMemo = `./${relPath}`;
+
+        }
+
+        return copy;
+
+      });
+
+
+
+      const docClone = document.documentElement.cloneNode(true);
+
+      docClone.querySelectorAll('.modal-backdrop.open, .exam-overlay.open').forEach(el => el.classList.remove('open'));
+
+      const htmlContent = '<!DOCTYPE html>\n' + docClone.outerHTML;
+
+
+
+      const readme = `# z3itq3ist // The Gallery of Quietly Kept Things
+
+
+
+A calm personal-lore micro-museum ready for **GitHub Pages**.
+
+
+
+## Quick Deploy to GitHub Pages
+
+1. Create a new repository on GitHub (e.g. \`micro-museum\`).
+
+2. Upload all files from this bundle (\`index.html\`, \`data/\`, \`assets/\`, \`rss.xml\`, \`feed.json\`).
+
+3. Open **Settings → Pages**, set Source to **Deploy from a branch** (\`main\` / \`root\`), and save.
+
+4. Your micro-museum will go live in ~60 seconds.
+
+`;
+
+
+
+      zip.file('index.html', htmlContent);
+
+      zip.file('data/catalog.json', JSON.stringify(catalog, null, 2));
+
+      zip.file('rss.xml', buildRssXml());
+
+      zip.file('feed.json', buildJsonFeed());
+
+      zip.file('README.md', readme);
+
+
+
+      const blob = await zip.generateAsync({ type: 'blob' });
+
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+
+      a.href = url;
+
+      a.download = `z3itq3ist-micro-museum-github-${new Date().toISOString().slice(0, 10)}.zip`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+
+
+
+      logProvenance('EXPORT', 'Generated full GitHub Pages repository .ZIP bundle.');
+
+      playSfx('chime');
+
+      showToast('GitHub repository .ZIP downloaded!');
+
+    } catch (_) {
+
+      showToast('Could not package .ZIP bundle.');
+
+    }
+
+  }
+
+
+
+  function buildCatalogPayload(publicReadOnly = false) {
+
+    return {
+
+      schema: 'z3itq3ist-micro-museum/v4',
+
+      exportedAt: new Date().toISOString(),
+
+      publicReadOnly,
+
+      monthlyFeaturedId: state.monthlyFeaturedId,
+
+      userArtifacts: state.userArtifacts,
+
+      admires: state.admires,
+
+      pins: state.pins,
+
+      notes: state.notes,
+
+      guestbook: state.guestbook,
+
+      changelog: state.changelog
+
+    };
+
+  }
+
+
+
+  function utf8ToBase64(str) {
+
+    return btoa(unescape(encodeURIComponent(str)));
+
+  }
+
+
+
+  function base64ToUtf8(b64) {
+
+    return decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
+
+  }
+
+
+
+  async function pushCatalogToGitHub() {
+
+    const statusEl = document.getElementById('ghSyncStatus');
+
+    const { owner, repo, branch, token } = state.ghConfig;
+
+    if (!owner || !repo || !token) {
+
+      if (statusEl) statusEl.textContent = 'Enter username, repo, and Fine-Grained PAT first, then Save Config.';
+
+      return;
+
+    }
+
+
+
+    const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/data/catalog.json`;
+
+    const headers = {
+
+      Authorization: `Bearer ${token}`,
+
+      Accept: 'application/vnd.github+json',
+
+      'Content-Type': 'application/json'
+
+    };
+
+
+
+    if (statusEl) statusEl.textContent = 'Connecting to GitHub API…';
+
+    try {
+
+      let sha = undefined;
+
+      const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch || 'main')}`, { headers });
+
+      if (getRes.ok) {
+
+        const existing = await getRes.json();
+
+        sha = existing.sha;
+
+      }
+
+
+
+      const payloadJson = JSON.stringify(buildCatalogPayload(true), null, 2);
+
+      const putRes = await fetch(apiUrl, {
+
+        method: 'PUT',
+
+        headers,
+
+        body: JSON.stringify({
+
+          message: `archive: update micro-museum catalog (${new Date().toISOString().slice(0, 10)})`,
+
+          content: utf8ToBase64(payloadJson),
+
+          branch: branch || 'main',
+
+          sha
+
+        })
+
+      });
+
+
+
+      if (!putRes.ok) {
+
+        const err = await putRes.json().catch(() => ({}));
+
+        throw new Error(err.message || `HTTP ${putRes.status}`);
+
+      }
+
+      logProvenance('GITHUB', `Committed data/catalog.json to ${owner}/${repo}@${branch || 'main'}`);
+
+      if (statusEl) statusEl.textContent = `✓ Committed data/catalog.json to ${owner}/${repo} (${new Date().toLocaleTimeString()})`;
+
+      playSfx('chime');
+
+      showToast('Committed catalog directly to GitHub!');
+
+    } catch (err) {
+
+      if (statusEl) statusEl.textContent = `✕ Sync failed: ${err.message}`;
+
+      showToast('GitHub sync failed — check repo & token permissions.');
+
+    }
+
+  }
+
+
+
+  async function pullCatalogFromGitHub() {
+
+    const statusEl = document.getElementById('ghSyncStatus');
+
+    const { owner, repo, branch, token } = state.ghConfig;
+
+    if (!owner || !repo) {
+
+      if (statusEl) statusEl.textContent = 'Enter username & repo first.';
+
+      return;
+
+    }
+
+    const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/data/catalog.json?ref=${encodeURIComponent(branch || 'main')}`;
+
+    const headers = { Accept: 'application/vnd.github+json' };
+
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+
+
+    if (statusEl) statusEl.textContent = 'Fetching data/catalog.json…';
+
+    try {
+
+      const res = await fetch(apiUrl, { headers });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const json = await res.json();
+
+      const parsed = JSON.parse(base64ToUtf8(json.content || ''));
+
+      mergeImportedCatalog(parsed);
+
+      if (statusEl) statusEl.textContent = `✓ Pulled catalog from ${owner}/${repo}`;
+
+      showToast('Merged latest catalog from GitHub.');
+
+    } catch (err) {
+
+      if (statusEl) statusEl.textContent = `✕ Pull failed: ${err.message}`;
+
+      showToast('Could not pull catalog.json from GitHub.');
+
+    }
+
+  }
+
+
+
+  function mergeImportedCatalog(data) {
+
+    if (!data || typeof data !== 'object') return;
+
+    if (Array.isArray(data.userArtifacts)) {
+
+      const ids = new Set(state.userArtifacts.map(a => a.id));
+
+      data.userArtifacts.forEach(art => { if (art && art.id && !ids.has(art.id)) state.userArtifacts.push(art); });
+
+    }
+
+    if (data.admires && typeof data.admires === 'object') state.admires = { ...state.admires, ...data.admires };
+
+    if (Array.isArray(data.pins)) state.pins = Array.from(new Set([...state.pins, ...data.pins]));
+
+    if (data.notes && typeof data.notes === 'object') {
+
+      Object.entries(data.notes).forEach(([k, arr]) => {
+
+        if (!Array.isArray(arr)) return;
+
+        const cur = state.notes[k] || [];
+
+        const curIds = new Set(cur.map(n => n.id));
+
+        state.notes[k] = [...cur, ...arr.filter(n => n && !curIds.has(n.id))];
+
+      });
+
+    }
+
+    if (Array.isArray(data.guestbook)) {
+
+      const ids = new Set(state.guestbook.map(g => g.id));
+
+      data.guestbook.forEach(g => { if (g && g.id && !ids.has(g.id)) state.guestbook.push(g); });
+
+    }
+
+    if (data.monthlyFeaturedId) state.monthlyFeaturedId = data.monthlyFeaturedId;
+
+    scheduleSave();
+
+    renderAll();
+
+  }
+
+
+
+  function openVaultModal() {
+
+    document.getElementById('ghOwner').value = state.ghConfig.owner || '';
+
+    document.getElementById('ghRepo').value = state.ghConfig.repo || '';
+
+    document.getElementById('ghBranch').value = state.ghConfig.branch || 'main';
+
+    document.getElementById('ghToken').value = state.ghConfig.token || '';
+
+    renderChangelog();
+
+    document.getElementById('vaultModal').classList.add('open');
+
+    document.body.style.overflow = 'hidden';
+
+  }
+
+
+
+  function closeVaultModal() {
+
+    document.getElementById('vaultModal').classList.remove('open');
+
+    document.body.style.overflow = '';
+
+  }
+
+
+
+  /* =========================================================================
+
+     17. COMMAND PALETTE (CTRL/CMD + K)
+
+  ========================================================================= */
+
+  function getCommandItems() {
+
+    const actions = [
+
+      { label: 'Catalog New Personal Relic', meta: 'STUDIO', run: () => openStudioModal() },
+
+      { label: 'Export GitHub Repository (.ZIP)', meta: 'GITHUB', run: () => exportGitHubRepoZip() },
+
+      { label: 'Open GitHub Sync & Vault', meta: 'VAULT', run: () => openVaultModal() },
+
+      { label: 'Open Annual Exhibition Report & Yearly Zine', meta: 'RITUAL', run: () => openYearlyModal() },
+
+      { label: 'Open Side-by-Side Comparison Desk', meta: 'STUDY', run: () => openCompareModal() },
+
+      { label: 'Download Exhibition Admission Ticket (PNG)', meta: 'TICKET', run: () => downloadAdmissionTicket() },
+
+      { label: 'Toggle Dusk Slate / Warm Paper Theme', meta: 'THEME', run: () => { state.prefs.theme = state.prefs.theme === 'calm-dark' ? 'calm-paper' : 'calm-dark'; applyVisualPrefs(); scheduleSave(); } },
+
+      { label: 'Toggle Calm Still Mode (Pause Motion)', meta: 'COMFORT', run: () => { state.prefs.still = !state.prefs.still; applyVisualPrefs(); scheduleSave(); } },
+
+      { label: 'Toggle After-Hours CCTV Monitor', meta: 'ATMOSPHERE', run: () => { state.prefs.cctv = !state.prefs.cctv; applyVisualPrefs(); scheduleSave(); } },
+
+      { label: 'Toggle Curator / Public Read-Only Mode', meta: 'MODE', run: () => toggleCuratorMode() },
+
+      { label: 'Switch View: Flat-File Specimen Drawers', meta: 'VIEW', run: () => { state.viewMode = 'drawers'; renderAll(); } },
+
+      { label: 'Switch View: Monthly Micro-Capsules', meta: 'VIEW', run: () => { state.viewMode = 'monthly'; renderAll(); } },
+
+      { label: 'Filter: Show 3D Specimens Only', meta: '3D', run: () => { state.only3d = !state.only3d; renderAll(); } }
+
+    ];
+
+
+
+    const relics = getAllExhibits().flatMap(ex => ([
+
+      { label: `Open Placard: ${ex.title} (${ex.accession})`, meta: 'RELIC', run: () => openDetailModal(ex.id) },
+
+      { label: `Zoom Stage: ${ex.title}`, meta: 'ZOOM', run: () => openExamStage(ex.id) }
+
+    ]));
+
+
+
+    return [...actions, ...relics];
+
+  }
+
+
+
+  function renderCmdResults(query = '') {
+
+    const box = document.getElementById('cmdResults');
+
+    if (!box) return;
+
+    const q = query.trim().toLowerCase();
+
+    const matches = getCommandItems().filter(item =>
+
+      !q || item.label.toLowerCase().includes(q) || item.meta.toLowerCase().includes(q)
+
+    ).slice(0, 14);
+
+
+
+    if (!matches.length) {
+
+      box.innerHTML = `<div style="padding:10px;font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);">No matching commands or relics.</div>`;
+
+      return;
+
+    }
+
+
+
+    box.innerHTML = matches.map((m, idx) => `
+
+      <button type="button" class="btn" data-cmd-idx="${idx}" style="justify-content:space-between;text-align:left;width:100%;">
+
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(m.label)}</span>
+
+        <span style="color:var(--sage);font-size:9.5px;flex-shrink:0;">${escapeHtml(m.meta)}</span>
+
+      </button>`).join('');
+
+
+
+    box.querySelectorAll('[data-cmd-idx]').forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        const picked = matches[parseInt(btn.getAttribute('data-cmd-idx'), 10)];
+
+        closeCmdModal();
+
+        if (picked) picked.run();
+
+      });
+
+    });
+
+  }
+
+
+
+  function openCmdModal() {
+
+    const modal = document.getElementById('cmdModal');
+
+    const input = document.getElementById('cmdInput');
+
+    if (!modal || !input) return;
+
+    input.value = '';
+
+    renderCmdResults('');
+
+    modal.classList.add('open');
+
+    setTimeout(() => input.focus(), 30);
+
+  }
+
+
+
+  function closeCmdModal() {
+
+    document.getElementById('cmdModal')?.classList.remove('open');
+
+  }
+
+
+
+  /* =========================================================================
+
+     18. VISUAL COMFORT PREFERENCES, SECRET WING, CLOCKS & DEEP-LINK ROUTING
+
+  ========================================================================= */
+
+  function applyVisualPrefs() {
+
+    const p = state.prefs;
+
+    document.documentElement.setAttribute('data-theme', p.theme);
+
+    document.documentElement.setAttribute('data-density', p.density);
+
+    document.documentElement.setAttribute('data-motion', p.still ? 'still' : 'gentle');
+
+    document.documentElement.setAttribute('data-reading', p.reading);
+
+
+
+    document.body.classList.toggle('crt-on', Boolean(p.crt));
+
+    document.body.classList.toggle('grain-on', Boolean(p.grain));
+
+    document.body.classList.toggle('spotlight-on', Boolean(p.spotlight));
+
+    document.body.classList.toggle('cctv-on', Boolean(p.cctv));
+
+
+
+    const setBtn = (id, text, active) => {
+
+      const el = document.getElementById(id);
+
+      if (!el) return;
+
+      el.textContent = text;
+
+      el.classList.toggle('active', Boolean(active));
+
+      el.classList.toggle('sage', Boolean(active) && el.classList.contains('btn'));
+
+    };
+
+
+
+    setBtn('crtToggleBtn', `CRT: ${p.crt ? 'ON' : 'OFF'}`, p.crt);
+
+    setBtn('sfxToggleBtn', `SFX: ${p.sfx ? 'ON' : 'OFF'}`, p.sfx);
+
+    setBtn('motionToggleBtn', `STILL: ${p.still ? 'ON' : 'OFF'}`, p.still);
+
+    setBtn('themeToggleBtn', p.theme === 'calm-dark' ? 'DUSK' : 'PAPER', p.theme === 'calm-paper');
+
+    setBtn('curatorModeBtn', `MODE: ${p.curatorMode ? 'CURATOR' : 'PUBLIC'}`, p.curatorMode);
+
+
+
+    setBtn('densityToggleBtn', p.density === 'spacious' ? 'SPACIOUS' : 'COMPACT', p.density === 'compact');
+
+    setBtn('readingToggleBtn', p.reading === 'comfort' ? 'READ: LARGE' : 'READ: STD', p.reading === 'comfort');
+
+    setBtn('grainToggleBtn', `GRAIN: ${p.grain ? 'ON' : 'OFF'}`, p.grain);
+
+    setBtn('spotlightToggleBtn', `LAMP: ${p.spotlight ? 'ON' : 'OFF'}`, p.spotlight);
+
+    setBtn('cctvToggleBtn', `CAM: ${p.cctv ? 'CCTV ON' : 'AFTER-HOURS CCTV'}`, p.cctv);
+
+
+
+    const qDrop = document.getElementById('quickDropZone');
+
+    const topCat = document.getElementById('topCatalogBtn');
+
+    const dockAdd = document.getElementById('dockAddBtn');
+
+    if (qDrop) qDrop.style.display = p.curatorMode ? 'flex' : 'none';
+
+    if (topCat) topCat.style.display = p.curatorMode ? 'inline-flex' : 'none';
+
+    if (dockAdd) dockAdd.style.visibility = p.curatorMode ? 'visible' : 'hidden';
+
+
+
+    const cue = document.getElementById('orientationCue');
+
+    if (cue) cue.style.display = p.cueDismissed ? 'none' : 'flex';
+
+  }
+
+
+
+  function toggleCuratorMode() {
+
+    state.prefs.curatorMode = !state.prefs.curatorMode;
+
+    try { localStorage.setItem('z3_curator_unlock', state.prefs.curatorMode ? '1' : ''); } catch (_) {}
+
+    applyVisualPrefs();
+
+    scheduleSave();
+
+    showToast(state.prefs.curatorMode ? 'Curator Mode enabled (full editing).' : 'Public Read-Only Mode active.');
+
+  }
+
+
+
+  function unlockSecretWing() {
+
+    if (state.prefs.secretUnlocked) {
+
+      state.activeWing = 'Restricted Storage';
+
+      renderAll();
+
+      return;
+
+    }
+
+    state.prefs.secretUnlocked = true;
+
+    state.activeWing = 'Restricted Storage';
+
+    logProvenance('VAULT', 'Unlocked Restricted Storage wing (PL-0000).');
+
+    scheduleSave();
+
+    renderAll();
+
+    playSfx('chime');
+
+    showToast('Restricted Storage unlocked (Vault 00 // PL-0000).');
+
+  }
+
+
+
+  function startClocks() {
+
+    const update = () => {
+
+      const t = new Date().toLocaleTimeString([], { hour12: false });
+
+      const c1 = document.getElementById('liveClock');
+
+      const c2 = document.getElementById('cctvClock');
+
+      if (c1) c1.textContent = t;
+
+      if (c2) c2.textContent = `${new Date().toISOString().slice(0, 10)} ${t}`;
+
+    };
+
+    update();
+
+    setInterval(update, 1000);
+
+  }
+
+
+
+  function handleHashRoute() {
+
+    const hash = decodeURIComponent(window.location.hash.replace(/^#/, '')).trim();
+
+    if (!hash) return;
+
+    if (hash.toUpperCase() === 'PL-0000') unlockSecretWing();
+
+    const match = getAllExhibits(true).find(
+
+      ex => ex.accession.toLowerCase() === hash.toLowerCase() || ex.id === hash
+
+    );
+
+    if (match) openDetailModal(match.id, false);
+
+  }
+
+
+
+  /* =========================================================================
+
+     19. EVENT WIRING (ZOOM STAGE, STUDIO, VAULT, SHORTCUTS, TOUCH) & BOOT
+
+  ========================================================================= */
+
+  function bindAllEvents() {
+
+    const on = (id, ev, fn) => { const el = document.getElementById(id); if (el) el.addEventListener(ev, fn); };
+
+
+
+    on('curatorModeBtn', 'click', toggleCuratorMode);
+
+    on('crtToggleBtn', 'click', () => { state.prefs.crt = !state.prefs.crt; applyVisualPrefs(); scheduleSave(); });
+
+    on('sfxToggleBtn', 'click', () => { state.prefs.sfx = !state.prefs.sfx; applyVisualPrefs(); scheduleSave(); });
+
+    on('motionToggleBtn', 'click', () => { state.prefs.still = !state.prefs.still; applyVisualPrefs(); scheduleSave(); });
+
+    on('themeToggleBtn', 'click', () => {
+
+      state.prefs.theme = state.prefs.theme === 'calm-dark' ? 'calm-paper' : 'calm-dark';
+
+      applyVisualPrefs(); scheduleSave();
+
+      showToast(state.prefs.theme === 'calm-dark' ? 'Dusk Slate palette active.' : 'Warm Paper palette active.');
+
+    });
+
+    on('densityToggleBtn', 'click', () => { state.prefs.density = state.prefs.density === 'spacious' ? 'compact' : 'spacious'; applyVisualPrefs(); scheduleSave(); });
+
+    on('readingToggleBtn', 'click', () => { state.prefs.reading = state.prefs.reading === 'standard' ? 'comfort' : 'standard'; applyVisualPrefs(); scheduleSave(); });
+
+    on('grainToggleBtn', 'click', () => { state.prefs.grain = !state.prefs.grain; applyVisualPrefs(); scheduleSave(); });
+
+    on('spotlightToggleBtn', 'click', () => { state.prefs.spotlight = !state.prefs.spotlight; applyVisualPrefs(); scheduleSave(); });
+
+    on('cctvToggleBtn', 'click', () => { state.prefs.cctv = !state.prefs.cctv; applyVisualPrefs(); scheduleSave(); });
+
+
+
+    window.addEventListener('pointermove', (e) => {
+
+      if (!state.prefs.spotlight) return;
+
+      document.documentElement.style.setProperty('--mx', `${e.clientX}px`);
+
+      document.documentElement.style.setProperty('--my', `${e.clientY}px`);
+
+    }, { passive: true });
+
+
+
+    on('dismissCueBtn', 'click', () => { state.prefs.cueDismissed = true; applyVisualPrefs(); scheduleSave(); });
+
+    on('secretCornerTrigger', 'click', () => {
+
+      state.secretClicks++;
+
+      if (state.secretClicks >= 3) { state.secretClicks = 0; unlockSecretWing(); }
+
+    });
+
+    on('copyBadgeBtn', 'click', () => {
+
+      const badgeHtml = `<a href="${window.location.href}" style="display:inline-block;width:88px;height:31px;border:1px solid #8fb39a;background:#0b0e0f;color:#8fb39a;font-family:monospace;font-size:9px;text-align:center;line-height:14px;text-decoration:none;"><b>Z3ITQ3IST</b><br>MUSEUM</a>`;
+
+      copyText(badgeHtml, '88×31 indie-web badge HTML copied!');
+
+    });
+
+
+
+    on('togglePinnedBtn', 'click', () => { state.pinnedOnly = !state.pinnedOnly; renderAll(); });
+
+    on('toggle3dOnlyBtn', 'click', () => { state.only3d = !state.only3d; renderAll(); });
+
+    on('deckPlayBtn', 'click', () => {
+
+      if (state.deckPlaying) stopSignalDeck();
+
+      else startSignalDeck(state.deckPreset);
+
+    });
+
+    document.querySelectorAll('.deck-preset-btn').forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        const preset = btn.getAttribute('data-tone-preset');
+
+        state.deckPreset = preset;
+
+        document.querySelectorAll('.deck-preset-btn').forEach(b => b.classList.toggle('teal', b === btn));
+
+        if (state.deckPlaying) startSignalDeck(preset);
+
+        else {
+
+          const np = document.getElementById('deckNowPlaying');
+
+          if (np) np.textContent = `channel: ${preset}_room_tone // ready`;
+
+        }
+
+      });
+
+    });
+
+
+
+    document.querySelectorAll('#floorplanSvg [data-map-wing]').forEach(g => {
+
+      g.addEventListener('click', () => {
+
+        state.activeWing = g.getAttribute('data-map-wing');
+
+        playSfx('click');
+
+        renderAll();
+
+      });
+
+    });
+
+
+
+    on('searchInput', 'input', (e) => {
+
+      const val = e.target.value;
+
+      if (val.trim().toUpperCase() === 'PL-0000') {
+
+        e.target.value = '';
+
+        state.searchQuery = '';
+
+        unlockSecretWing();
+
+        return;
+
+      }
+
+      state.searchQuery = val;
+
+      renderExhibits();
+
+    });
+
+    on('sortSelect', 'change', (e) => { state.sortBy = e.target.value; renderExhibits(); });
+
+    document.querySelectorAll('.view-tab').forEach(tab => {
+
+      tab.addEventListener('click', () => {
+
+        state.viewMode = tab.getAttribute('data-view');
+
+        playSfx('click');
+
+        renderExhibits();
+
+      });
+
+    });
+
+    on('resetFiltersBtn', 'click', () => {
+
+      state.activeWing = 'All'; state.activeTag = 'All';
+
+      state.pinnedOnly = false; state.only3d = false; state.searchQuery = '';
+
+      const si = document.getElementById('searchInput');
+
+      if (si) si.value = '';
+
+      renderAll();
+
+    });
+
+
+
+    on('randomRelicBtn', 'click', () => {
+
+      const list = getAllExhibits();
+
+      if (!list.length) return;
+
+      playSfx('chime');
+
+      openDetailModal(list[Math.floor(Math.random() * list.length)].id);
+
+    });
+
+    on('startTourBtn', 'click', () => {
+
+      const first = getFilteredExhibits()[0] || getAllExhibits()[0];
+
+      if (first) { playSfx('chime'); openDetailModal(first.id); }
+
+    });
+
+    on('openSpotlightBtn', 'click', (e) => { const id = e.currentTarget.dataset.exhibitId; if (id) openDetailModal(id); });
+
+    on('openEchoBtn', 'click', (e) => { const id = e.currentTarget.dataset.exhibitId; if (id) openDetailModal(id); });
+
+
+
+    const dropZone = document.getElementById('quickDropZone');
+
+    if (dropZone) {
+
+      ['dragenter', 'dragover'].forEach(ev => dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.add('dragover'); }));
+
+      ['dragleave', 'drop'].forEach(ev => dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); }));
+
+      dropZone.addEventListener('drop', (e) => {
+
+        const file = e.dataTransfer?.files?.[0];
+
+        if (file) handleQuickDropFile(file);
+
+      });
+
+    }
+
+    on('quickDropInput', 'change', (e) => {
+
+      const file = e.target.files?.[0];
+
+      if (file) handleQuickDropFile(file);
+
+      e.target.value = '';
+
+    });
+
+
+
+    on('printTicketBtn', 'click', downloadAdmissionTicket);
+
+    on('guestbookForm', 'submit', (e) => {
+
+      e.preventDefault();
+
+      const name = (document.getElementById('gbNameInput')?.value || '').trim() || 'quiet_visitor';
+
+      const text = (document.getElementById('gbMsgInput')?.value || '').trim();
+
+      if (!text) return;
+
+      state.guestbook.unshift({
+
+        id: 'gb-' + Date.now(),
+
+        name,
+
+        date: new Date().toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
+
+        text
+
+      });
+
+      document.getElementById('gbMsgInput').value = '';
+
+      scheduleSave();
+
+      renderGuestbook();
+
+      playSfx('admire');
+
+      showToast('Signed the exhibition guestbook.');
+
+    });
+
+
+
+    on('dockGalleryBtn', 'click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    on('dockSearchBtn', 'click', () => { const s = document.getElementById('searchInput'); if (s) { s.scrollIntoView({ behavior: 'smooth', block: 'center' }); s.focus(); } });
+
+    on('dockAddBtn', 'click', () => openStudioModal());
+
+    on('dockTourBtn', 'click', () => { const first = getFilteredExhibits()[0] || getAllExhibits()[0]; if (first) openDetailModal(first.id); });
+
+    on('dockCmdBtn', 'click', openCmdModal);
+
+
+
+    on('closeDetailBtn', 'click', closeDetailModal);
+
+    on('detailModal', 'click', (e) => { if (e.target.id === 'detailModal') closeDetailModal(); });
+
+    on('prevExhibitBtn', 'click', () => navigateExhibit(-1));
+
+    on('nextExhibitBtn', 'click', () => navigateExhibit(1));
+
+    on('enlargeSpecimenBtn', 'click', (e) => { e.stopPropagation(); if (state.activeExhibitId) openExamStage(state.activeExhibitId); });
+
+    on('modalVitrineFrame', 'click', () => {
+
+      const ex = getExhibitById(state.activeExhibitId);
+
+      if (ex && !ex.model3d) openExamStage(ex.id);
+
+    });
+
+    document.querySelectorAll('.shader-btn').forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        const mode = btn.getAttribute('data-shader');
+
+        state.activeShader = mode;
+
+        document.querySelectorAll('.shader-btn').forEach(b => b.classList.toggle('sage', b === btn));
+
+        apply3DShader('modal', mode);
+
+      });
+
+    });
+
+    on('receiptPngBtn', 'click', () => { const ex = getExhibitById(state.activeExhibitId); if (ex) downloadReceiptPng(ex); });
+
+    on('qrWallLabelBtn', 'click', () => { const ex = getExhibitById(state.activeExhibitId); if (ex) downloadQrWallLabel(ex); });
+
+    on('audioPlayBtn', 'click', toggleAudioGuide);
+
+    on('unlockCapsuleBtn', 'click', () => {
+
+      if (!state.activeExhibitId) return;
+
+      state.unlockedCapsules[state.activeExhibitId] = true;
+
+      scheduleSave();
+
+      openDetailModal(state.activeExhibitId, false);
+
+      showToast('Time capsule unsealed early.');
+
+    });
+
+    on('admireBtn', 'click', () => {
+
+      if (!state.activeExhibitId) return;
+
+      state.admires[state.activeExhibitId] = (state.admires[state.activeExhibitId] || 0) + 1;
+
+      const ex = getExhibitById(state.activeExhibitId);
+
+      if (ex) document.getElementById('modalAdmireCount').textContent = String(getExhibitAdmireCount(ex));
+
+      scheduleSave();
+
+      renderAll();
+
+      playSfx('admire');
+
+      showToast('Quietly admired.');
+
+    });
+
+    on('pinBtn', 'click', () => { if (state.activeExhibitId) togglePin(state.activeExhibitId); });
+
+    on('setMonthlyBtn', 'click', () => {
+
+      if (!state.activeExhibitId) return;
+
+      state.monthlyFeaturedId = state.activeExhibitId;
+
+      scheduleSave();
+
+      renderStatsAndRituals();
+
+      showToast('Set as Artifact of the Month.');
+
+    });
+
+    on('copyPlacardBtn', 'click', () => {
+
+      const ex = getExhibitById(state.activeExhibitId);
+
+      if (ex) copyText(formatExhibitMarkdown(ex), 'Artifact Markdown placard copied!');
+
+    });
+
+    on('editRelicBtn', 'click', () => {
+
+      const ex = state.userArtifacts.find(a => a.id === state.activeExhibitId);
+
+      if (!ex) return;
+
+      closeDetailModal();
+
+      openStudioModal(ex);
+
+    });
+
+    on('fieldNoteForm', 'submit', (e) => {
+
+      e.preventDefault();
+
+      if (!state.activeExhibitId) return;
+
+      const inp = document.getElementById('fieldNoteInput');
+
+      const text = (inp?.value || '').trim();
+
+      if (!text) return;
+
+      if (!state.notes[state.activeExhibitId]) state.notes[state.activeExhibitId] = [];
+
+      state.notes[state.activeExhibitId].unshift({
+
+        id: 'n-' + Date.now(),
+
+        date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }),
+
+        text
+
+      });
+
+      inp.value = '';
+
+      scheduleSave();
+
+      openDetailModal(state.activeExhibitId, false);
+
+      renderAll();
+
+      playSfx('click');
+
+      showToast('Field note logged.');
+
+    });
+
+    on('deleteStep1Btn', 'click', () => {
+
+      document.getElementById('deleteStep1Btn').style.display = 'none';
+
+      document.getElementById('deleteConfirmGroup').style.display = 'flex';
+
+    });
+
+    on('deleteCancelBtn', 'click', () => {
+
+      document.getElementById('deleteConfirmGroup').style.display = 'none';
+
+      document.getElementById('deleteStep1Btn').style.display = 'inline-flex';
+
+    });
+
+    on('deleteConfirmBtn', 'click', () => {
+
+      const delId = state.activeExhibitId;
+
+      const removed = state.userArtifacts.find(a => a.id === delId);
+
+      if (!removed) return;
+
+      state.userArtifacts = state.userArtifacts.filter(a => a.id !== delId);
+
+      state.pins = state.pins.filter(p => p !== delId);
+
+      logProvenance('REMOVE', `Deaccessioned ${removed.accession} — “${removed.title}”`);
+
+      scheduleSave();
+
+      closeDetailModal();
+
+      renderAll();
+
+      showToast(`Removed “${removed.title}”.`, () => {
+
+        state.userArtifacts.unshift(removed);
+
+        scheduleSave();
+
+        renderAll();
+
+        showToast(`Restored “${removed.title}”.`);
+
+      });
+
+    });
+
+
+
+    let touchX = 0, touchY = 0;
+
+    const card = document.getElementById('detailModalCard');
+
+    if (card) {
+
+      card.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].screenX; touchY = e.changedTouches[0].screenY; }, { passive: true });
+
+      card.addEventListener('touchend', (e) => {
+
+        const dx = e.changedTouches[0].screenX - touchX;
+
+        const dy = e.changedTouches[0].screenY - touchY;
+
+        if (Math.abs(dx) > 72 && Math.abs(dx) > Math.abs(dy) * 1.5) navigateExhibit(dx < 0 ? 1 : -1);
+
+      }, { passive: true });
+
+    }
+
+
+
+    const vp = document.getElementById('examViewport');
+
+    on('examCloseBtn', 'click', closeExamStage);
+
+    on('examZoomInBtn', 'click', () => setExamZoom(exam.scale + 0.6));
+
+    on('examZoomOutBtn', 'click', () => setExamZoom(exam.scale - 0.6));
+
+    on('examResetBtn', 'click', () => setExamZoom(1));
+
+    on('examGridBtn', 'click', () => {
+
+      exam.showGrid = !exam.showGrid;
+
+      if (vp) vp.classList.toggle('show-grid', exam.showGrid);
+
+      document.getElementById('examGridBtn')?.classList.toggle('sage', exam.showGrid);
+
+    });
+
+    on('examMonoBtn', 'click', () => {
+
+      exam.mono = !exam.mono;
+
+      document.getElementById('examMonoBtn')?.classList.toggle('sage', exam.mono);
+
+      renderExamSpecimen();
+
+    });
+
+    on('examHotspotsBtn', 'click', () => {
+
+      exam.showHotspots = !exam.showHotspots;
+
+      const btn = document.getElementById('examHotspotsBtn');
+
+      if (btn) { btn.textContent = `HOTSPOTS: ${exam.showHotspots ? 'ON' : 'OFF'}`; btn.classList.toggle('sage', exam.showHotspots); }
+
+      renderExamSpecimen();
+
+    });
+
+    on('examCleanBtn', 'click', () => {
+
+      exam.cleanView = !exam.cleanView;
+
+      document.getElementById('examOverlay')?.classList.toggle('clean-view', exam.cleanView);
+
+    });
+
+    on('examFlipBtn', 'click', () => { exam.flipped = !exam.flipped; playSfx('click'); renderExamSpecimen(); });
+
+    on('closeHotspotPopBtn', 'click', () => document.getElementById('examHotspotPopover')?.classList.remove('open'));
+
+    document.querySelectorAll('[data-exam-shader]').forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        const mode = btn.getAttribute('data-exam-shader');
+
+        state.activeShader = mode;
+
+        apply3DShader('exam', mode);
+
+      });
+
+    });
+
+
+
+    if (vp) {
+
+      vp.addEventListener('wheel', (e) => {
+
+        const ex = getExhibitById(exam.exhibitId);
+
+        if (ex && ex.model3d) return;
+
+        e.preventDefault();
+
+        setExamZoom(exam.scale + (e.deltaY < 0 ? 0.35 : -0.35));
+
+      }, { passive: false });
+
+
+
+      vp.addEventListener('dblclick', (e) => {
+
+        const ex = getExhibitById(exam.exhibitId);
+
+        if ((ex && ex.model3d) || e.target.closest('.hotspot-pin')) return;
+
+        setExamZoom(exam.scale > 1.2 ? 1 : 2.6);
+
+      });
+
+
+
+      vp.addEventListener('mousedown', (e) => {
+
+        const ex = getExhibitById(exam.exhibitId);
+
+        if ((ex && ex.model3d) || e.target.closest('.hotspot-pin')) return;
+
+        exam.dragging = true;
+
+        exam.startX = e.clientX - exam.tx;
+
+        exam.startY = e.clientY - exam.ty;
+
+      });
+
+      window.addEventListener('mousemove', (e) => {
+
+        if (!exam.dragging) return;
+
+        exam.tx = e.clientX - exam.startX;
+
+        exam.ty = e.clientY - exam.startY;
+
+        updateExamTransform();
+
+      });
+
+      window.addEventListener('mouseup', () => { exam.dragging = false; });
+
+
+
+      vp.addEventListener('touchstart', (e) => {
+
+        const ex = getExhibitById(exam.exhibitId);
+
+        if ((ex && ex.model3d) || e.target.closest('.hotspot-pin')) return;
+
+        if (e.touches.length === 2) {
+
+          exam.pinchStartDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+
+          exam.pinchStartScale = exam.scale;
+
+        } else if (e.touches.length === 1) {
+
+          exam.dragging = true;
+
+          exam.startX = e.touches[0].clientX - exam.tx;
+
+          exam.startY = e.touches[0].clientY - exam.ty;
+
+        }
+
+      }, { passive: true });
+
+      vp.addEventListener('touchmove', (e) => {
+
+        const ex = getExhibitById(exam.exhibitId);
+
+        if (ex && ex.model3d) return;
+
+        if (e.touches.length === 2 && exam.pinchStartDist > 0) {
+
+          e.preventDefault();
+
+          const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+
+          setExamZoom(exam.pinchStartScale * (dist / exam.pinchStartDist));
+
+        } else if (e.touches.length === 1 && exam.dragging) {
+
+          exam.tx = e.touches[0].clientX - exam.startX;
+
+          exam.ty = e.touches[0].clientY - exam.startY;
+
+          updateExamTransform();
+
+        }
+
+      }, { passive: false });
+
+      vp.addEventListener('touchend', () => { exam.dragging = false; exam.pinchStartDist = 0; });
+
+    }
+
+
+
+    on('topCatalogBtn', 'click', () => openStudioModal());
+
+    on('centerCatalogBtn', 'click', () => openStudioModal());
+
+    on('closeStudioBtn', 'click', closeStudioModal);
+
+    on('cancelStudioBtn', 'click', closeStudioModal);
+
+    on('studioModal', 'click', (e) => { if (e.target.id === 'studioModal') closeStudioModal(); });
+
+    on('genAccBtn', 'click', () => {
+
+      const y = document.getElementById('inYear')?.value;
+
+      document.getElementById('inAccession').value = generateAccession(y);
+
+    });
+
+    on('dealPromptBtn', 'click', () => {
+
+      const p = POCKET_PROMPTS[Math.floor(Math.random() * POCKET_PROMPTS.length)];
+
+      playSfx('click');
+
+      showToast(`Prompt: ${p}`);
+
+    });
+
+    on('inQuality', 'input', (e) => {
+
+      const qv = document.getElementById('qualityVal');
+
+      if (qv) qv.textContent = `${e.target.value}%`;
+
+    });
+
+    on('inFrontPhoto', 'change', (e) => { const f = e.target.files?.[0]; if (f) processUploadedImage(f, 'front'); e.target.value = ''; });
+
+    on('inBackPhoto', 'change', (e) => { const f = e.target.files?.[0]; if (f) processUploadedImage(f, 'back'); e.target.value = ''; });
+
+    on('inModel3dFile', 'change', (e) => { const f = e.target.files?.[0]; if (f) processUploaded3DModel(f); e.target.value = ''; });
+
+    on('recordVoiceBtn', 'click', toggleVoiceRecording);
+
+    on('clearMediaBtn', 'click', () => { resetPendingMedia(); showToast('Attached media cleared.'); });
+
+    on('studioForm', 'submit', handleStudioSubmit);
+
+    on('studioForm', 'input', saveStudioDraft);
+
+
+
+    on('openVaultBtn', 'click', openVaultModal);
+
+    on('footerVaultBtn', 'click', openVaultModal);
+
+    on('closeVaultBtn', 'click', closeVaultModal);
+
+    on('vaultModal', 'click', (e) => { if (e.target.id === 'vaultModal') closeVaultModal(); });
+
+    on('quickZipExportBtn', 'click', exportGitHubRepoZip);
+
+    on('vaultZipBtn', 'click', exportGitHubRepoZip);
+
+    on('quickRssBtn', 'click', () => { downloadTextFile('rss.xml', buildRssXml(), 'application/rss+xml'); showToast('rss.xml downloaded.'); });
+
+    on('vaultRssBtn', 'click', () => { downloadTextFile('rss.xml', buildRssXml(), 'application/rss+xml'); showToast('rss.xml downloaded.'); });
+
+    on('vaultMdBtn', 'click', () => {
+
+      const md = ['# z3itq3ist // The Gallery of Quietly Kept Things', '', ...getAllExhibits().map(ex => formatExhibitMarkdown(ex) + '\n\n---')].join('\n');
+
+      copyText(md, 'Complete Markdown catalog copied!');
+
+    });
+
+    on('ghSaveCfgBtn', 'click', () => {
+
+      state.ghConfig = {
+
+        owner: (document.getElementById('ghOwner')?.value || '').trim(),
+
+        repo: (document.getElementById('ghRepo')?.value || '').trim(),
+
+        branch: (document.getElementById('ghBranch')?.value || 'main').trim() || 'main',
+
+        token: (document.getElementById('ghToken')?.value || '').trim()
+
+      };
+
+      scheduleSave();
+
+      document.getElementById('ghSyncStatus').textContent = '✓ Config saved locally in browser.';
+
+      showToast('GitHub sync settings saved.');
+
+    });
+
+    on('ghPushBtn', 'click', pushCatalogToGitHub);
+
+    on('ghPullBtn', 'click', pullCatalogFromGitHub);
+
+    on('vaultDownloadJsonBtn', 'click', () => {
+
+      downloadTextFile(`z3itq3ist-backup-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(buildCatalogPayload(false), null, 2), 'application/json');
+
+      showToast('JSON archive backup downloaded.');
+
+    });
+
+    on('vaultImportJsonInput', 'change', (e) => {
+
+      const f = e.target.files?.[0];
+
+      if (!f) return;
+
+      const r = new FileReader();
+
+      r.onload = () => {
+
+        try {
+
+          mergeImportedCatalog(JSON.parse(String(r.result || '{}')));
+
+          closeVaultModal();
+
+          showToast('JSON archive restored & merged.');
+
+        } catch (_) {
+
+          showToast('Invalid JSON backup file.');
+
+        }
+
+      };
+
+      r.readAsText(f);
+
+      e.target.value = '';
+
+    });
+
+
+
+    on('openYearlyReportBtn', 'click', openYearlyModal);
+
+    on('openZineBtn', 'click', openYearlyModal);
+
+    on('footerZineBtn', 'click', openYearlyModal);
+
+    on('closeYearlyBtn', 'click', () => { document.getElementById('yearlyModal')?.classList.remove('open'); document.body.style.overflow = ''; });
+
+    on('yearlyModal', 'click', (e) => { if (e.target.id === 'yearlyModal') { e.target.classList.remove('open'); document.body.style.overflow = ''; } });
+
+    on('yearlySelect', 'change', (e) => renderYearlyReport(e.target.value));
+
+    on('printZineNowBtn', 'click', () => window.print());
+
+
+
+    on('openCompareBtn', 'click', openCompareModal);
+
+    on('closeCompareBtn', 'click', () => { document.getElementById('compareModal')?.classList.remove('open'); document.body.style.overflow = ''; });
+
+    on('compareModal', 'click', (e) => { if (e.target.id === 'compareModal') { e.target.classList.remove('open'); document.body.style.overflow = ''; } });
+
+    on('compareSelectA', 'change', renderCompareDesk);
+
+    on('compareSelectB', 'change', renderCompareDesk);
+
+
+
+    on('cmdPaletteBtn', 'click', openCmdModal);
+
+    on('closeCmdBtn', 'click', closeCmdModal);
+
+    on('cmdModal', 'click', (e) => { if (e.target.id === 'cmdModal') closeCmdModal(); });
+
+    on('cmdInput', 'input', (e) => renderCmdResults(e.target.value));
+
+    on('toastUndoBtn', 'click', () => {
+
+      if (typeof state.lastUndoFn === 'function') {
+
+        const fn = state.lastUndoFn;
+
+        state.lastUndoFn = null;
+
+        document.getElementById('toast')?.classList.remove('show');
+
+        fn();
+
+      }
+
+    });
+
+
+
+    window.addEventListener('hashchange', handleHashRoute);
+
+    document.addEventListener('keydown', (e) => {
+
+      const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
+
+
+
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+
+        e.preventDefault();
+
+        openCmdModal();
+
+        return;
+
+      }
+
+
+
+      if (e.key === 'Escape') {
+
+        if (exam.open) { closeExamStage(); return; }
+
+        if (document.getElementById('cmdModal')?.classList.contains('open')) { closeCmdModal(); return; }
+
+        if (document.getElementById('detailModal')?.classList.contains('open')) { closeDetailModal(); return; }
+
+        if (document.getElementById('studioModal')?.classList.contains('open')) { closeStudioModal(); return; }
+
+        if (document.getElementById('vaultModal')?.classList.contains('open')) { closeVaultModal(); return; }
+
+        document.querySelectorAll('.modal-backdrop.open').forEach(m => m.classList.remove('open'));
+
+        document.body.style.overflow = '';
+
+        return;
+
+      }
+
+
+
+      if (exam.open && !typing) {
+
+        if (e.key === '+' || e.key === '=') { e.preventDefault(); setExamZoom(exam.scale + 0.5); }
+
+        else if (e.key === '-') { e.preventDefault(); setExamZoom(exam.scale - 0.5); }
+
+        else if (e.key === '0') { e.preventDefault(); setExamZoom(1); }
+
+        return;
+
+      }
+
+
+
+      if (document.getElementById('detailModal')?.classList.contains('open') && !typing) {
+
+        if (e.key === 'ArrowLeft') { e.preventDefault(); navigateExhibit(-1); }
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); navigateExhibit(1); }
+
+        return;
+
+      }
+
+
+
+      if (!typing && !document.querySelector('.modal-backdrop.open')) {
+
+        if (e.key === '/') {
+
+          e.preventDefault();
+
+          document.getElementById('searchInput')?.focus();
+
+        } else if (e.key.toLowerCase() === 'r') {
+
+          e.preventDefault();
+
+          const list = getAllExhibits();
+
+          if (list.length) openDetailModal(list[Math.floor(Math.random() * list.length)].id);
+
+        }
+
+      }
+
+    });
+
+  }
+
+
+
+  /* =========================================================================
+
+     20. APPLICATION BOOTSTRAP
+
+  ========================================================================= */
+
+  async function boot() {
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+      state.prefs.still = true;
+
+    }
+
+    await loadPersistedArchive();
+
+    applyVisualPrefs();
+
+    startClocks();
+
+    initAmbientCanvas();
+
+    bindAllEvents();
+
+    renderAll();
+
+    handleHashRoute();
+
+  }
+
+
+
+  if (document.readyState === 'loading') {
+
+    document.addEventListener('DOMContentLoaded', boot);
+
+  } else {
+
+    boot();
+
+  }
+
+})();
+
+</script>
+
+</body>
+
+</html>
+
+<!-- ===================== END OF PHASE 5 — ARCHIVE COMPLETE ===================== -->
