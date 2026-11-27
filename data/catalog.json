@@ -1,6 +1,6 @@
 {
   "schema": "z3-gallery-v2",
-  "savedAt": "2026-11-27T13:27:23.986Z",
+  "savedAt": "2026-11-27T13:34:33.691Z",
   "identity": {
     "title": "Sentimental Value",
     "subtitle": "Tayo rin naman ay pinagtagpi-tagping mga mumunting alaala.",
@@ -20,10 +20,10 @@
   "works": [
     {
       "id": "w-1795783994380",
-      "accession": "PL-2026-001",
+      "accession": "0001",
       "title": "Rose from Riel's Partner, Kyle",
       "room": "Mga Pampanandialian",
-      "date": "2026-11",
+      "date": "2026-11-05",
       "tags": [
         "flowers"
       ],
@@ -50,7 +50,7 @@
       "frameBg": "#fbf2fb",
       "ratio": "auto",
       "mat": "none",
-      "spotlight": false,
+      "spotlight": true,
       "pinned": false,
       "isPhantom": false,
       "order": 0,
