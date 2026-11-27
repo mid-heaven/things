@@ -1,17 +1,17 @@
 {
   "schema": "z3-gallery-v2",
-  "savedAt": "2026-11-27T13:01:25.567Z",
+  "savedAt": "2026-11-27T13:27:23.986Z",
   "identity": {
-    "title": "The Gallery of Quietly Kept Things",
-    "subtitle": "Ordinary objects preserved with the quiet attention of a museum wall.",
-    "footer": "“Please do not tap the glass. Some memories are still settling.”",
+    "title": "Sentimental Value",
+    "subtitle": "Tayo rin naman ay pinagtagpi-tagping mga mumunting alaala.",
+    "footer": "“Takot na makalimot.”",
     "publicBooklet": true
   },
   "rooms": [
-    "Main Room",
-    "Objects",
-    "Paper & Notes",
-    "Phantom Room"
+    "Sala",
+    "Mga Pampanandialian",
+    "Mga Sulat",
+    "Mga Nawawala"
   ],
   "featuredId": "",
   "curatorPin": "442326",
@@ -22,7 +22,7 @@
       "id": "w-1795783994380",
       "accession": "PL-2026-001",
       "title": "Rose from Riel's Partner, Kyle",
-      "room": "Objects",
+      "room": "Mga Pampanandialian",
       "date": "2026-11",
       "tags": [
         "flowers"
