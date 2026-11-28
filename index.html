@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" data-wall="dark" data-density="spacious"><head>
 
-  <meta charset="UTF-8">
+<html lang="en" data-wall="dark" data-density="classic">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>The Gallery of Quietly Kept Things</title>
 
-  <meta name="description" content="A minimalist personal art and artifact gallery.">
+  <meta name="description" content="A minimalist personal art and artifact gallery." />
 
 
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 
 
   <!-- Deferred Libraries for 3D .glb Specimens & GitHub .zip Packaging -->
 
-  <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <script defer="" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
-  <script defer="" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
-  <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 
 
@@ -35,7 +38,7 @@
 
     /* =====================================================================
 
-       1. FOUR GALLERY WALL ENVIRONMENTS (AUTO-CONTRAST TOKENS)
+       1. FOUR GALLERY WALL ENVIRONMENTS + FULL CUSTOM CURATOR BACKGROUNDS
 
     ===================================================================== */
 
@@ -230,6 +233,34 @@
       min-height: 100vh;
 
       background-image: radial-gradient(ellipse 72% 42% at 50% 0%, var(--spot), transparent 72%);
+
+    }
+
+
+
+    body.no-wall-spot {
+
+      background-image: none;
+
+    }
+
+
+
+    /* Prevent flashing the default placeholder screen before edited gallery data loads */
+
+    body.booting .gallery-nav,
+
+    body.booting .gallery-main {
+
+      opacity: 0;
+
+    }
+
+    .gallery-nav,
+
+    .gallery-main {
+
+      transition: opacity 0.24s ease;
 
     }
 
@@ -1827,7 +1858,7 @@
 
     /* =====================================================================
 
-       7. RESPONSIVE & PRINT STYLES
+       7. RESPONSIVE & ANNUAL BOOKLET PRINT STYLES (WITH PHOTOS & BACKDROPS)
 
     ===================================================================== */
 
@@ -1871,9 +1902,107 @@
 
     @media print {
 
-      .gallery-nav, .gallery-main, .overlay, .drawer-overlay, .zoom-room, .tour-room, .toast { display: none !important; }
+      * {
 
-      #printBooklet { display: block !important; background: #fff !important; color: #111 !important; }
+        -webkit-print-color-adjust: exact !important;
+
+        print-color-adjust: exact !important;
+
+      }
+
+      html, body {
+
+        background: #ffffff !important;
+
+        background-image: none !important;
+
+        color: #111111 !important;
+
+      }
+
+      .gallery-nav, .gallery-main, .overlay, .drawer-overlay, .zoom-room, .tour-room, .toast {
+
+        display: none !important;
+
+      }
+
+      #printBooklet {
+
+        display: block !important;
+
+        background: #ffffff !important;
+
+        color: #111111 !important;
+
+      }
+
+      .print-entry {
+
+        break-inside: avoid;
+
+        page-break-inside: avoid;
+
+        margin-bottom: 26px;
+
+        padding-bottom: 18px;
+
+        border-bottom: 1px solid #d4d4d4;
+
+      }
+
+      .print-photo-frame {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin: 10px 0 12px;
+
+        border: 1px solid #d4d4d4;
+
+        overflow: hidden;
+
+        max-height: 360px;
+
+      }
+
+      .print-photo-frame img {
+
+        max-width: 100%;
+
+        max-height: 340px;
+
+        object-fit: contain;
+
+        display: block;
+
+      }
+
+      .print-extra-strip {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 8px;
+
+        margin: 8px 0 10px;
+
+      }
+
+      .print-extra-strip img {
+
+        width: 110px;
+
+        height: 110px;
+
+        object-fit: cover;
+
+        border: 1px solid #d4d4d4;
+
+      }
 
     }
 
@@ -1881,7 +2010,7 @@
 
 </head>
 
-<body class="" style="">
+<body class="booting">
 
 <!-- END OF PHASE 1 — PASTE PHASE 2 DIRECTLY BELOW -->
     <!-- =====================================================================
@@ -1910,7 +2039,7 @@
 
       <button id="navBookletBtn" type="button" class="nav-link booklet-trigger">Booklet</button>
 
-      <select id="wallEnvSelect" class="quiet-select" aria-label="Wall environment">
+      <select id="wallEnvSelect" class="quiet-select curator-only" aria-label="Wall environment">
 
         <option value="dark">Dark Slate</option>
 
@@ -1920,7 +2049,11 @@
 
         <option value="white">Gallery White</option>
 
+        <option value="custom">Custom Wall</option>
+
       </select>
+
+      <button id="navBgStudioBtn" type="button" class="nav-link curator-only">Background</button>
 
       <button id="navCuratorDrawerBtn" type="button" class="nav-link accent curator-only">Curator</button>
 
@@ -1944,17 +2077,17 @@
 
     <section id="foyerHeader" class="foyer">
 
-      <p id="foyerCycle" class="foyer-cycle">EXHIBITION · NOVEMBER 2026</p>
+      <p id="foyerCycle" class="foyer-cycle"></p>
 
-      <h1 id="galleryTitle">The Gallery of Quietly Kept Things</h1>
+      <h1 id="galleryTitle"></h1>
 
-      <p id="gallerySubtitle">Ordinary objects preserved with the quiet attention of a museum wall.</p>
+      <p id="gallerySubtitle"></p>
 
       <div id="foyerFeatured" class="foyer-featured" style="display:none;">
 
         <span>ON VIEW — </span>
 
-        <button id="featuredWorkBtn" type="button" class="nav-link accent" style="font-size:10px;text-transform:none;letter-spacing:0.06em;" data-work-id=""></button>
+        <button id="featuredWorkBtn" type="button" class="nav-link accent" style="font-size:10px;text-transform:none;letter-spacing:0.06em;"></button>
 
       </div>
 
@@ -1968,43 +2101,13 @@
 
       <div class="utility-row">
 
-        <div id="roomTabs" class="room-tabs" role="tablist" aria-label="Gallery Rooms">
-
-        <button type="button" class="room-tab active" data-room="ALL" role="tab" aria-selected="true">
-
-          All Rooms <span style="opacity:0.5;margin-left:3px;">0</span>
-
-        </button>
-
-        <button type="button" class="room-tab " data-room="Main Room" role="tab" aria-selected="false">
-
-          Main Room <span style="opacity:0.5;margin-left:3px;">0</span>
-
-        </button>
-
-        <button type="button" class="room-tab " data-room="Objects" role="tab" aria-selected="false">
-
-          Objects <span style="opacity:0.5;margin-left:3px;">0</span>
-
-        </button>
-
-        <button type="button" class="room-tab " data-room="Paper &amp; Notes" role="tab" aria-selected="false">
-
-          Paper &amp; Notes <span style="opacity:0.5;margin-left:3px;">0</span>
-
-        </button>
-
-        <button type="button" class="room-tab " data-room="Phantom Room" role="tab" aria-selected="false">
-
-          Phantom Room <span style="opacity:0.5;margin-left:3px;">0</span>
-
-        </button></div>
+        <div id="roomTabs" class="room-tabs" role="tablist" aria-label="Gallery Rooms"></div>
 
 
 
         <div class="tools-cluster">
 
-          <input id="searchInput" type="search" class="quiet-search" placeholder="Search (/)…" aria-label="Search gallery works">
+          <input id="searchInput" type="search" class="quiet-search" placeholder="Search (/)…" aria-label="Search gallery works" />
 
 
 
@@ -2046,7 +2149,7 @@
 
             <option value="spacious">Spacious (2)</option>
 
-            <option value="classic" selected="">Classic (3)</option>
+            <option value="classic" selected>Classic (3)</option>
 
             <option value="compact">Compact (4)</option>
 
@@ -2146,15 +2249,15 @@
 
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
 
-        <select id="bulkMoveRoomSelect" class="quiet-select" aria-label="Move selected to room"><option value="Main Room">Main Room</option><option value="Objects">Objects</option><option value="Paper &amp; Notes">Paper &amp; Notes</option><option value="Phantom Room">Phantom Room</option></select>
+        <select id="bulkMoveRoomSelect" class="quiet-select" aria-label="Move selected to room"></select>
 
         <button id="bulkMoveBtn" type="button" class="btn sm">Move</button>
 
-        <input id="bulkBgInput" type="color" value="#1b2622" title="Shared backdrop color" style="width:26px;height:24px;border:1px solid var(--hairline-strong);background:none;cursor:pointer;">
+        <input id="bulkBgInput" type="color" value="#1b2622" title="Shared backdrop color" style="width:26px;height:24px;border:1px solid var(--hairline-strong);background:none;cursor:pointer;" />
 
         <button id="bulkBgApplyBtn" type="button" class="btn sm">Set Backdrop</button>
 
-        <input id="bulkTagInput" type="text" class="field field-mono" placeholder="+tag" style="width:100px;padding:4px 7px;">
+        <input id="bulkTagInput" type="text" class="field field-mono" placeholder="+tag" style="width:100px;padding:4px 7px;" />
 
         <button id="bulkTagApplyBtn" type="button" class="btn sm">Tag</button>
 
@@ -2176,11 +2279,11 @@
 
     <!-- TRUE EMPTY WALL STATE -->
 
-    <div id="emptyWall" class="empty-wall" style="display: block;">
+    <div id="emptyWall" class="empty-wall">
 
       <h2 id="emptyTitle">This gallery wall is quiet.</h2>
 
-      <p id="emptyDesc">Click + Add Work or drag a photo or 3D .glb file anywhere onto the page to hang your first piece.</p>
+      <p id="emptyDesc">No works are currently hung in this view.</p>
 
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
 
@@ -2198,11 +2301,11 @@
 
     <footer class="gallery-foot">
 
-      <span id="galleryFootQuote" style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--muted);">“Please do not tap the glass. Some memories are still settling.”</span>
+      <span id="galleryFootQuote" style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--muted);"></span>
 
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;">
 
-        <span id="saveStatus" class="curator-only" style="color:var(--accent);">SAVED LOCALLY</span>
+        <span id="saveStatus" class="curator-only" style="color:var(--accent);">ARCHIVE READY</span>
 
         <button id="footDropBtn" type="button" class="nav-link curator-only">+ Drop Photo / 3D</button>
 
@@ -2214,7 +2317,7 @@
 
     </footer>
 
-    <input id="quickDropFile" type="file" accept="image/*,.glb,.gltf" hidden="">
+    <input id="quickDropFile" type="file" accept="image/*,.glb,.gltf" hidden />
 
   </main>
 
@@ -2302,7 +2405,7 @@
 
           </div>
 
-          <audio id="lbVoiceAudio" controls="" style="display:none;width:100%;margin-top:8px;height:34px;"></audio>
+          <audio id="lbVoiceAudio" controls style="display:none;width:100%;margin-top:8px;height:34px;"></audio>
 
         </div>
 
@@ -2318,7 +2421,7 @@
 
           <form id="lbNoteForm" class="curator-only" style="display:flex;gap:8px;">
 
-            <input id="lbNoteInput" type="text" class="field" placeholder="Add a dated conservator note…">
+            <input id="lbNoteInput" type="text" class="field" placeholder="Add a dated conservator note…" />
 
             <button type="submit" class="btn sm">Add</button>
 
@@ -2608,7 +2711,7 @@
 
       <form id="workForm" style="display:flex;flex-direction:column;gap:15px;">
 
-        <input type="hidden" id="editWorkId" value="">
+        <input type="hidden" id="editWorkId" value="" />
 
 
 
@@ -2618,7 +2721,7 @@
 
             <label class="field-label" for="inTitle">Title *</label>
 
-            <input id="inTitle" type="text" class="field" required="" placeholder="e.g., Rain-Stained Bus Ticket">
+            <input id="inTitle" type="text" class="field" required placeholder="e.g., Rain-Stained Bus Ticket" />
 
           </div>
 
@@ -2626,7 +2729,7 @@
 
             <label class="field-label" for="inAccession">Accession No.</label>
 
-            <input id="inAccession" type="text" class="field field-mono" required="">
+            <input id="inAccession" type="text" class="field field-mono" required />
 
           </div>
 
@@ -2648,7 +2751,7 @@
 
             <label class="field-label" for="inDate">Date (YYYY-MM-DD or YYYY)</label>
 
-            <input id="inDate" type="text" class="field field-mono" placeholder="2026-11">
+            <input id="inDate" type="text" class="field field-mono" placeholder="2026-11" />
 
           </div>
 
@@ -2656,7 +2759,7 @@
 
             <label class="field-label" for="inTags">Tags (comma-separated)</label>
 
-            <input id="inTags" type="text" class="field field-mono" placeholder="ceramic, travel, desk">
+            <input id="inTags" type="text" class="field field-mono" placeholder="ceramic, travel, desk" />
 
           </div>
 
@@ -2706,7 +2809,7 @@
 
             <label style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;padding-bottom:8px;cursor:pointer;">
 
-              <input id="inSpot" type="checkbox" checked="">
+              <input id="inSpot" type="checkbox" checked />
 
               <span>Spotlight</span>
 
@@ -2758,7 +2861,7 @@
 
                 <option value="800">800 px</option>
 
-                <option value="1200" selected="">1200 px</option>
+                <option value="1200" selected>1200 px</option>
 
                 <option value="1600">1600 px</option>
 
@@ -2770,7 +2873,7 @@
 
               <label class="field-label" for="inQuality">Quality (<span id="qualPct">80%</span>)</label>
 
-              <input id="inQuality" type="range" min="40" max="95" value="80" style="width:100%;margin-top:6px;">
+              <input id="inQuality" type="range" min="40" max="95" value="80" style="width:100%;margin-top:6px;" />
 
             </div>
 
@@ -2798,15 +2901,15 @@
 
             <label for="inPhotosInput" class="btn sm" style="cursor:pointer;">+ Add Photos</label>
 
-            <input id="inPhotosInput" type="file" accept="image/*" multiple="" hidden="">
+            <input id="inPhotosInput" type="file" accept="image/*" multiple hidden />
 
             <label for="inModelFile" class="btn sm" style="cursor:pointer;">+ 3D .GLB</label>
 
-            <input id="inModelFile" type="file" accept=".glb,.gltf" hidden="">
+            <input id="inModelFile" type="file" accept=".glb,.gltf" hidden />
 
             <label for="inVoiceFile" class="btn sm" style="cursor:pointer;">+ Audio File</label>
 
-            <input id="inVoiceFile" type="file" accept="audio/*" hidden="">
+            <input id="inVoiceFile" type="file" accept="audio/*" hidden />
 
             <button id="recordVoiceBtn" type="button" class="btn sm">● Record Voice</button>
 
@@ -2816,7 +2919,7 @@
 
 
 
-          <input id="inModelUrl" type="text" class="field field-mono" placeholder="Or paste GitHub raw 3D URL (assets/models/object.glb)">
+          <input id="inModelUrl" type="text" class="field field-mono" placeholder="Or paste GitHub raw 3D URL (assets/models/object.glb)" />
 
           <div id="mediaListPreview" style="display:none;flex-wrap:wrap;gap:8px;align-items:center;"></div>
 
@@ -2830,7 +2933,7 @@
 
             <label class="field-label" for="inMedium">Medium &amp; Condition *</label>
 
-            <input id="inMedium" type="text" class="field" required="" placeholder="e.g., Stoneware ceramic, chipped rim">
+            <input id="inMedium" type="text" class="field" required placeholder="e.g., Stoneware ceramic, chipped rim" />
 
           </div>
 
@@ -2838,7 +2941,7 @@
 
             <label class="field-label" for="inProvenance">Provenance</label>
 
-            <input id="inProvenance" type="text" class="field" placeholder="e.g., Found in Kyoto, Autumn 2025">
+            <input id="inProvenance" type="text" class="field" placeholder="e.g., Found in Kyoto, Autumn 2025" />
 
           </div>
 
@@ -2850,7 +2953,7 @@
 
           <label class="field-label" for="inCommentary">Wall Placard Text (The Lore) *</label>
 
-          <textarea id="inCommentary" rows="4" class="field" required="" placeholder="Write the quiet story behind this work…"></textarea>
+          <textarea id="inCommentary" rows="4" class="field" required placeholder="Write the quiet story behind this work…"></textarea>
 
         </div>
 
@@ -2860,7 +2963,7 @@
 
           <label class="field-label" for="inAudio">Optional Spoken Audio Guide Transcript</label>
 
-          <input id="inAudio" type="text" class="field" placeholder="Short spoken observation read aloud via narration…">
+          <input id="inAudio" type="text" class="field" placeholder="Short spoken observation read aloud via narration…" />
 
         </div>
 
@@ -2872,7 +2975,7 @@
 
             <label style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;cursor:pointer;">
 
-              <input id="inPinned" type="checkbox">
+              <input id="inPinned" type="checkbox" />
 
               <span>Pin to Top</span>
 
@@ -2880,7 +2983,7 @@
 
             <label style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;cursor:pointer;">
 
-              <input id="inPhantom" type="checkbox">
+              <input id="inPhantom" type="checkbox" />
 
               <span>Phantom (Lost Object)</span>
 
@@ -2910,7 +3013,7 @@
 
   <!-- =====================================================================
 
-       OVERLAY 6: SLIDE-OVER CURATOR DRAWER (MUSEUM, ROOMS, GITHUB, SECURITY)
+       OVERLAY 6: SLIDE-OVER CURATOR DRAWER (IDENTITY, BACKGROUND, ROOMS, GITHUB, SECURITY)
 
   ===================================================================== -->
 
@@ -2930,11 +3033,13 @@
 
       <div style="display:flex;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--hairline);padding-bottom:10px;">
 
-        <button type="button" class="room-tab" data-dtab="museum">Identity</button>
+        <button type="button" class="room-tab active" data-dtab="museum">Identity</button>
+
+        <button type="button" class="room-tab" data-dtab="background">Background</button>
 
         <button type="button" class="room-tab" data-dtab="rooms">Rooms</button>
 
-        <button type="button" class="room-tab active" data-dtab="github">GitHub Sync</button>
+        <button type="button" class="room-tab" data-dtab="github">GitHub Sync</button>
 
         <button type="button" class="room-tab" data-dtab="security">Access &amp; Reset</button>
 
@@ -2944,13 +3049,13 @@
 
       <!-- TAB 1: MUSEUM IDENTITY & QUICK GUIDE -->
 
-      <div id="dpane-museum" style="display: none; flex-direction: column; gap: 14px;">
+      <div id="dpane-museum" style="display:flex;flex-direction:column;gap:14px;">
 
         <div>
 
           <label class="field-label" for="cfgTitle">Museum Title</label>
 
-          <input id="cfgTitle" type="text" class="field">
+          <input id="cfgTitle" type="text" class="field" />
 
         </div>
 
@@ -2958,7 +3063,7 @@
 
           <label class="field-label" for="cfgSubtitle">Foyer Subtitle</label>
 
-          <input id="cfgSubtitle" type="text" class="field">
+          <input id="cfgSubtitle" type="text" class="field" />
 
         </div>
 
@@ -2966,13 +3071,13 @@
 
           <label class="field-label" for="cfgFooter">Footer Inscription</label>
 
-          <input id="cfgFooter" type="text" class="field">
+          <input id="cfgFooter" type="text" class="field" />
 
         </div>
 
         <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
 
-          <input id="cfgPublicBooklet" type="checkbox" checked="">
+          <input id="cfgPublicBooklet" type="checkbox" checked />
 
           <span>Allow visitors to view &amp; print the Annual Booklet</span>
 
@@ -2998,91 +3103,141 @@
 
 
 
-      <!-- TAB 2: CUSTOM ROOM MANAGER -->
+      <!-- TAB 2: FULL GALLERY BACKGROUND STUDIO (PERSISTS TO VISITOR VIEW) -->
 
-      <div id="dpane-rooms" style="display: none; flex-direction: column; gap: 14px;">
+      <div id="dpane-background" style="display:none;flex-direction:column;gap:16px;">
 
-        <div style="display:flex;gap:8px;">
+        <p style="margin:0;font-size:12.5px;color:var(--muted);">
 
-          <input id="newRoomInput" type="text" class="field" placeholder="New room name (e.g., Travel Finds)">
+          Full control over your museum’s wall and default frame alcove colors. Whatever you save here persists automatically to <b>Visitor View</b> and GitHub exports.
 
-          <button id="addRoomBtn" type="button" class="btn solid">Add</button>
+        </p>
 
-        </div>
 
-        <div id="roomManagerList" style="display:flex;flex-direction:column;gap:8px;">
 
-        <div style="display:flex;align-items:center;gap:6px;padding:8px;border:1px solid var(--hairline);background:var(--alcove);">
+        <div>
 
-          <input type="text" class="field" data-room-rename-idx="0" value="Main Room" style="padding:5px 8px;font-size:12.5px;">
+          <span class="field-label">Preset Wall Environments</span>
 
-          <span style="font-family:var(--mono);font-size:10px;color:var(--faint);min-width:24px;text-align:center;">0</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
 
-          <button type="button" class="mini-icon-btn" data-room-up="0" title="Move up" disabled="">↑</button>
+            <button type="button" class="btn sm" data-wall-preset="dark">Dark Slate</button>
 
-          <button type="button" class="mini-icon-btn" data-room-down="0" title="Move down">↓</button>
+            <button type="button" class="btn sm" data-wall-preset="plaster">Warm Plaster</button>
 
-          <button type="button" class="btn sm" data-room-save="0">Save</button>
+            <button type="button" class="btn sm" data-wall-preset="linen">Raw Linen</button>
 
-          <button type="button" class="btn sm danger" data-room-del="0">×</button>
+            <button type="button" class="btn sm" data-wall-preset="white">Gallery White</button>
 
-        </div>
-
-        <div style="display:flex;align-items:center;gap:6px;padding:8px;border:1px solid var(--hairline);background:var(--alcove);">
-
-          <input type="text" class="field" data-room-rename-idx="1" value="Objects" style="padding:5px 8px;font-size:12.5px;">
-
-          <span style="font-family:var(--mono);font-size:10px;color:var(--faint);min-width:24px;text-align:center;">0</span>
-
-          <button type="button" class="mini-icon-btn" data-room-up="1" title="Move up">↑</button>
-
-          <button type="button" class="mini-icon-btn" data-room-down="1" title="Move down">↓</button>
-
-          <button type="button" class="btn sm" data-room-save="1">Save</button>
-
-          <button type="button" class="btn sm danger" data-room-del="1">×</button>
+          </div>
 
         </div>
 
-        <div style="display:flex;align-items:center;gap:6px;padding:8px;border:1px solid var(--hairline);background:var(--alcove);">
 
-          <input type="text" class="field" data-room-rename-idx="2" value="Paper &amp; Notes" style="padding:5px 8px;font-size:12.5px;">
 
-          <span style="font-family:var(--mono);font-size:10px;color:var(--faint);min-width:24px;text-align:center;">0</span>
+        <div style="padding:14px;border:1px solid var(--hairline);background:var(--alcove);display:flex;flex-direction:column;gap:10px;">
 
-          <button type="button" class="mini-icon-btn" data-room-up="2" title="Move up">↑</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
 
-          <button type="button" class="mini-icon-btn" data-room-down="2" title="Move down">↓</button>
+            <span class="field-label" style="margin:0;">Custom Gallery Wall Color</span>
 
-          <button type="button" class="btn sm" data-room-save="2">Save</button>
+            <button id="cfgResetWallBgBtn" type="button" class="nav-link" style="font-size:9.5px;">Reset to Preset</button>
 
-          <button type="button" class="btn sm danger" data-room-del="2">×</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;">
+
+            <input id="cfgWallColorPicker" type="color" value="#0d1011" style="width:42px;height:34px;padding:0;border:1px solid var(--hairline-strong);background:transparent;cursor:pointer;" />
+
+            <input id="cfgWallHexInput" type="text" class="field field-mono" placeholder="#0d1011" maxlength="7" />
+
+          </div>
+
+          <div id="cfgWallSwatches" style="display:flex;flex-wrap:wrap;gap:8px;padding-top:4px;"></div>
 
         </div>
 
-        <div style="display:flex;align-items:center;gap:6px;padding:8px;border:1px solid var(--hairline);background:var(--alcove);">
 
-          <input type="text" class="field" data-room-rename-idx="3" value="Phantom Room" style="padding:5px 8px;font-size:12.5px;">
 
-          <span style="font-family:var(--mono);font-size:10px;color:var(--faint);min-width:24px;text-align:center;">0</span>
+        <div style="padding:14px;border:1px solid var(--hairline);background:var(--alcove);display:flex;flex-direction:column;gap:10px;">
 
-          <button type="button" class="mini-icon-btn" data-room-up="3" title="Move up">↑</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
 
-          <button type="button" class="mini-icon-btn" data-room-down="3" title="Move down" disabled="">↓</button>
+            <span class="field-label" style="margin:0;">Default Frame Alcove Color</span>
 
-          <button type="button" class="btn sm" data-room-save="3">Save</button>
+            <button id="cfgResetAlcoveBgBtn" type="button" class="nav-link" style="font-size:9.5px;">Auto Derive</button>
 
-          <button type="button" class="btn sm danger" data-room-del="3">×</button>
+          </div>
 
-        </div></div>
+          <div style="display:flex;align-items:center;gap:10px;">
+
+            <input id="cfgAlcoveColorPicker" type="color" value="#13181a" style="width:42px;height:34px;padding:0;border:1px solid var(--hairline-strong);background:transparent;cursor:pointer;" />
+
+            <input id="cfgAlcoveHexInput" type="text" class="field field-mono" placeholder="Auto from wall" maxlength="7" />
+
+          </div>
+
+        </div>
+
+
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;">
+
+          <div>
+
+            <label class="field-label" for="cfgInkMode">Text Contrast Tone</label>
+
+            <select id="cfgInkMode" class="field field-mono">
+
+              <option value="auto">Auto Contrast (Recommended)</option>
+
+              <option value="light">Light Ink (For Dark Walls)</option>
+
+              <option value="dark">Dark Ink (For Light Walls)</option>
+
+            </select>
+
+          </div>
+
+          <label style="display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;padding-bottom:8px;cursor:pointer;">
+
+            <input id="cfgWallSpot" type="checkbox" checked />
+
+            <span>Wall Spotlight</span>
+
+          </label>
+
+        </div>
+
+
+
+        <button id="cfgSaveBackgroundBtn" type="button" class="btn solid">Save Gallery Background</button>
 
       </div>
 
 
 
-      <!-- TAB 3: GITHUB PAGES & SYNC -->
+      <!-- TAB 3: CUSTOM ROOM MANAGER -->
 
-      <div id="dpane-github" style="display: flex; flex-direction: column; gap: 16px;">
+      <div id="dpane-rooms" style="display:none;flex-direction:column;gap:14px;">
+
+        <div style="display:flex;gap:8px;">
+
+          <input id="newRoomInput" type="text" class="field" placeholder="New room name (e.g., Travel Finds)" />
+
+          <button id="addRoomBtn" type="button" class="btn solid">Add</button>
+
+        </div>
+
+        <div id="roomManagerList" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+      </div>
+
+
+
+      <!-- TAB 4: GITHUB PAGES & SYNC -->
+
+      <div id="dpane-github" style="display:none;flex-direction:column;gap:16px;">
 
         <div>
 
@@ -3096,7 +3251,7 @@
 
             <label for="importJsonFile" class="btn" style="cursor:pointer;">Restore .JSON</label>
 
-            <input id="importJsonFile" type="file" accept=".json,application/json" hidden="">
+            <input id="importJsonFile" type="file" accept=".json,application/json" hidden />
 
           </div>
 
@@ -3108,13 +3263,13 @@
 
           <span class="field-label" style="margin:0;">Direct GitHub API Sync (data/catalog.json)</span>
 
-          <input id="ghUser" type="text" class="field field-mono" placeholder="github-username">
+          <input id="ghUser" type="text" class="field field-mono" placeholder="github-username" />
 
-          <input id="ghRepo" type="text" class="field field-mono" placeholder="repository-name">
+          <input id="ghRepo" type="text" class="field field-mono" placeholder="repository-name" />
 
-          <input id="ghBranch" type="text" class="field field-mono" value="main" placeholder="branch (main)">
+          <input id="ghBranch" type="text" class="field field-mono" value="main" placeholder="branch (main)" />
 
-          <input id="ghToken" type="password" class="field field-mono" placeholder="Fine-Grained PAT (Contents: Read &amp; Write)">
+          <input id="ghToken" type="password" class="field field-mono" placeholder="Fine-Grained PAT (Contents: Read & Write)" />
 
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
 
@@ -3134,7 +3289,7 @@
 
 
 
-      <!-- TAB 4: CURATOR PIN & CLEAN RESET -->
+      <!-- TAB 5: CURATOR PIN & CLEAN RESET -->
 
       <div id="dpane-security" style="display:none;flex-direction:column;gap:16px;">
 
@@ -3150,7 +3305,7 @@
 
           <div style="display:flex;gap:8px;">
 
-            <input id="cfgPinInput" type="password" inputmode="numeric" maxlength="8" class="field field-mono" placeholder="e.g., 2026">
+            <input id="cfgPinInput" type="password" inputmode="numeric" maxlength="8" class="field field-mono" placeholder="e.g., 2026" />
 
             <button id="cfgSavePinBtn" type="button" class="btn">Set PIN</button>
 
@@ -3158,7 +3313,7 @@
 
           </div>
 
-          <div id="pinStatusLabel" style="font-family:var(--mono);font-size:10px;color:var(--accent);">No PIN set — Curator Mode unlocks directly via shortcut or URL.</div>
+          <div id="pinStatusLabel" style="font-family:var(--mono);font-size:10px;color:var(--accent);"></div>
 
         </div>
 
@@ -3204,7 +3359,7 @@
 
       </div>
 
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
 
         <select id="bookletYearSelect" class="field field-mono" style="width:auto;"></select>
 
@@ -3212,7 +3367,27 @@
 
       </div>
 
-      <div id="bookletPreview" style="display:flex;flex-direction:column;gap:12px;"></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-family:var(--mono);font-size:10px;color:var(--muted);">
+
+        <label style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+
+          <input id="bookletIncludePhotos" type="checkbox" checked />
+
+          <span>Include Artwork Photos</span>
+
+        </label>
+
+        <label style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+
+          <input id="bookletIncludeExtras" type="checkbox" />
+
+          <span>Include Extra Angles</span>
+
+        </label>
+
+      </div>
+
+      <div id="bookletPreview" style="display:flex;flex-direction:column;gap:14px;"></div>
 
     </div>
 
@@ -3238,7 +3413,7 @@
 
       <form id="pinUnlockForm" style="display:flex;flex-direction:column;gap:12px;">
 
-        <input id="pinPromptInput" type="password" inputmode="numeric" class="field field-mono" placeholder="Enter PIN" autocomplete="off">
+        <input id="pinPromptInput" type="password" inputmode="numeric" class="field field-mono" placeholder="Enter PIN" autocomplete="off" />
 
         <div style="display:flex;justify-content:flex-end;gap:8px;">
 
@@ -3258,7 +3433,7 @@
 
   <!-- QUIET TOAST -->
 
-  <div id="toast" class="toast show" role="status" aria-live="polite">Packaging GitHub repository .ZIP…</div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <!-- END OF PHASE 2 — PASTE PHASE 3 DIRECTLY BELOW -->
   <script>
@@ -3267,7 +3442,9 @@
 
    GALLERY V2 — PHASE 3 OF 5
 
-   ZERO-STARTER DATA ENGINE, INDEXEDDB, 14 SORT MODES, COMPRESSION & 3D STAGE
+   ZERO-STARTER DATA ENGINE, PERSISTENT CURATOR BACKGROUND, 14 SORT MODES,
+
+   CLIENT-SIDE COMPRESSION & 3D STAGE
 
    Paste directly below Phase 2, and above Phase 4.
 
@@ -3323,6 +3500,46 @@
 
 
 
+  const WALL_PRESET_SWATCHES = [
+
+    { name: 'Dark Slate', hex: '#0d1011' },
+
+    { name: 'Forest Ink', hex: '#101916' },
+
+    { name: 'Midnight Study', hex: '#111520' },
+
+    { name: 'Espresso', hex: '#1b1614' },
+
+    { name: 'Warm Plaster', hex: '#f3f0e9' },
+
+    { name: 'Raw Linen', hex: '#e6dfd3' },
+
+    { name: 'Soft Sage', hex: '#e2e8e2' },
+
+    { name: 'Blush Clay', hex: '#efe5e1' },
+
+    { name: 'Dusty Blue', hex: '#e3e9ee' },
+
+    { name: 'Gallery White', hex: '#fafafa' }
+
+  ];
+
+
+
+  const CUSTOM_BG_VARS = [
+
+    '--wall', '--alcove', '--plinth', '--veil',
+
+    '--ink', '--muted', '--faint',
+
+    '--hairline', '--hairline-strong',
+
+    '--accent', '--accent-soft', '--spot', '--shadow'
+
+  ];
+
+
+
   const IS_HOSTED =
 
     (location.protocol === 'http:' || location.protocol === 'https:') &&
@@ -3356,6 +3573,20 @@
     curatorPin: '',
 
     wall: 'dark',
+
+    background: {
+
+      preset: 'dark',     /* 'dark' | 'plaster' | 'linen' | 'white' | 'custom' */
+
+      wallHex: '',
+
+      alcoveHex: '',
+
+      inkMode: 'auto',    /* 'auto' | 'light' | 'dark' */
+
+      spotlight: true
+
+    },
 
     density: 'classic',
 
@@ -3407,7 +3638,7 @@
 
     pending: {
 
-      photos: [],       /* Array of { dataUrl, thumbUrl } */
+      photos: [],
 
       model3d: null,
 
@@ -3427,7 +3658,7 @@
 
   /* =========================================================================
 
-     1. STORAGE & PERSISTENCE (CLEAN V2 INDEXEDDB + REMOTE GITHUB CATALOG)
+     1. STORAGE & PERSISTENCE (EMBEDDED CATALOG + INDEXEDDB + REMOTE JSON)
 
   ========================================================================= */
 
@@ -3492,6 +3723,20 @@
       }
 
     });
+
+  }
+
+
+
+  function normalizeHex(hex) {
+
+    const raw = String(hex || '').trim();
+
+    if (/^#[0-9a-f]{6}$/i.test(raw)) return raw.toLowerCase();
+
+    if (/^[0-9a-f]{6}$/i.test(raw)) return '#' + raw.toLowerCase();
+
+    return '';
 
   }
 
@@ -3587,7 +3832,9 @@
 
       curatorPin: state.curatorPin || '',
 
-      wall: state.wall,
+      wall: state.background.preset || state.wall,
+
+      background: Object.assign({}, state.background),
 
       density: state.density,
 
@@ -3633,13 +3880,61 @@
 
     if (typeof data.curatorPin === 'string') state.curatorPin = data.curatorPin;
 
-    if (!isRemote) {
 
-      if (['dark', 'plaster', 'linen', 'white'].includes(data.wall)) state.wall = data.wall;
 
-      if (['spacious', 'classic', 'compact', 'masonry'].includes(data.density)) state.density = data.density;
+    /* Curator's chosen background ALWAYS applies to both Curator & Visitor View */
 
-      if (data.gh && typeof data.gh === 'object') state.gh = Object.assign({}, state.gh, data.gh);
+    if (data.background && typeof data.background === 'object') {
+
+      const bg = data.background;
+
+      state.background = {
+
+        preset: ['dark', 'plaster', 'linen', 'white', 'custom'].includes(bg.preset) ? bg.preset : 'dark',
+
+        wallHex: normalizeHex(bg.wallHex),
+
+        alcoveHex: normalizeHex(bg.alcoveHex),
+
+        inkMode: ['auto', 'light', 'dark'].includes(bg.inkMode) ? bg.inkMode : 'auto',
+
+        spotlight: bg.spotlight !== false
+
+      };
+
+      state.wall = state.background.preset;
+
+    } else if (['dark', 'plaster', 'linen', 'white'].includes(data.wall)) {
+
+      state.wall = data.wall;
+
+      state.background = {
+
+        preset: data.wall,
+
+        wallHex: '',
+
+        alcoveHex: '',
+
+        inkMode: 'auto',
+
+        spotlight: true
+
+      };
+
+    }
+
+
+
+    if (['spacious', 'classic', 'compact', 'masonry'].includes(data.density)) {
+
+      state.density = data.density;
+
+    }
+
+    if (!isRemote && data.gh && typeof data.gh === 'object') {
+
+      state.gh = Object.assign({}, state.gh, data.gh);
 
     }
 
@@ -3647,11 +3942,11 @@
 
 
 
+  /* Visitor prefs only remember browsing layout (density, sort, view) — NEVER override curator's background */
+
   function saveVisitorPrefs() {
 
     lsSet(PREFS_KEY, JSON.stringify({
-
-      wall: state.wall,
 
       density: state.density,
 
@@ -3675,8 +3970,6 @@
 
       const p = JSON.parse(raw);
 
-      if (['dark', 'plaster', 'linen', 'white'].includes(p.wall)) state.wall = p.wall;
-
       if (['spacious', 'classic', 'compact', 'masonry'].includes(p.density)) state.density = p.density;
 
       if (typeof p.sort === 'string') state.sort = p.sort;
@@ -3689,6 +3982,32 @@
 
 
 
+  function loadEmbeddedCatalog() {
+
+    try {
+
+      const el = document.getElementById('embeddedCatalog');
+
+      if (!el || !el.textContent.trim()) return false;
+
+      const parsed = JSON.parse(el.textContent);
+
+      if (parsed && typeof parsed === 'object') {
+
+        applySnapshot(parsed, true);
+
+        return true;
+
+      }
+
+    } catch (_) {}
+
+    return false;
+
+  }
+
+
+
   async function loadArchive() {
 
     const status = document.getElementById('saveStatus');
@@ -3696,6 +4015,14 @@
     let localLoaded = false;
 
 
+
+    /* 1. Immediately load any catalog embedded inside an exported index.html */
+
+    const embeddedLoaded = loadEmbeddedCatalog();
+
+
+
+    /* 2. Load local IndexedDB / localStorage (takes precedence when editing locally or in Curator Mode) */
 
     try {
 
@@ -3711,7 +4038,13 @@
 
       });
 
-      if (data) { applySnapshot(data, false); localLoaded = true; }
+      if (data && (!IS_HOSTED || state.isCurator)) {
+
+        applySnapshot(data, false);
+
+        localLoaded = true;
+
+      }
 
       if (status) status.textContent = 'SAVED LOCALLY';
 
@@ -3719,7 +4052,7 @@
 
       const raw = lsGet(LS_KEY);
 
-      if (raw) {
+      if (raw && (!IS_HOSTED || state.isCurator)) {
 
         try { applySnapshot(JSON.parse(raw), false); localLoaded = true; } catch (__) {}
 
@@ -3731,9 +4064,7 @@
 
 
 
-    /* When served over HTTP/HTTPS (e.g., GitHub Pages), fetch latest data/catalog.json.
-
-       In Visitor View on a live site, remote catalog always wins so visitors immediately see edits & deletions. */
+    /* 3. Fetch live data/catalog.json over HTTP/HTTPS (always wins for hosted Visitor View) */
 
     if (location.protocol === 'http:' || location.protocol === 'https:') {
 
@@ -3749,7 +4080,7 @@
 
             applySnapshot(remote, true);
 
-          } else if (!localLoaded || state.works.length === 0) {
+          } else if (!localLoaded && !embeddedLoaded) {
 
             applySnapshot(remote, true);
 
@@ -3826,6 +4157,10 @@
     state.selectedIds.clear();
 
     state.activeRoom = 'ALL';
+
+    state.background = { preset: 'dark', wallHex: '', alcoveHex: '', inkMode: 'auto', spotlight: true };
+
+    state.wall = 'dark';
 
     lsDel(LS_KEY);
 
@@ -3973,11 +4308,59 @@
 
 
 
+  function hexToRgb(hex) {
+
+    const clean = normalizeHex(hex).replace('#', '');
+
+    if (!clean) return null;
+
+    return {
+
+      r: parseInt(clean.slice(0, 2), 16),
+
+      g: parseInt(clean.slice(2, 4), 16),
+
+      b: parseInt(clean.slice(4, 6), 16)
+
+    };
+
+  }
+
+
+
+  function adjustHex(hex, delta) {
+
+    const rgb = hexToRgb(hex);
+
+    if (!rgb) return hex;
+
+    const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
+
+    const toH = (v) => clamp(v).toString(16).padStart(2, '0');
+
+    return '#' + toH(rgb.r + delta) + toH(rgb.g + delta) + toH(rgb.b + delta);
+
+  }
+
+
+
+  function hexToRgba(hex, alpha) {
+
+    const rgb = hexToRgb(hex);
+
+    if (!rgb) return `rgba(13, 16, 17, ${alpha})`;
+
+    return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+
+  }
+
+
+
   function hexToColorMetrics(hex) {
 
-    const clean = String(hex || '').trim().replace(/^#/, '');
+    const clean = normalizeHex(hex).replace('#', '');
 
-    if (!/^[0-9a-f]{6}$/i.test(clean)) return { hasColor: false, hue: 999, sat: 0, luma: 999 };
+    if (!clean) return { hasColor: false, hue: 999, sat: 0, luma: 999 };
 
     const r = parseInt(clean.slice(0, 2), 16) / 255;
 
@@ -4008,8 +4391,6 @@
     }
 
     const sat = max === 0 ? 0 : d / max;
-
-    /* Place near-neutral grayscale backdrops after chromatic hues, sorted by luminance */
 
     const effectiveHue = sat < 0.08 ? 400 + luma * 100 : h;
 
@@ -4553,8 +4934,6 @@
 
     } else {
 
-      /* Default Gallery Spot */
-
       amb.intensity = 0.72;
 
       key.color.setHex(0xffffff);
@@ -4813,7 +5192,7 @@
 
   /* =========================================================================
 
-     6. NATIVE VISITOR VIEW & CURATOR MODE HELPERS
+     6. FULL CURATOR BACKGROUND ENGINE & NATIVE VISITOR VIEW ISOLATION
 
   ========================================================================= */
 
@@ -4835,9 +5214,95 @@
 
 
 
+  function applyBackgroundStyle() {
+
+    const root = document.documentElement;
+
+    const bg = state.background || { preset: 'dark', wallHex: '', alcoveHex: '', inkMode: 'auto', spotlight: true };
+
+    const customWall = normalizeHex(bg.wallHex);
+
+    const customAlcove = normalizeHex(bg.alcoveHex);
+
+
+
+    /* Clear any previous custom inline overrides first */
+
+    CUSTOM_BG_VARS.forEach(prop => root.style.removeProperty(prop));
+
+    document.body.classList.toggle('no-wall-spot', bg.spotlight === false);
+
+
+
+    if (bg.preset === 'custom' && customWall) {
+
+      const metrics = hexToColorMetrics(customWall);
+
+      const isDarkWall = bg.inkMode === 'light'
+
+        ? true
+
+        : (bg.inkMode === 'dark' ? false : metrics.luma < 0.48);
+
+
+
+      root.setAttribute('data-wall', isDarkWall ? 'dark' : 'plaster');
+
+
+
+      const derivedAlcove = customAlcove || adjustHex(customWall, isDarkWall ? 12 : -12);
+
+      const derivedPlinth = adjustHex(customWall, isDarkWall ? 20 : 10);
+
+
+
+      root.style.setProperty('--wall', customWall);
+
+      root.style.setProperty('--alcove', derivedAlcove);
+
+      root.style.setProperty('--plinth', derivedPlinth);
+
+      root.style.setProperty('--veil', hexToRgba(customWall, 0.94));
+
+      root.style.setProperty('--ink', isDarkWall ? '#e8eeeb' : '#1b2220');
+
+      root.style.setProperty('--muted', isDarkWall ? 'rgba(232, 238, 235, 0.68)' : 'rgba(27, 34, 32, 0.68)');
+
+      root.style.setProperty('--faint', isDarkWall ? 'rgba(232, 238, 235, 0.44)' : 'rgba(27, 34, 32, 0.46)');
+
+      root.style.setProperty('--hairline', isDarkWall ? 'rgba(232, 238, 235, 0.13)' : 'rgba(27, 34, 32, 0.12)');
+
+      root.style.setProperty('--hairline-strong', isDarkWall ? 'rgba(232, 238, 235, 0.28)' : 'rgba(27, 34, 32, 0.28)');
+
+      root.style.setProperty('--accent', isDarkWall ? '#95bca1' : '#3d634b');
+
+      root.style.setProperty('--accent-soft', isDarkWall ? 'rgba(149, 188, 161, 0.15)' : 'rgba(61, 99, 75, 0.12)');
+
+      root.style.setProperty('--spot', isDarkWall ? 'rgba(255, 255, 255, 0.065)' : 'rgba(255, 255, 255, 0.56)');
+
+      root.style.setProperty('--shadow', isDarkWall ? '0 24px 60px rgba(0, 0, 0, 0.42)' : '0 20px 50px rgba(0, 0, 0, 0.09)');
+
+    } else {
+
+      const preset = ['dark', 'plaster', 'linen', 'white'].includes(bg.preset) ? bg.preset : 'dark';
+
+      root.setAttribute('data-wall', preset);
+
+      if (customAlcove) {
+
+        root.style.setProperty('--alcove', customAlcove);
+
+      }
+
+    }
+
+  }
+
+
+
   function applyWallAndDensity() {
 
-    document.documentElement.setAttribute('data-wall', state.wall);
+    applyBackgroundStyle();
 
     document.documentElement.setAttribute('data-density', state.density);
 
@@ -4847,7 +5312,7 @@
 
     const sSel = document.getElementById('sortSelect');
 
-    if (wSel) wSel.value = state.wall;
+    if (wSel) wSel.value = state.background.preset || state.wall || 'dark';
 
     if (dSel) dSel.value = state.density;
 
@@ -4862,7 +5327,7 @@
 
    GALLERY V2 — PHASE 4 OF 5
 
-   WALL VIEWS, MANUAL REORDER, LIGHTBOX, CLICK-TO-PIN ZOOM, TOUR & BOOKLET
+   WALL VIEWS, MANUAL REORDER, LIGHTBOX, CLICK-TO-PIN ZOOM, TOUR & PHOTO BOOKLET
 
    Paste directly below Phase 3, and above Phase 5.
 
@@ -4958,8 +5423,6 @@
 
     const allRooms = ['ALL'].concat(state.rooms);
 
-    /* Include any room referenced by a work even if it was renamed/deleted earlier */
-
     state.works.forEach(w => {
 
       if (w.room && !allRooms.includes(w.room)) allRooms.push(w.room);
@@ -5007,8 +5470,6 @@
     });
 
 
-
-    /* Sync room dropdown in bulk bar */
 
     const bulkSel = document.getElementById('bulkMoveRoomSelect');
 
@@ -5425,8 +5886,6 @@
     }
 
 
-
-    /* Wire card clicks, bulk checkboxes, arrow reorders & drag-and-drop */
 
     stage.querySelectorAll('[data-bulk-id]').forEach(chk => {
 
@@ -5995,8 +6454,6 @@
     const show3D = Boolean(w.model3d && (state.activePhotoIdx === -1 || !photos.length));
 
 
-
-    /* Multi-Photo + Optional 3D Strip */
 
     if (strip) {
 
@@ -7118,7 +7575,7 @@
 
   /* =========================================================================
 
-     13. ANNUAL EXHIBITION BOOKLET (PRINTABLE MONOGRAPH)
+     13. ANNUAL EXHIBITION BOOKLET (PRINTS ARTWORK PHOTOS, BACKDROPS & ANGLES)
 
   ========================================================================= */
 
@@ -7138,7 +7595,7 @@
 
     }
 
-    renderBooklet('ALL');
+    renderBooklet(sel?.value || 'ALL');
 
     document.getElementById('bookletOverlay')?.classList.add('open');
 
@@ -7153,6 +7610,12 @@
     const preview = document.getElementById('bookletPreview');
 
     const printEl = document.getElementById('printBooklet');
+
+    const includePhotos = document.getElementById('bookletIncludePhotos')?.checked !== false;
+
+    const includeExtras = Boolean(document.getElementById('bookletIncludeExtras')?.checked);
+
+
 
     const list = yearFilter === 'ALL'
 
@@ -7178,21 +7641,43 @@
 
             <div style="font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--accent);text-transform:uppercase;">${esc(heading)}</div>
 
-            <p style="margin:4px 0 0;font-size:12.5px;color:var(--muted);">${list.length} work${list.length === 1 ? '' : 's'} ready to print or save as PDF.</p>
+            <p style="margin:4px 0 0;font-size:12.5px;color:var(--muted);">${list.length} work${list.length === 1 ? '' : 's'} ready to print or save as PDF${includePhotos ? ' (with photographs)' : ' (text only)'}.</p>
 
           </div>
 
-          ${list.map(w => `
+          ${list.map(w => {
 
-            <div style="padding:12px 0;border-bottom:1px solid var(--hairline);">
+            const photos = getWorkPhotos(w);
 
-              <div style="font-family:var(--mono);font-size:9.5px;color:var(--faint);">${esc(w.accession)} · ${esc(w.room)}${w.date ? ' · ' + esc(formatDateDisplay(w.date)) : ''}</div>
+            const firstSrc = photos.length ? (photos[0].thumbUrl || photos[0].dataUrl) : '';
 
-              <div style="font-family:var(--serif);font-size:22px;margin:2px 0 4px;">${esc(w.title)}</div>
+            const bg = w.frameBg || 'var(--alcove)';
 
-              <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">${esc(w.commentary)}</div>
+            return `
 
-            </div>`).join('')}`;
+              <div style="padding:12px 0;border-bottom:1px solid var(--hairline);display:flex;gap:14px;align-items:flex-start;">
+
+                ${includePhotos && firstSrc ? `
+
+                  <div style="width:74px;height:90px;flex-shrink:0;background:${esc(bg)};border:1px solid var(--hairline);display:flex;align-items:center;justify-content:center;padding:${w.mat === 'wide' ? '8px' : w.mat === 'thin' ? '4px' : '0'};overflow:hidden;">
+
+                    <img src="${firstSrc}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:${w.mat === 'none' ? 'cover' : 'contain'};display:block;" />
+
+                  </div>` : ''}
+
+                <div style="min-width:0;flex:1;">
+
+                  <div style="font-family:var(--mono);font-size:9.5px;color:var(--faint);">${esc(w.accession)} · ${esc(w.room)}${w.date ? ' · ' + esc(formatDateDisplay(w.date)) : ''}</div>
+
+                  <div style="font-family:var(--serif);font-size:22px;margin:2px 0 4px;">${esc(w.title)}</div>
+
+                  <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">${esc(w.commentary)}</div>
+
+                </div>
+
+              </div>`;
+
+          }).join('')}`;
 
       }
 
@@ -7204,7 +7689,7 @@
 
       printEl.innerHTML = `
 
-        <div style="font-family:Georgia,serif;padding:28px;color:#111;">
+        <div style="font-family:Georgia,serif;padding:28px;color:#111;max-width:760px;margin:0 auto;">
 
           <div style="border-bottom:1.5px solid #111;padding-bottom:12px;margin-bottom:24px;">
 
@@ -7216,23 +7701,95 @@
 
           </div>
 
-          ${list.map(w => `
+          ${list.map(w => {
 
-            <article style="break-inside:avoid;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid #d4d4d4;">
+            const photos = getWorkPhotos(w);
 
-              <div style="font-family:monospace;font-size:9.5px;color:#555;">${esc(w.accession)} · ${esc(w.room)}${w.date ? ' · ' + esc(formatDateDisplay(w.date)) : ''}</div>
+            const mainSrc = photos.length ? (photos[0].dataUrl || photos[0].thumbUrl) : '';
 
-              <h2 style="margin:4px 0 6px;font-size:21px;font-weight:400;">${esc(w.title)}</h2>
+            const extras = includeExtras && photos.length > 1 ? photos.slice(1) : [];
 
-              <p style="margin:0 0 6px;font-size:11.5px;font-style:italic;color:#444;">${esc(w.medium || '')}</p>
+            const bg = w.frameBg || '#f5f4f0';
 
-              <p style="margin:0;font-size:12.5px;line-height:1.65;">${esc(w.commentary)}</p>
+            const pad = w.mat === 'wide' ? '26px' : w.mat === 'thin' ? '12px' : '0';
 
-            </article>`).join('')}
+
+
+            return `
+
+              <article class="print-entry">
+
+                <div style="font-family:monospace;font-size:9.5px;color:#555;">${esc(w.accession)} · ${esc(w.room)}${w.date ? ' · ' + esc(formatDateDisplay(w.date)) : ''}</div>
+
+                <h2 style="margin:4px 0 6px;font-size:22px;font-weight:400;">${esc(w.title)}</h2>
+
+                ${includePhotos && mainSrc ? `
+
+                  <div class="print-photo-frame" style="background:${esc(bg)};padding:${pad};">
+
+                    <img src="${mainSrc}" alt="${esc(w.title)}" />
+
+                  </div>` : ''}
+
+                ${includePhotos && extras.length ? `
+
+                  <div class="print-extra-strip">
+
+                    ${extras.map((p, i) => `<img src="${p.dataUrl || p.thumbUrl}" alt="${esc(w.title)} angle ${i + 2}" />`).join('')}
+
+                  </div>` : ''}
+
+                ${w.medium ? `<p style="margin:4px 0 6px;font-size:11.5px;font-style:italic;color:#444;">${esc(w.medium)}${w.provenance ? ' — ' + esc(w.provenance) : ''}</p>` : ''}
+
+                <p style="margin:0;font-size:12.5px;line-height:1.65;">${esc(w.commentary)}</p>
+
+              </article>`;
+
+          }).join('')}
 
         </div>`;
 
     }
+
+  }
+
+
+
+  async function printBookletWithImages() {
+
+    const sel = document.getElementById('bookletYearSelect');
+
+    renderBooklet(sel?.value || 'ALL');
+
+    const printEl = document.getElementById('printBooklet');
+
+    if (printEl) {
+
+      const imgs = Array.from(printEl.querySelectorAll('img'));
+
+      if (imgs.length) {
+
+        await Promise.all(imgs.map(img => {
+
+          if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+
+          return new Promise(res => {
+
+            img.addEventListener('load', res, { once: true });
+
+            img.addEventListener('error', res, { once: true });
+
+            setTimeout(res, 2500);
+
+          });
+
+        }));
+
+      }
+
+    }
+
+    window.print();
 
   }
 
@@ -7251,11 +7808,9 @@
 /* ============== END OF PHASE 4 — PASTE PHASE 5 DIRECTLY BELOW ============== */
  /* =========================================================================
 
-  /* =========================================================================
-
    GALLERY V2 — PHASE 5 OF 5
 
-   WORK SHEET, CURATOR DRAWER, GITHUB SYNC, PIN LOCK, GESTURES & BOOT
+   WORK SHEET, BACKGROUND STUDIO, CURATOR DRAWER, GITHUB SYNC & BOOT
 
    Paste directly below Phase 4 to complete your `index.html`.
 
@@ -8163,11 +8718,109 @@
 
   /* =========================================================================
 
-     15. SLIDE-OVER CURATOR DRAWER (IDENTITY, ROOMS, GITHUB SYNC & SECURITY)
+     15. SLIDE-OVER CURATOR DRAWER (IDENTITY, BACKGROUND STUDIO, ROOMS, GITHUB, SECURITY)
 
   ========================================================================= */
 
   let pendingWipeConfirm = false;
+
+
+
+  function renderBackgroundStudio() {
+
+    const bg = state.background;
+
+    const wallPicker = document.getElementById('cfgWallColorPicker');
+
+    const wallHex = document.getElementById('cfgWallHexInput');
+
+    const alcovePicker = document.getElementById('cfgAlcoveColorPicker');
+
+    const alcoveHex = document.getElementById('cfgAlcoveHexInput');
+
+    const inkSel = document.getElementById('cfgInkMode');
+
+    const spotChk = document.getElementById('cfgWallSpot');
+
+    const swWrap = document.getElementById('cfgWallSwatches');
+
+
+
+    const computedWall = normalizeHex(getComputedStyle(document.documentElement).getPropertyValue('--wall').trim()) || '#0d1011';
+
+    const computedAlcove = normalizeHex(getComputedStyle(document.documentElement).getPropertyValue('--alcove').trim()) || '#13181a';
+
+
+
+    const activeWall = bg.preset === 'custom' && bg.wallHex ? bg.wallHex : computedWall;
+
+    const activeAlcove = bg.alcoveHex || computedAlcove;
+
+
+
+    if (wallPicker) wallPicker.value = activeWall;
+
+    if (wallHex) wallHex.value = bg.preset === 'custom' && bg.wallHex ? bg.wallHex : '';
+
+    if (alcovePicker) alcovePicker.value = activeAlcove;
+
+    if (alcoveHex) alcoveHex.value = bg.alcoveHex || '';
+
+    if (inkSel) inkSel.value = bg.inkMode || 'auto';
+
+    if (spotChk) spotChk.checked = bg.spotlight !== false;
+
+
+
+    document.querySelectorAll('[data-wall-preset]').forEach(btn => {
+
+      const p = btn.getAttribute('data-wall-preset');
+
+      btn.classList.toggle('solid', bg.preset === p);
+
+    });
+
+
+
+    if (swWrap) {
+
+      swWrap.innerHTML = '';
+
+      WALL_PRESET_SWATCHES.forEach(s => {
+
+        const b = document.createElement('button');
+
+        b.type = 'button';
+
+        b.title = s.name;
+
+        const isSel = bg.preset === 'custom' && bg.wallHex.toLowerCase() === s.hex.toLowerCase();
+
+        b.style.cssText = `width:22px;height:22px;border-radius:50%;padding:0;background:${s.hex};border:1.5px solid ${isSel ? 'var(--accent)' : 'var(--hairline-strong)'};box-shadow:${isSel ? '0 0 0 2px var(--alcove), 0 0 0 3.5px var(--accent)' : 'none'};`;
+
+        b.addEventListener('click', () => {
+
+          state.background.preset = 'custom';
+
+          state.background.wallHex = s.hex;
+
+          state.wall = 'custom';
+
+          applyWallAndDensity();
+
+          renderBackgroundStudio();
+
+          queueSave();
+
+        });
+
+        swWrap.appendChild(b);
+
+      });
+
+    }
+
+  }
 
 
 
@@ -8207,7 +8860,7 @@
 
     updatePinStatusLabel();
 
-
+    renderBackgroundStudio();
 
     renderRoomManager();
 
@@ -8237,7 +8890,7 @@
 
   function switchDrawerTab(tab) {
 
-    ['museum', 'rooms', 'github', 'security'].forEach(name => {
+    ['museum', 'background', 'rooms', 'github', 'security'].forEach(name => {
 
       const pane = document.getElementById('dpane-' + name);
 
@@ -8250,6 +8903,8 @@
       btn.classList.toggle('active', btn.getAttribute('data-dtab') === tab);
 
     });
+
+    if (tab === 'background') renderBackgroundStudio();
 
   }
 
@@ -8425,7 +9080,7 @@
 
   /* =========================================================================
 
-     16. GITHUB .ZIP EXPORT, JSON BACKUP/RESTORE & DIRECT API SYNC
+     16. GITHUB .ZIP EXPORT (WITH EMBEDDED CATALOG), JSON BACKUP & API SYNC
 
   ========================================================================= */
 
@@ -8577,7 +9232,7 @@
 
 
 
-      /* Clean cloned index.html: strip toast, open modals, drawers, and live DOM state */
+      /* Clean cloned index.html & embed edited catalog for zero default-screen flash */
 
       const clone = document.documentElement.cloneNode(true);
 
@@ -8601,13 +9256,39 @@
 
       if (clonedEmpty) clonedEmpty.style.display = 'none';
 
+      const clonedPrint = clone.querySelector('#printBooklet');
+
+      if (clonedPrint) clonedPrint.innerHTML = '';
+
+
+
       const clonedBody = clone.querySelector('body');
 
       if (clonedBody) {
 
         clonedBody.classList.remove('is-curator');
 
+        clonedBody.classList.add('booting');
+
         clonedBody.style.overflow = '';
+
+
+
+        /* Remove any prior embeddedCatalog tag and insert fresh catalog JSON */
+
+        const oldEmbed = clone.querySelector('#embeddedCatalog');
+
+        if (oldEmbed) oldEmbed.remove();
+
+        const embedTag = document.createElement('script');
+
+        embedTag.id = 'embeddedCatalog';
+
+        embedTag.type = 'application/json';
+
+        embedTag.textContent = JSON.stringify(catalog).replace(/<\/script/gi, '<\\/script');
+
+        clonedBody.insertBefore(embedTag, clonedBody.firstChild);
 
       }
 
@@ -8617,7 +9298,7 @@
 
       zip.file('data/catalog.json', JSON.stringify(catalog, null, 2));
 
-      zip.file('README.md', `# ${state.identity.title}\n\nUpload these files to a public GitHub repository and enable **Settings → Pages** (\`main\` / \`/ (root)\`).\n\n- **Visitor View:** Opens automatically on your \`github.io\` link.\n- **Curator Mode:** Append \`?curator=1\` to your live link, press \`Ctrl+Shift+V\`, or triple-tap the gallery title.\n`);
+      zip.file('README.md', `# ${state.identity.title}\n\nUpload these files to a public GitHub repository and enable **Settings → Pages** (\`main\` / \`/ (root)\`).\n\n- **Visitor View:** Opens automatically on your \`github.io\` link with your exact saved gallery background.\n- **Curator Mode:** Append \`?curator=1\` to your live link, press \`Ctrl+Shift+V\`, or triple-tap the gallery title.\n`);
 
 
 
@@ -8977,15 +9658,43 @@
 
     on('navBookletBtn', 'click', () => openBooklet());
 
+    on('navBgStudioBtn', 'click', () => openCuratorDrawer('background'));
+
     on('wallEnvSelect', 'change', (e) => {
 
-      state.wall = e.target.value;
+      const val = e.target.value;
+
+      if (val === 'custom') {
+
+        state.background.preset = 'custom';
+
+        if (!state.background.wallHex) {
+
+          state.background.wallHex = normalizeHex(getComputedStyle(document.documentElement).getPropertyValue('--wall').trim()) || '#0d1011';
+
+        }
+
+        state.wall = 'custom';
+
+        applyWallAndDensity();
+
+        queueSave();
+
+        openCuratorDrawer('background');
+
+        return;
+
+      }
+
+      state.background.preset = val;
+
+      state.wall = val;
 
       applyWallAndDensity();
 
-      saveVisitorPrefs();
+      queueSave();
 
-      if (state.isCurator) queueSave();
+      showToast('Gallery wall updated (persists to Visitor View).');
 
     });
 
@@ -9891,6 +10600,226 @@
 
 
 
+    /* Background Studio Controls (Full Curator Control -> Persists to Visitor View) */
+
+    document.querySelectorAll('[data-wall-preset]').forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        const p = btn.getAttribute('data-wall-preset');
+
+        state.background.preset = p;
+
+        state.background.wallHex = '';
+
+        state.wall = p;
+
+        applyWallAndDensity();
+
+        renderBackgroundStudio();
+
+        queueSave();
+
+      });
+
+    });
+
+
+
+    on('cfgWallColorPicker', 'input', (e) => {
+
+      const hex = normalizeHex(e.target.value);
+
+      if (!hex) return;
+
+      state.background.preset = 'custom';
+
+      state.background.wallHex = hex;
+
+      state.wall = 'custom';
+
+      const hexInp = document.getElementById('cfgWallHexInput');
+
+      if (hexInp) hexInp.value = hex;
+
+      applyWallAndDensity();
+
+    });
+
+    on('cfgWallColorPicker', 'change', () => {
+
+      renderBackgroundStudio();
+
+      queueSave();
+
+    });
+
+
+
+    on('cfgWallHexInput', 'input', (e) => {
+
+      const hex = normalizeHex(e.target.value);
+
+      if (!hex) return;
+
+      state.background.preset = 'custom';
+
+      state.background.wallHex = hex;
+
+      state.wall = 'custom';
+
+      const picker = document.getElementById('cfgWallColorPicker');
+
+      if (picker) picker.value = hex;
+
+      applyWallAndDensity();
+
+    });
+
+    on('cfgWallHexInput', 'change', () => {
+
+      renderBackgroundStudio();
+
+      queueSave();
+
+    });
+
+
+
+    on('cfgResetWallBgBtn', 'click', () => {
+
+      state.background.preset = 'dark';
+
+      state.background.wallHex = '';
+
+      state.wall = 'dark';
+
+      applyWallAndDensity();
+
+      renderBackgroundStudio();
+
+      queueSave();
+
+      showToast('Wall background reset to Dark Slate.');
+
+    });
+
+
+
+    on('cfgAlcoveColorPicker', 'input', (e) => {
+
+      const hex = normalizeHex(e.target.value);
+
+      if (!hex) return;
+
+      state.background.alcoveHex = hex;
+
+      const hexInp = document.getElementById('cfgAlcoveHexInput');
+
+      if (hexInp) hexInp.value = hex;
+
+      applyWallAndDensity();
+
+    });
+
+    on('cfgAlcoveColorPicker', 'change', () => {
+
+      renderBackgroundStudio();
+
+      queueSave();
+
+    });
+
+
+
+    on('cfgAlcoveHexInput', 'input', (e) => {
+
+      const raw = e.target.value.trim();
+
+      if (!raw) {
+
+        state.background.alcoveHex = '';
+
+        applyWallAndDensity();
+
+        return;
+
+      }
+
+      const hex = normalizeHex(raw);
+
+      if (!hex) return;
+
+      state.background.alcoveHex = hex;
+
+      const picker = document.getElementById('cfgAlcoveColorPicker');
+
+      if (picker) picker.value = hex;
+
+      applyWallAndDensity();
+
+    });
+
+    on('cfgAlcoveHexInput', 'change', () => {
+
+      renderBackgroundStudio();
+
+      queueSave();
+
+    });
+
+
+
+    on('cfgResetAlcoveBgBtn', 'click', () => {
+
+      state.background.alcoveHex = '';
+
+      applyWallAndDensity();
+
+      renderBackgroundStudio();
+
+      queueSave();
+
+      showToast('Frame alcove reset to auto-derive from wall.');
+
+    });
+
+
+
+    on('cfgInkMode', 'change', (e) => {
+
+      state.background.inkMode = e.target.value;
+
+      applyWallAndDensity();
+
+      queueSave();
+
+    });
+
+
+
+    on('cfgWallSpot', 'change', (e) => {
+
+      state.background.spotlight = Boolean(e.target.checked);
+
+      applyWallAndDensity();
+
+      queueSave();
+
+    });
+
+
+
+    on('cfgSaveBackgroundBtn', 'click', () => {
+
+      queueSave();
+
+      showToast('Gallery background saved — Visitors will see this exact wall.');
+
+    });
+
+
+
     on('addRoomBtn', 'click', () => {
 
       const inp = document.getElementById('newRoomInput');
@@ -10079,7 +11008,7 @@
 
 
 
-    /* Annual Booklet */
+    /* Annual Booklet (with Photo Options & Image-Ready Print) */
 
     on('bookletCloseBtn', 'click', closeBooklet);
 
@@ -10087,7 +11016,11 @@
 
     on('bookletYearSelect', 'change', (e) => renderBooklet(e.target.value));
 
-    on('printBookletBtn', 'click', () => window.print());
+    on('bookletIncludePhotos', 'change', () => renderBooklet(document.getElementById('bookletYearSelect')?.value || 'ALL'));
+
+    on('bookletIncludeExtras', 'change', () => renderBooklet(document.getElementById('bookletYearSelect')?.value || 'ALL'));
+
+    on('printBookletBtn', 'click', () => printBookletWithImages());
 
 
 
@@ -10221,7 +11154,7 @@
 
   /* =========================================================================
 
-     19. URL PARAMETERS & STARTUP BOOT
+     19. URL PARAMETERS & STARTUP BOOT (ZERO DEFAULT-SCREEN FLASH)
 
   ========================================================================= */
 
@@ -10291,33 +11224,39 @@
 
   async function boot() {
 
-    /* Always clear any stale toast message baked into an exported HTML copy */
+    try {
 
-    const toastEl = document.getElementById('toast');
+      const toastEl = document.getElementById('toast');
 
-    if (toastEl) {
+      if (toastEl) {
 
-      toastEl.classList.remove('show');
+        toastEl.classList.remove('show');
 
-      toastEl.textContent = '';
+        toastEl.textContent = '';
+
+      }
+
+
+
+      const params = new URLSearchParams(location.search);
+
+      if (params.has('visitor')) state.isCurator = false;
+
+      else if (params.has('curator') && !IS_HOSTED) state.isCurator = true;
+
+
+
+      await loadArchive();
+
+      bindAllEvents();
+
+      applyInitialUrlParams();
+
+    } finally {
+
+      document.body.classList.remove('booting');
 
     }
-
-
-
-    const params = new URLSearchParams(location.search);
-
-    if (params.has('visitor')) state.isCurator = false;
-
-    else if (params.has('curator') && !IS_HOSTED) state.isCurator = true;
-
-
-
-    await loadArchive();
-
-    bindAllEvents();
-
-    applyInitialUrlParams();
 
   }
 
@@ -10342,4 +11281,3 @@
 </html>
 
 <!-- ===================== END OF PHASE 5 — GALLERY V2 COMPLETE ===================== -->
-
