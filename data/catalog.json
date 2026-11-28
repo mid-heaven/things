@@ -1,6 +1,6 @@
 {
   "schema": "z3-gallery-v2",
-  "savedAt": "2026-11-27T15:18:55.826Z",
+  "savedAt": "2026-11-28T01:08:22.736Z",
   "identity": {
     "title": "Sentimental Value",
     "subtitle": "Tayo rin naman ay mga pinagtagpi-tagping mumunting alaala.",
@@ -16,6 +16,13 @@
   "featuredId": "",
   "curatorPin": "442326",
   "wall": "linen",
+  "background": {
+    "preset": "linen",
+    "wallHex": "",
+    "alcoveHex": "",
+    "inkMode": "auto",
+    "spotlight": true
+  },
   "density": "compact",
   "works": [
     {
